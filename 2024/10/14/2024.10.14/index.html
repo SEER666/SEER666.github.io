@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>20240925听会记录 | SEER&#39;s Study</title>
+  <title>2024.10.14. | SEER&#39;s Study</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="会议摘要报告将探讨大模型表征空间的特征，展示大模型表征空间对齐的例子，包括多模态表征的对齐、抽象表征的提取以及表征空间的相似性度量。在此基础上，将展示一个新的表征度量利用大模型表征对齐的性质来分析和理解多模态大模型中幻觉现象的来源，解剖大模型的各个模块的贡献。最后通过展示针对商业多模态模型中版权防御的越狱攻击，探讨通过操控表征空间实现安全可控生成的方法，总结在这一研究方向上的结果并展望未来发展。">
+  <meta name="description" content="今天的学习内容今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至TE模型部分。 1.论文关键词流量工程，广域网，数据中心网络，机器学习 2.TE模型部分2.1 概念介绍网络拓扑（Network Topology）通过图𝐺建模的网络拓扑结构是整个流量工程优化的基础。节点表示交换机或路由器，链路表示节点之间的通信线路，链路的容量决定了流量能够通过的上限。 需求矩阵（D">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20240925听会记录">
-<meta property="og:url" content="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="2024.10.14.">
+<meta property="og:url" content="https://seer666.github.io/2024/10/14/2024.10.14/index.html">
 <meta property="og:site_name" content="SEER&#39;s Study">
-<meta property="og:description" content="会议摘要报告将探讨大模型表征空间的特征，展示大模型表征空间对齐的例子，包括多模态表征的对齐、抽象表征的提取以及表征空间的相似性度量。在此基础上，将展示一个新的表征度量利用大模型表征对齐的性质来分析和理解多模态大模型中幻觉现象的来源，解剖大模型的各个模块的贡献。最后通过展示针对商业多模态模型中版权防御的越狱攻击，探讨通过操控表征空间实现安全可控生成的方法，总结在这一研究方向上的结果并展望未来发展。">
+<meta property="og:description" content="今天的学习内容今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至TE模型部分。 1.论文关键词流量工程，广域网，数据中心网络，机器学习 2.TE模型部分2.1 概念介绍网络拓扑（Network Topology）通过图𝐺建模的网络拓扑结构是整个流量工程优化的基础。节点表示交换机或路由器，链路表示节点之间的通信线路，链路的容量决定了流量能够通过的上限。 需求矩阵（D">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-09-25T14:14:00.000Z">
-<meta property="article:modified_time" content="2024-09-26T02:34:20.870Z">
+<meta property="article:published_time" content="2024-10-14T08:00:36.000Z">
+<meta property="article:modified_time" content="2024-10-14T08:01:47.901Z">
 <meta property="article:author" content="[object Object]">
-<meta property="article:tag" content="会议记录">
+<meta property="article:tag" content="论文">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="SEER's Study" type="application/atom+xml">
@@ -80,10 +80,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-20240925听会记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-2024.10.14" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2024-09-25T14:14:00.000Z" itemprop="datePublished">2024-09-25</time>
+    <a href="/2024/10/14/2024.10.14/" class="article-date">
+  <time class="dt-published" datetime="2024-10-14T08:00:36.000Z" itemprop="datePublished">2024-10-14</time>
 </a>
     
   </div>
@@ -94,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      20240925听会记录
+      2024.10.14.
     </h1>
   
 
@@ -102,28 +102,31 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="会议摘要"><a href="#会议摘要" class="headerlink" title="会议摘要"></a>会议摘要</h1><p>报告将探讨大模型表征空间的特征，展示大模型表征空间对齐的例子，包括多模态表征的对齐、抽象表征的提取以及表征空间的相似性度量。在此基础上，将展示一个新的表征度量利用大模型表征对齐的性质来分析和理解多模态大模型中幻觉现象的来源，解剖大模型的各个模块的贡献。最后通过展示针对商业多模态模型中版权防御的越狱攻击，探讨通过操控表征空间实现安全可控生成的方法，总结在这一研究方向上的结果并展望未来发展。</p>
-<h1 id="会议内容——大模型机理分析"><a href="#会议内容——大模型机理分析" class="headerlink" title="会议内容——大模型机理分析"></a>会议内容——大模型机理分析</h1><h2 id="1-大模型表征空间正在对齐"><a href="#1-大模型表征空间正在对齐" class="headerlink" title="1.大模型表征空间正在对齐"></a>1.大模型表征空间正在对齐</h2><p>eg:CLIP模型零样本能力、模型缝合、多模态大模型</p>
-<h2 id="2-背景介绍"><a href="#2-背景介绍" class="headerlink" title="2.背景介绍"></a>2.背景介绍</h2><p><strong>模型的幻觉：</strong>模型生成看似可信但不忠实或无意义的内容<br>-忠实性幻觉：生成内容与用户输入矛盾 eg：视觉语言模型幻觉，图文不一致<br>-事实性幻觉：生成内容与现实世界知识相悖</p>
-<p>幻觉的评估，图文之间的以执行（基于QA的评测指标，如POPE、MME等）</p>
-<p>多模态模型幻觉来自于Visual encoder,LLM,Adaptor</p>
-<p><strong>研究方法：</strong>探查（外接分类器）（需要额外参数，效果与训练水平强相关）、无参数对其度量。</p>
-<p>线性相关系数：0.75到0.78，而一般只有0.2到0.3，并不是模型越大越好</p>
-<p><strong>反思：</strong><br>-表征对齐与模型度量<br>-模型表征的对齐可以作为幻觉的精细度量<br>-模型表征的对齐可以诊断模型</p>
-<h2 id="3-大模型表征对齐与商业"><a href="#3-大模型表征对齐与商业" class="headerlink" title="3.大模型表征对齐与商业"></a>3.大模型表征对齐与商业</h2><p>为了避免生成图片的版权纠纷，商业大模型会采用防御机制拒绝生成敏感图片</p>
-<p>-可能采用的机制：对齐、关键词屏蔽、生成后检查<br>-方法：自动攻击提示词生成</p>
-<p><strong>反思：</strong><br>-表征编辑、基于强化学习的表征编辑<br>-更深入的探索：新的表征对齐度量方法<br>-更实际的应用：在表征空间对表征渐进改进，平衡效果和新能；在多模态结果寻找更合理的算法。</p>
-<h1 id="3-会议相关资源"><a href="#3-会议相关资源" class="headerlink" title="3.会议相关资源"></a>3.会议相关资源</h1><p>-<strong>大模型测试结果：</strong><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1OFLeYu0lYvNWet45Fs1M9A">百度网盘分享，提取码：7568</a><br>-<strong>表征对齐推导：</strong><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1XbOE4u-9sZzJajVKrByNVg">百度网盘分享，提取码：7568</a><br>-<strong>无参数对齐度量推导：</strong><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1g9dIHIiYDH-fuH8RrtepbQ">百度网盘分享，提取码：7568</a></p>
-<h1 id="4-会议总结"><a href="#4-会议总结" class="headerlink" title="4.会议总结"></a>4.会议总结</h1><p>这是本人第一次使用b站平台收听会议。在这之中，我对模型的幻觉、表征空间等概念有了认识，并会在未来将这当中的部分思路应用在项目之中！</p>
+        <h1 id="今天的学习内容"><a href="#今天的学习内容" class="headerlink" title="今天的学习内容"></a>今天的学习内容</h1><p>今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至TE模型部分。</p>
+<h1 id="1-论文关键词"><a href="#1-论文关键词" class="headerlink" title="1.论文关键词"></a>1.论文关键词</h1><p>流量工程，广域网，数据中心网络，机器学习</p>
+<h1 id="2-TE模型部分"><a href="#2-TE模型部分" class="headerlink" title="2.TE模型部分"></a>2.TE模型部分</h1><h2 id="2-1-概念介绍"><a href="#2-1-概念介绍" class="headerlink" title="2.1 概念介绍"></a>2.1 概念介绍</h2><p><strong>网络拓扑（Network Topology）</strong><br>通过图𝐺建模的网络拓扑结构是整个流量工程优化的基础。节点表示交换机或路由器，链路表示节点之间的通信线路，链路的容量决定了流量能够通过的上限。</p>
+<p><strong>需求矩阵（Demand Matrix, DM）</strong><br>这是一个 ∣𝑉∣×∣𝑉∣的矩阵，用于表示网络中每一对源-目的节点之间的流量需求。需求矩阵帮助TE模型确定需要转发的流量规模，并为流量分配和路径选择提供依据。</p>
+<p><strong>最大链路利用率（MLU, Maximum Link Utilization）</strong><br>MLU 是优化目标中最关键的度量指标，表示网络中单条链路的最大利用率。最小化MLU可以避免网络链路的过载问题，提高网络的整体性能。</p>
+<p><strong>TE配置（TE Configuration）</strong><br>TE配置𝑅指定了如何在多个路径之间分配流量。通过为每条路径设置分配比率𝑟<sub>𝑝</sub>，TE配置可以灵活地应对不同流量需求和网络状况的变化。</p>
+<p><strong>分配比率（Split Ratio）</strong><br>分配比率𝑟<sub>𝑝</sub>表示从源到目的节点的流量在某条路径上的占比。这一概念使得TE模型可以在多条路径之间分摊流量，达到平衡网络负载的目的。</p>
+<p><strong>鲁棒性（Robustness）</strong><br>面对突发流量的不可预测性，TE模型必须具备一定的鲁棒性，能够快速响应和调整。通过考虑预期与非预期流量之间的差异，模型提高了对突发流量的适应能力。</p>
+<h2 id="2-2-核心设计思路"><a href="#2-2-核心设计思路" class="headerlink" title="2.2 核心设计思路"></a>2.2 核心设计思路</h2><p><strong>网络拓扑建模</strong><br>网络被建模为图𝐺&#x3D;(𝑉,𝐸,𝑐)，其中𝑉表示节点集，𝐸表示链路（边）集，𝑐表示链路的容量。这种抽象简化了实际网络，将网络中的每个节点和链路的物理特性用数学方式表达，便于后续的分析和优化。</p>
+<p><strong>流量需求的表示</strong><br>流量需求通过 需求矩阵（Demand Matrix, DM） 表示，矩阵中的元素指定了从源节点到目的节点的流量需求。这帮助模型明确需要在网络中处理的流量量级和各个源-目的对之间的通信需求。</p>
+<p><strong>路径的选择与容量定义</strong><br>每对源-目的对之间可能有多个路径可以选择。路径的容量被定义为该路径上最小容量的链路，确保路径的瓶颈限制能够得到有效考虑。在流量工程中，通过合理选择路径并分配流量，可以平衡链路的负载，防止个别链路过载。</p>
+<p><strong>TE配置的定义与流量分配</strong><br>TE配置指定了从源节点到目的节点的流量如何分布在不同的路径上。通过引入分配比率（Split Ratio），模型可以控制流量在各条路径上的分布，从而灵活应对网络的负载情况。</p>
+<p><strong>优化目标：最小化最大链路利用率（MLU）</strong><br>核心目标是最小化 最大链路利用率（Maximum Link Utilization, MLU），即尽量降低单条链路的最大负载。这是因为MLU过高时，链路容易过载，导致数据包丢失、延迟增加和整体吞吐量下降。因此，优化模型的首要任务是设计TE配置，使得网络中各条链路的利用率均衡，避免局部拥塞。</p>
+<p><strong>不确定流量下的TE配置</strong><br>在实际应用中，流量具有不确定性，且难以完全预测未来流量情况。模型的一个重要设计是基于历史数据来进行TE配置的推导。这种做法帮助模型在流量实际到达之前，预先进行网络配置，并在预测流量的基础上保持低MLU。</p>
+<p><strong>处理预期与非预期流量</strong><br>由于突发流量的不可预测性，模型同时考虑了 预期流量（通过历史数据预测）和 非预期流量（突发流量）之间的差异。这种设计使得模型更具鲁棒性，即使面对流量激增的情况，也能快速调整，避免网络过载。</p>
+<p><strong>公式</strong><br>公式可参考本链接通过百度网盘分享的图片：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1zwJqzUwwzmV7f25TBk33fg">百度网盘分享，提取码：7568</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" data-id="cm28q9mjh0006vs9jhrcfh3sl" data-title="20240925听会记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/14/2024.10.14/" data-id="cm28q9mjd0001vs9jgr8pckze" data-title="2024.10.14." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" rel="tag">会议记录</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a></li></ul>
 
     </footer>
   </div>
@@ -131,19 +134,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2024/10/14/2024.10.14/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2024.10.14.
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/09/25/2024.9.25/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">2024.9.25.</div>
+      <div class="article-nav-title">20240925听会记录</div>
     </a>
   
 </nav>

@@ -79,6 +79,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-20241027" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/27/20241027/" class="article-date">
+  <time class="dt-published" datetime="2024-10-27T08:00:00.000Z" itemprop="datePublished">2024-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/27/20241027/">20241027论文学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Communication-Efficient-and-Private-Federated-Learning-with-Adaptive-Sparsity-Based-Pruning-on-Edge-Computing（基于边缘计算的通信高效和私有自适应稀疏剪枝的联邦学习）"><a href="#Communication-Efficient-and-Private-Federated-Learning-with-Adaptive-Sparsity-Based-Pruning-on-Edge-Computing（基于边缘计算的通信高效和私有自适应稀疏剪枝的联邦学习）" class="headerlink" title="Communication-Efficient and Private Federated Learning with Adaptive Sparsity-Based Pruning on Edge Computing（基于边缘计算的通信高效和私有自适应稀疏剪枝的联邦学习）"></a>Communication-Efficient and Private Federated Learning with Adaptive Sparsity-Based Pruning on Edge Computing（基于边缘计算的通信高效和私有自适应稀疏剪枝的联邦学习）</h1><h1 id="论文摘要"><a href="#论文摘要" class="headerlink" title="论文摘要"></a>论文摘要</h1><p>随着数据驱动的深度学习（DL）被应用于多种场景，隐私威胁已成为广泛关注的问题。为增强联邦学习（FL）中的隐私保护，一些方法采用一次性差分隐私（DP）方法来模糊化模型更新，但并未考虑<strong>效率与隐私保护之间的动态平衡</strong>。为此，本文提出了一种基于自适应稀疏裁剪和差分隐私保护的高效联邦学习方法<strong>ASPFL</strong>。我们进一步提出使用<strong>Jensen-Shannon散度</strong>作为度量来生成稀疏矩阵，以用于模型更新。此外，通过评估剪枝后的敏感度变化，我们引入了<strong>自适应高斯噪声</strong>。广泛实验验证了ASPFL在非独立同分布数据条件下将收敛速度提升超过两倍。与现有的DP-FL方法相比，ASPFL在<strong>CIFAR-10数据集</strong>上最高可达到82%的精度，同时在相同隐私保护水平下通信成本减少了40%。</p>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h1><p>深度神经网络（DNN）的快速发展，使其在计算机视觉（CV）和自然语言处理（NLP）等任务中得到广泛应用，深度学习逐渐演变成一种依赖大量训练数据的技术。近年来，对高效且具隐私保护的深度学习解决方案的需求越来越受到关注。联邦学习（FL）作为一种分布式机器学习的创新范式应运而生，与传统的将数据上传到云端训练的深度学习不同，联邦学习允许多个<strong>边缘设备</strong>在本地训练模型并上传模型更新。<br>然而，依赖本地私有样本的模型更新和客户端之间的大规模参数传输带来了显著的通信负担和隐私问题。在通信开销方面，研究表明大多数深度神经网络（DNN）存在<strong>过度参数化</strong>的情况。部分研究提出仅使用少量权重即可获得与全连接多层感知机（MLP）和卷积神经网络（CNN）相似的性能。进一步研究表明，在不显著降低性能的前提下，可以裁剪掉Transformers中的一部分头结构。可行的方案是通过<strong>模型压缩（例如裁剪和蒸馏）</strong>来减少参数传输，从而显著缩小模型规模并加快推理速度。<br>对于FL的隐私和安全问题，研究表明，<strong>客户端上传的敏感个人参数可能会通过模型反演攻击而泄露</strong>。因此，将差分隐私（DP）与FL结合被视为一种有效的隐私保护技术。DP的机制通常通过向中间输出添加随机噪声，确保特定输入元素的变化不会对输出分布产生显著影响。然而，在基于DP的FL中，<strong>模型效用和隐私保护水平</strong>之间存在不可避免的权衡。</p>
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2.相关工作"></a>2.相关工作</h1><p>联邦学习（FL）是一种机器学习中的基础训练范式，最早于2016年提出。其目标是通过分布式数据集构建一个协作的机器学习模型。近年来，联邦学习面临着日益增长的挑战，包括通信开销、数据异质性和隐私威胁。本节将介绍差分隐私在联邦学习中的应用以及模型剪枝技术。</p>
+<h2 id="2-1-联邦学习中的差分隐私"><a href="#2-1-联邦学习中的差分隐私" class="headerlink" title="2.1 联邦学习中的差分隐私"></a>2.1 联邦学习中的差分隐私</h2><p>差分隐私（DP）被广泛用于缓解联邦学习中的用户隐私泄露问题。差分隐私随机梯度下降（DP-SGD）提供了一种数据级别的隐私保证，可以通过向裁剪后的梯度添加高斯噪声轻松实现。然而，FL不仅关注本地数据的隐私保护，也需要保证客户端之间的信息安全。现有研究可分为两类：集中式差分隐私（CDP）和本地差分隐私（LDP）。LDP的核心思想是随机响应（RR）。在联邦学习中，LDP允许各方对数据进行混淆处理，然后将模糊化的数据发布给不可信的服务器。</p>
+<h2 id="2-2-模型剪枝"><a href="#2-2-模型剪枝" class="headerlink" title="2.2 模型剪枝"></a>2.2 模型剪枝</h2><p>随着深度神经网络（DNN）的广泛应用，模型剪枝成为减少计算资源的重要课题。常用的方法是基于幅度的剪枝。Jiang等人基于“彩票假说”提出，通过对权重幅度进行剪枝可以得到原始网络的最佳子结构。<br>一般来说，剪枝方法可以分为结构化剪枝和非结构化剪枝两类。结构化剪枝通过删除网络内的结构单元（如卷积核、滤波器或层）来降低模型复杂度。这种方法通常需要特定的网络结构，与“彩票假说”不完全一致。此外，最优的剪枝率通常依赖于经验知识，且原始模型需要重新训练。Zhu等人提出了一种名为FedLP-Q的有效模型压缩和加速框架，通过分层剪枝和量化来实现。在该框架中，剪枝过程发生在模型的每一层，通过移除不重要的权重或层来减小模型的深度和宽度，但这会减少中间表示中的特征图数量。<br>相比之下，非结构化剪枝主要聚焦于单个权重层级的剪枝。在不改变网络原始结构的情况下，通过将不重要的权重置零实现稀疏性。Qian等人提出了一种动态调整策略，通过逐步增加稀疏率并将聚合权重替换为稀疏性的倒数来减少不必要的传输成本。然而，该方法没有考虑数据分布不均可能对聚合权重产生的影响。</p>
+<h1 id="3-我们的方法：ASPFL-框架"><a href="#3-我们的方法：ASPFL-框架" class="headerlink" title="3.我们的方法：ASPFL 框架"></a>3.我们的方法：ASPFL 框架</h1><p>在本节中，我们提出了一个通用框架 ASPFL，介绍了基于自适应稀疏性裁剪的模块和中心差分隐私机制，并对剪枝后的模型进行了深入的隐私分析。论文中使用的符号在表 1 中进行了汇总。</p>
+<h2 id="3-1-概述和问题陈述"><a href="#3-1-概述和问题陈述" class="headerlink" title="3.1 概述和问题陈述"></a>3.1 概述和问题陈述</h2><p><strong>工作流程</strong>：<br>我们提出的 ASPFL 工作流程包含五个阶段：<br>1.服务器首先初始化全局模型，并将其分发给客户端。<br>2.选定的客户端基于当前全局模型和各自的数据集训练本地模型。在本地训练中，客户端根据 L2 范数执行梯度裁剪以满足差分隐私 (DP) 要求。<br>3.完成 L 轮本地训练后，各客户端根据可学习的稀疏矩阵进行通道裁剪，并估计本地模型联合的敏感度。然后将本地模型更新上传至服务器。<br>4.服务器收集所有模型更新，并基于估计的敏感度引入自适应噪声以进行模型聚合。<br>5.最后获得一个新的全局模型。 </p>
+<p><strong>系统模型</strong>：基于客户端&#x2F;服务器 (C&#x2F;S) 框架，基本的联邦学习 (FL) 系统由 N 个客户端和一个服务器组成，旨在在隐私保护的前提下协作训练一个最优模型。假设服务器“诚实但好奇”，每个客户端持有包含样本的本地数据集 ( D_i )，所有本地数据集的并集记为 ( D )。ASPFL 的目标是通过聚合来自 N 个客户端的本地模型，获得最小化全局经验风险的最优全局模型。</p>
+<p><strong>威胁模型</strong>：假设服务器诚实但好奇，尽管 FL 使各客户端的数据集保持本地存储，但与服务器共享模型参数可能会暴露客户端的私有信息。这类攻击包括通过模型参数推测训练数据集或推断私有特征。每个客户端也可能被视为“诚实但好奇”，可能对其他客户端数据进行类似的隐私攻击。</p>
+<h2 id="3-2-ASPFL算法"><a href="#3-2-ASPFL算法" class="headerlink" title="3.2 ASPFL算法"></a>3.2 ASPFL算法</h2><p>ASPFL 的工作流程包括以下 5 个步骤：</p>
+<p>1.<strong>全局模型初始化</strong>：服务器首先初始化全局模型参数并将其分发给每个客户端。<br>2.<strong>本地模型更新</strong>：在每一轮全局训练中，随机选择 ( K ) 个客户端参与本地训练。通过梯度裁剪和自适应因子，控制更新幅度并更新本地模型。<br>3.<strong>基于稀疏性的通道裁剪</strong>：在第 ( t ) 轮训练中，每个客户端在完成本地训练后生成新的本地模型，并采用自适应稀疏矩阵去除不重要的模型更新。<br>4.<strong>模型聚合与噪声扰动</strong>：服务器收集所有参与客户端的模型更新，并添加高斯噪声来保护隐私。噪声的方差基于所需的隐私预算和敏感度计算。<br>5.<strong>全局模型广播</strong>：服务器将更新后的全局模型广播至所有客户端，开始新一轮的本地训练。</p>
+<p>该算法的主要改进包括：(1) 在本地训练中累积梯度的缩放规则；(2) 基于稀疏矩阵的自适应通道裁剪；(3) 在服务器端剪枝后的噪声添加策略。</p>
+<h2 id="3-3-基于自适应稀疏性的通道裁剪"><a href="#3-3-基于自适应稀疏性的通道裁剪" class="headerlink" title="3.3 基于自适应稀疏性的通道裁剪"></a>3.3 基于自适应稀疏性的通道裁剪</h2><p>为减少参数上传时对网络稳定性的依赖，ASPFL 通过可学习的门控参数实现模型的稀疏性。稀疏矩阵是根据门控参数生成的，表示“1”在矩阵中的占比。通过将该矩阵应用于模型参数，有效去除不重要的系数，从而减少带宽需求，同时减轻模型反演或成员推断攻击的潜在风险。</p>
+<h2 id="3-4-剪枝后的隐私保证"><a href="#3-4-剪枝后的隐私保证" class="headerlink" title="3.4 剪枝后的隐私保证"></a>3.4 剪枝后的隐私保证</h2><p>为应对参与方的隐私和安全问题，我们在服务器的聚合阶段引入高斯机制以实现 DP。DP 的高斯机制具有可量化的隐私预算和隐蔽用户行为的优势。</p>
+<h1 id="4-结果与讨论"><a href="#4-结果与讨论" class="headerlink" title="4.结果与讨论"></a>4.结果与讨论</h1><p>本文在 CIFAR-10 和 Fashion-MNIST 数据集上进行了一些实验，以评估所提出的 ASPFL 算法的性能。</p>
+<h2 id="4-1-实验设置"><a href="#4-1-实验设置" class="headerlink" title="4.1 实验设置"></a>4.1 实验设置</h2><p>实验在一台配置了 AMD Ryzen 5 5600 六核处理器和 16 GB 内存的计算机上进行，并配备了 16 GB 显存的 NVIDIA GeForce RTX 3070 显卡。训练集和测试集的比例为 8:2。模型性能在非独立同分布（non-IID）数据下进行测量，使用 Dirichlet（α）参数模拟不同客户端间数据集的分布，通过调整 α 控制 non-IID 程度（α 越大，数据分布越接近独立同分布）。在边缘设备上部署模型时，我们选择 ResNet18 作为骨干模型，联邦学习系统中客户端数量 N &#x3D; 10，具有不同的参与比例。初始学习率设置为 0.01，本地训练的轮数 L 固定为 3，局部梯度裁剪的阈值 C 设为 1，差分隐私预算 ε 设置为 2.0，δ &#x3D; 10⁻⁵，全局迭代次数上限为 200。</p>
+<h2 id="4-2-剪枝性能比较"><a href="#4-2-剪枝性能比较" class="headerlink" title="4.2 剪枝性能比较"></a>4.2 剪枝性能比较</h2><p>首先，在未引入差分隐私（DP）噪声的情况下，评估 ASPFL 中剪枝模块的性能，记为 ASPFL-p。在 Dirichlet 非独立同分布数据下，α 设置为 0.5、0.7、1 和 10。结果表明，当 α &#x3D; 0.5 时，客户端间子数据集的分布呈现出极端不均衡和标签偏差，这导致一些类别的样本数量非常高，而某些类别完全没有样本，形成了偏斜分布。</p>
+<p>在 Figures 4 和 5 中显示了 ASPFL-p 与原始 FedAvg 和 FedLP 的准确性和收敛速度的比较。例如，在 α &#x3D; 0.5 的数据分布高度不平衡的情况下，ASPFL-p 的准确性曲线更平滑，收敛速度更快，且无显著波动。这表明即使面对高度不平衡的数据分布，算法仍然保持稳定的训练性能。该现象可归因于算法中引入的累积梯度的 L2 范数裁剪，这有助于减少模型更新的波动，提高在非独立同分布数据集上的收敛稳定性。</p>
+<h2 id="4-3-隐私性能比较"><a href="#4-3-隐私性能比较" class="headerlink" title="4.3 隐私性能比较"></a>4.3 隐私性能比较</h2><p>在 IID 和 Dirichlet（α &#x3D; 15）非独立同分布数据下评估 ASPFL 的隐私性能。本文将 ASPFL 与典型的集中差分隐私（CDP）和本地差分隐私（LDP）联邦学习方法进行比较，实验结果表明，ASPFL 在性能方面优于其他方法。在 CIFAR-10 数据集上，我们设置 20% 客户端参与，平均测试准确性显著高于 DP-FedAvg、f-DP 和 Wu 等人的方法。与其他方法相比，ASPFL 在 IID 和非 IID 设置下都表现出更高的准确率，同时在达到模型收敛所需的通信轮次方面表现出较低的通信开销，相比 DP-FedAvg 和 f-DP，ASPFL 减少了 40% 的通信轮次。</p>
+<h2 id="4-4-参与客户端数量的影响"><a href="#4-4-参与客户端数量的影响" class="headerlink" title="4.4 参与客户端数量的影响"></a>4.4 参与客户端数量的影响</h2><p>在不同参与客户端数量的情况下，对 ASPFL-p 系统的测试结果表明，增加参与客户端数量可以加速收敛并提高最终性能。更多的客户端有助于模型学习更多样化的数据，从而提高泛化能力，同时随着更多客户端对梯度聚合的贡献，生成的梯度更稳定，噪声更小，进而帮助模型更快、更准确地收敛。</p>
+<h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><p>本文提出了一种高效的联邦学习框架，能够在保证隐私的前提下优化通信效率。在传输模型更新之前，利用基于每个客户端数据分布的 JS 散度的稀疏剪枝机制进行模型压缩。为了在模型更新中引入隐私保护，我们提出了一种自适应的高斯噪声策略，以实现差分隐私（DP）。通过实验结果中的准确性和通信成本表现可以得出结论，我们的 ASPFL 框架在 CIFAR-10 数据集上表现出稳健的性能和有竞争力的准确率。</p>
+<p>从另一个角度来看，大量实验表明，本文所提出的策略具有较强的领域适应性。随着数据多样性和任务复杂性的增加，本文所提出的方法预计能够在准确性和通信开销之间实现更好的平衡。</p>
+<h1 id="关键名词解释"><a href="#关键名词解释" class="headerlink" title="关键名词解释"></a>关键名词解释</h1><h2 id="1-边缘计算"><a href="#1-边缘计算" class="headerlink" title="1.边缘计算"></a>1.边缘计算</h2><p>边缘计算是一种分布式计算方式，通过将计算资源和数据存储靠近数据源或用户端来减少延迟和带宽需求。与传统的云计算不同，边缘计算不需要将所有数据都传输到远程数据中心进行处理，而是在靠近设备（例如传感器、摄像头、智能手机）的位置直接处理数据，这使得响应速度更快，更适合需要实时处理的应用。</p>
+<p><strong>边缘计算的主要特点</strong><br>低延迟：在数据源附近处理数据，无需长距离数据传输，因此减少了网络延迟。对实时性要求高的应用（如自动驾驶、视频监控等）尤其重要。<br>数据本地化：数据在本地处理，减少了隐私泄露的风险，因为敏感信息不需要传输到远程服务器，有助于数据隐私保护。<br>节省带宽：因为只需要传输处理后的结果，而不是大量的原始数据，边缘计算降低了网络带宽需求，减轻了数据中心的负担。<br>适应性强：边缘计算可以灵活地在分布式网络中进行部署，适合多种场景，如智能家居、工业自动化、智慧城市等。</p>
+<p><strong>边缘计算的应用场景</strong><br>自动驾驶：自动驾驶汽车需要实时分析来自摄像头、激光雷达等传感器的数据。边缘计算使得汽车能够在本地做出快速决策。<br>工业物联网（IIoT）：在工厂内，通过边缘计算实时监控设备状态和生产数据，以便及时响应故障。<br>智能城市：交通灯和监控摄像头等设备可以通过边缘计算来分析交通情况、识别异常行为等，提升公共安全和交通效率。<br>智能零售：在零售门店中，边缘计算可以分析摄像头捕捉的顾客行为数据，从而优化商品摆放或提供个性化服务。<br>边缘计算与云计算的关系<br>边缘计算和云计算并不是替代关系，而是相互补充的。边缘计算适合需要实时处理和低延迟的应用，而云计算更适合进行大规模的数据存储和复杂的数据分析。通过将边缘计算与云计算结合，可以在不同场景下提供更高效的数据处理方案。</p>
+<h2 id="2-稀疏性剪枝（Sparsity-Pruning）"><a href="#2-稀疏性剪枝（Sparsity-Pruning）" class="headerlink" title="2.稀疏性剪枝（Sparsity Pruning）"></a>2.稀疏性剪枝（Sparsity Pruning）</h2><p>稀疏性剪枝是一种模型压缩技术，减少模型中的冗余参数，以降低通信成本和计算开销。本文采用自适应稀疏性剪枝，生成一个稀疏矩阵来选择重要的模型参数进行传输。通过剪枝，可以减少联邦学习系统中的通信数据量。</p>
+<h2 id="3-ASPFL框架（Adaptive-Sparsity-based-Pruning-Federated-Learning）"><a href="#3-ASPFL框架（Adaptive-Sparsity-based-Pruning-Federated-Learning）" class="headerlink" title="3.ASPFL框架（Adaptive Sparsity-based Pruning Federated Learning）"></a>3.ASPFL框架（Adaptive Sparsity-based Pruning Federated Learning）</h2><p>ASPFL是一种自适应稀疏性剪枝的联邦学习框架，结合了差分隐私保护。在ASPFL中，每个客户端在训练完成后使用稀疏矩阵进行模型更新的通道剪枝，然后上传至服务器。服务器会基于估计的敏感度添加自适应的高斯噪声，从而保证隐私。</p>
+<h2 id="4-Jensen-Shannon散度（JS-Divergence）"><a href="#4-Jensen-Shannon散度（JS-Divergence）" class="headerlink" title="4.Jensen-Shannon散度（JS Divergence）"></a>4.Jensen-Shannon散度（JS Divergence）</h2><p>Jensen-Shannon散度用于量化各客户端数据的标签分布与均匀分布之间的差异。ASPFL利用JS散度来构建稀疏矩阵，使得模型在不均衡数据分布（Non-IID）下仍能实现高效的学习。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://seer666.github.io/2024/10/27/20241027/" data-id="cm2rbeg0u000df89jemko0zbm" data-title="20241027论文学习" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2024.10.15" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/10/15/2024.10.15/" class="article-date">
@@ -126,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/10/15/2024.10.15/" data-id="cm2a633ox0005ys9j5prk1yg2" data-title="2024.10.15." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/15/2024.10.15/" data-id="cm2rbeg0l0003f89jch7je0q4" data-title="2024.10.15." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -182,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/10/14/2024.10.14/" data-id="cm2a633o90001ys9jag0zgsyv" data-title="2024.10.14." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/14/2024.10.14/" data-id="cm2rbeg0j0001f89jax7ugtfi" data-title="2024.10.14." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -235,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" data-id="cm2a633oz0006ys9jbpd4gusy" data-title="20240925听会记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" data-id="cm2rbeg0u000bf89jaryudyh6" data-title="20240925听会记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -296,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/25/2024.9.25/" data-id="cm2a633p4000ays9j5k2seqq9" data-title="2024.9.25." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/25/2024.9.25/" data-id="cm2rbeg0t0009f89je3fl6080" data-title="2024.9.25." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -340,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/24/2024.9.24/" data-id="cm2a633ot0003ys9jcsbh5x2s" data-title="2024.9.24." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/24/2024.9.24/" data-id="cm2rbeg0s0008f89j60mpaqhq" data-title="2024.9.24." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -406,7 +474,7 @@ console.log(&quot;Hello, Hexo!&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/24/markdown%E6%A0%BC%E5%BC%8F%E5%88%9D%E5%AD%A6/" data-id="cm2a633p00007ys9j1utp820o" data-title="markdown格式初学" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/24/markdown%E6%A0%BC%E5%BC%8F%E5%88%9D%E5%AD%A6/" data-id="cm2rbeg0v000ff89jhwte3so1" data-title="markdown格式初学" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -436,7 +504,7 @@ console.log(&quot;Hello, Hexo!&quot;);
       <div class="author-stats">
         <div class="stat-item">
           <span class="stat-label">文档</span>
-          <span class="stat-number">6</span>
+          <span class="stat-number">7</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">标签</span>
@@ -491,6 +559,10 @@ console.log(&quot;Hello, Hexo!&quot;);
       <ul>
         
           <li>
+            <a href="/2024/10/27/20241027/">20241027论文学习</a>
+          </li>
+        
+          <li>
             <a href="/2024/10/15/2024.10.15/">2024.10.15.</a>
           </li>
         
@@ -504,10 +576,6 @@ console.log(&quot;Hello, Hexo!&quot;);
         
           <li>
             <a href="/2024/09/25/2024.9.25/">2024.9.25.</a>
-          </li>
-        
-          <li>
-            <a href="/2024/09/24/2024.9.24/">2024.9.24.</a>
           </li>
         
       </ul>

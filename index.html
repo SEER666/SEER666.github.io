@@ -79,6 +79,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-20241028" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/28/20241028/" class="article-date">
+  <time class="dt-published" datetime="2024-10-28T09:15:00.000Z" itemprop="datePublished">2024-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/28/20241028/">20241028-CSAPP课本阅读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第1章-计算机系统漫游"><a href="#第1章-计算机系统漫游" class="headerlink" title="第1章 计算机系统漫游"></a>第1章 计算机系统漫游</h1><p>计算机系统：硬件和系统软件组成</p>
+<h2 id="1-1-信息就是位-上下文"><a href="#1-1-信息就是位-上下文" class="headerlink" title="1.1 信息就是位+上下文"></a>1.1 信息就是位+上下文</h2><p>程序的生命周期：始于源程序（源文件）；<br>源程序：由值0和1组成的位（又称比特）序列；<br>字节：8个位被组织成一组；<br>文本文件：只由ASCII字符构成；  二进制文件：所有其他非“文本文件”的文件为二进制文件；</p>
+<h2 id="1-2-程序被其他程序翻译成不同的格式"><a href="#1-2-程序被其他程序翻译成不同的格式" class="headerlink" title="1.2 程序被其他程序翻译成不同的格式"></a>1.2 程序被其他程序翻译成不同的格式</h2><p>C语句都被徐被其他程序转化为一系列的低级机器语言指令，然后这些指令按照一种称为可执行目标程序的格式打好包。<br>编译系统：预处理器、编译器、汇编器、连接器<br>预处理阶段：根据#开头的命令，修改原始的C程序。<br>编译阶段：将文本文件.i翻译成文本文件.s，包含一个汇编语言程序。<br>汇编阶段：汇编器将文本文件.s翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式，并将结果保存在目标文件.o中。<br>链接阶段：链接器将其他函数（例如printf函数）所在的单独预编译目标文件.o与主.o文件合并。</p>
+<h2 id="1-3-了解编译系统如何工作是大有益处的"><a href="#1-3-了解编译系统如何工作是大有益处的" class="headerlink" title="1.3 了解编译系统如何工作是大有益处的"></a>1.3 了解编译系统如何工作是大有益处的</h2><p>优化程序性能、理解链接时出现的错误、避免安全漏洞</p>
+<h2 id="1-4-处理器读并解释储存在内存中的指令"><a href="#1-4-处理器读并解释储存在内存中的指令" class="headerlink" title="1.4 处理器读并解释储存在内存中的指令"></a>1.4 处理器读并解释储存在内存中的指令</h2><p>shell应用程序运行可执行文件（Unix系统）。输出一个提示符，等待输入一个命令行，然后执行这个命令。<br>若第一个单词不是内置shell命令，那么会假设这是一个可执行文件的名字，然后等待程序终止。</p>
+<h3 id="1-4-1-系统的硬件组成"><a href="#1-4-1-系统的硬件组成" class="headerlink" title="1.4.1 系统的硬件组成"></a>1.4.1 系统的硬件组成</h3><p>总线：贯穿整个系统的一组电子管道，被设计为传送定长的字节块；<br>I&#x2F;O设备：系统与外部世界的联系通道，示例系统包括作为用户输入的键盘和鼠标、作为用户输出的显示器、用于长期存储数据和程序的磁盘驱动器。<br>相关的硬件组成如本图：通过百度网盘分享的文件：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1yZan2Lg3RvQHPMsRertFDQ">百度网盘分享，提取码：7568</a><br>主存：临时存储设备，在处理器执行程序时，用来存放程序和程序处理的数据。从物理上说，主存是由一组动态随机存取存储器芯片组成的；从逻辑上来说，存储器是一个现行的字节数组，每个字节都有其唯一的地址，这些地址是从零开始。<br>处理器：中央处理单元（CPU），是解释（或执行）存储在主存中指令的引擎，处理器的核心是一个大小为一个字的存储设备（或寄存器），称为程序计算器（PC）。在任何时刻，PC都指向主存中的某条机器语言指令（即含有该条指令的地址）。<br>处理器可能会执行的操作：加载，从主存复制一个字节或者一个字到寄存器，以覆盖寄存器原来的内容；存储，从寄存器复制一个字节或者一个字到主存的某个位置，以覆盖这个位置上原来的内容；操作，吧两个寄存器的内容复制到ALU，ALU对这两个字做算术运算，并将结果存放到一个寄存器中，以覆盖该寄存器中原来的内容；跳转，从指令本身中抽取一个字，并将这个字复制到程序计数器（PC）中，以覆盖PC中原来的值。</p>
+<h3 id="1-4-2-运行hello程序"><a href="#1-4-2-运行hello程序" class="headerlink" title="1.4.2 运行hello程序"></a>1.4.2 运行hello程序</h3><p>步骤如下：从键盘上读取hello命令，然后从磁盘加载可执行文件到内存，最后将输出字符串从存储器写到显示器。</p>
+<h2 id="1-5-高速缓存至关重要"><a href="#1-5-高速缓存至关重要" class="headerlink" title="1.5 高速缓存至关重要"></a>1.5 高速缓存至关重要</h2><p>高速缓存存储器：针对这种处理器与主存之间的差异，系统设计者采用更小更快的存储设备，作为暂时的集结区域，存放处理器近期可能会需要的信息。</p>
+<h2 id="1-6-存储设备形成层次结构"><a href="#1-6-存储设备形成层次结构" class="headerlink" title="1.6 存储设备形成层次结构"></a>1.6 存储设备形成层次结构</h2><p>层次结构如下：寄存器-&gt;L1高速缓存-&gt;L2高速缓存-&gt;L3高速缓存-&gt;主存-&gt;本地二级存储-&gt;远程二级存储。</p>
+<h2 id="1-7-操作系统管理硬件"><a href="#1-7-操作系统管理硬件" class="headerlink" title="1.7 操作系统管理硬件"></a>1.7 操作系统管理硬件</h2><p>计算机系统分层：应用程序、操作系统——软件，处理器、主存、I&#x2F;O设备——硬件。<br>操作系统提供的抽象表示：文件-&gt;I&#x2F;O设备，虚拟内存-&gt;主存、I&#x2F;O设备，进程-&gt;处理器、主存、I&#x2F;O设备<br>操作系统的两个基本功能：防止硬件被失控的应用程序滥用；像应用程序提供简单一致的机制来控制复杂而又通常大不相同的低级硬件设备。</p>
+<h3 id="1-7-1-进程"><a href="#1-7-1-进程" class="headerlink" title="1.7.1 进程"></a>1.7.1 进程</h3><p>进程：操作系统对一个正在运行的程序的一种抽象，在一个系统上可以同时运行多个进程，而每个进程都好像在独占地使用软件。<br>并发运行：一个进程的指令和另一个进程的指令是交错执行的。</p>
+<h3 id="1-7-2-线程"><a href="#1-7-2-线程" class="headerlink" title="1.7.2 线程"></a>1.7.2 线程</h3><p>线程与进程：一个进程实际上可以由多个称为线程的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。</p>
+<h3 id="1-7-3-虚拟内存"><a href="#1-7-3-虚拟内存" class="headerlink" title="1.7.3 虚拟内存"></a>1.7.3 虚拟内存</h3><p>虚拟内存：为每个进程提供了一个假象，即每个进程都在独占地使用主存。<br>虚拟地址空间：每个进程看到的内存都是一致的。<br>过程如下：程序开始-&gt;只读的代码和数据-&gt;读&#x2F;写数据-&gt;运行时堆-&gt;共享库的内存映射区域-&gt;&lt;-用户栈（运行时创建的）&lt;-内核虚拟内存<br>各部分介绍如下：<br>程序代码和数据：代码从同一固定地址开始，紧接着的是和C全局变量相对应的数据位置。<br>堆：代码和数据区后紧随着的是运行时堆。（区分：代码和数据去在进程一开始运行时就被置顶了大小，而堆可以在运行时动态地扩展和收缩）<br>共享库：地址空间的中间部分是一块用来存放像C标准库或者数学库的共享代码和数据的区域。<br>栈：位于用户虚拟地址空间顶部的是用户栈，编译器用它赖实现函数调用。<br>内核虚拟内存：地址空间顶部的区域是为内核保留的，不允许应用程序读写这个区域的内容或者直接调用内核代码定义的函数。</p>
+<h3 id="1-7-4-文件"><a href="#1-7-4-文件" class="headerlink" title="1.7.4 文件"></a>1.7.4 文件</h3><p>文件就是字节序列。每个I&#x2F;O设备，包括磁盘、键盘、显示器，甚至网络，都可以看成是文件。</p>
+<h2 id="1-8-系统之间利用网络通信"><a href="#1-8-系统之间利用网络通信" class="headerlink" title="1.8 系统之间利用网络通信"></a>1.8 系统之间利用网络通信</h2><p>网络也是一种I&#x2F;O设备，属于客户端和服务器之间的交互，流程与之前提及的类似。</p>
+<h2 id="1-9-重要主题"><a href="#1-9-重要主题" class="headerlink" title="1.9 重要主题"></a>1.9 重要主题</h2><h3 id="1-9-1-Amdahl定律"><a href="#1-9-1-Amdahl定律" class="headerlink" title="1.9.1 Amdahl定律"></a>1.9.1 Amdahl定律</h3><p>该部分的相关公式与介绍如图<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pjkidciZSMSOsHYhVemWBA">百度网盘分享，提取码：7568</a></p>
+<h3 id="1-9-2-并发和并行"><a href="#1-9-2-并发和并行" class="headerlink" title="1.9.2 并发和并行"></a>1.9.2 并发和并行</h3><p>并发：一个同时具有多个活动的系统；<br>并行：用并发来使一个系统运行得更快。</p>
+<p><strong>线程级并发</strong><br>概念：构建在进程这个抽象之上，我们能够设计出同时有多个程序执行的系统，这就导致了并发。<br>单处理器系统：即使处理器必须在多个任务间切换，大多数实际的计算也都是由一个处理器来完成的。<br>多处理器系统：由单操作系统内核控制的多处理器组成的系统。<br>多处理器系统的组织结构如图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1kwNeB0sw5Pr5ZiGFLKQ4bw">百度网盘分享，提取码：7568</a><br>超线程（同时多线程），是一项允许一个CPU执行多个控制流的技术。</p>
+<p><strong>指令级并行</strong><br>在较低的抽象层次上，现代处理器可以同时执行多条指令的属性称为指令级并行。<br>超标量处理器：处理器可以达到比一个周期一条指令更快的执行效率。</p>
+<p><strong>单指令、多数据并行</strong><br>单指令、多数据“在最低层次上，许多现代处理器拥有特殊的硬件，允许一条指令产生多个可以并行执行的操作，这种方式称位单指令、多数据，即SIMD并行。</p>
+<h3 id="1-9-3-计算机系统中抽象的重要性"><a href="#1-9-3-计算机系统中抽象的重要性" class="headerlink" title="1.9.3 计算机系统中抽象的重要性"></a>1.9.3 计算机系统中抽象的重要性</h3><p>计算机系统提供的抽象如图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1XmVDyQSbZkU8lQTc0D78RQ">百度网盘分享，提取码：7568</a></p>
+<h2 id="第1章乐学习题"><a href="#第1章乐学习题" class="headerlink" title="第1章乐学习题"></a>第1章乐学习题</h2><p>1.以下说法正确的是（ D ）。<br>a.处理器顺序执行机器指令。<br>b.主存储器包括寄存器。<br>c.总线系统只用来传输数据，不传输指令。<br>d.中央处理器（CPU）是特定指令集架构下的执行单元。</p>
+<p>2.可执行目标程序是（ B ）。<br>a.在目标机运行的汇编语言程序。<br>b.是机器指令被按照固定格式打包的二进制文件。<br>c.由编译器产生的汇编程序。<br>d.在目标机运行的高级语言程序。</p>
+<p>3.SHELL的功能是（ A ）。<br>a.一个操作系统的命令行解释器。<br>b.只能接受系统命令。<br>c.一个操作系统。<br>d.不能运行可执行文件。</p>
+<p>4.以下关于内存管理的说法错误的是： （ B ）<br>a.显式链表分配时间与空闲块的数量成线性关系<br>b.标记清除垃圾收集算法是由程序员手动编码调用触发的<br>c.隐式链表双向合并可以常量时间完成<br>d.分离链表的First-fit 搜索近似于整个堆上的best-fit搜索</p>
+<p>5.可执行目标程序是（ A ）。<br>a.是机器指令被按照固定格式打包的二进制文件。<br>b.在目标机运行的高级语言程序。<br>c.由编译器产生的汇编程序。<br>d.在目标机运行的汇编语言程序。</p>
+<p>6.有关存储的层次结构说法正确的是（ A ）。<br>a.从上至下访问速度下降，存储容量增大。<br>b.磁盘存储和主存的地址空间连续。<br>c.寄存器与高速缓存都是对程序员透明的。<br>d.高速缓存和主存具有相同硬件结构。</p>
+<p>7.磁盘文件a.txt由10个ASCII码字符“chinagood!”组成，下列程序运行后输出为（ A ）。#include “csapp.h”int main(){int  fd1,fd2;char c; fd1&#x3D;open(“a.txt”,O_RDONLY,0); fd2&#x3D;open(“a.txt”,O_RDONLY,0);read (fd2,&amp;c,1);dup2(fd2,fd1);read (fd1,&amp;c,1);printf(“c&#x3D;%c\n”,c);exit(0);}<br>a.c&#x3D;h<br>b.c&#x3D;n<br>c.c&#x3D;i<br>d.c&#x3D;c</p>
+<p>8.程序的生命周期是从（ B ）开始的。<br>a.代码运行开始。<br>b.被程序员创建开始。<br>c.安装在系统后开始。<br>d.编译成可执行文件开始。</p>
+<p>9.程序运行性能的影响因素是：（  AB  ）<br>A.算法、编程语言、编译器、指令集体系结构<br>B.指令序列和CPI<br>C.硬件是核心因素<br>D.操作系统是核心因素</p>
+<p>10.进程上下文切换是有（  BD  ）完成的。<br>A.用户代码和内核代码<br>B.操作系统<br>C.用户代码<br>D.内核代码</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://seer666.github.io/2024/10/28/20241028/" data-id="cm2ssxyjf00064o9j5j7w2hn1" data-title="20241028-CSAPP课本阅读" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSAPP/" rel="tag">CSAPP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-20241027" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/10/27/20241027/" class="article-date">
@@ -133,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/10/27/20241027/" data-id="cm2rbeg0u000df89jemko0zbm" data-title="20241027论文学习" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/27/20241027/" data-id="cm2ssxyjf00054o9j2lzwftsx" data-title="20241027论文学习" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -194,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/10/15/2024.10.15/" data-id="cm2rbeg0l0003f89jch7je0q4" data-title="2024.10.15." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/15/2024.10.15/" data-id="cm2ssxyji000a4o9j51xg3ujj" data-title="2024.10.15." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -250,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/10/14/2024.10.14/" data-id="cm2rbeg0j0001f89jax7ugtfi" data-title="2024.10.14." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/10/14/2024.10.14/" data-id="cm2ssxyjb00014o9j8ohadf6t" data-title="2024.10.14." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -303,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" data-id="cm2rbeg0u000bf89jaryudyh6" data-title="20240925听会记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/" data-id="cm2ssxyjj000e4o9j5adnbet2" data-title="20240925听会记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -364,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/25/2024.9.25/" data-id="cm2rbeg0t0009f89je3fl6080" data-title="2024.9.25." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/25/2024.9.25/" data-id="cm2ssxyji000b4o9j1fineya3" data-title="2024.9.25." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -408,7 +479,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/24/2024.9.24/" data-id="cm2rbeg0s0008f89j60mpaqhq" data-title="2024.9.24." class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/24/2024.9.24/" data-id="cm2ssxyjd00034o9jc9xf2oc3" data-title="2024.9.24." class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -474,7 +545,7 @@ console.log(&quot;Hello, Hexo!&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://seer666.github.io/2024/09/24/markdown%E6%A0%BC%E5%BC%8F%E5%88%9D%E5%AD%A6/" data-id="cm2rbeg0v000ff89jhwte3so1" data-title="markdown格式初学" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://seer666.github.io/2024/09/24/markdown%E6%A0%BC%E5%BC%8F%E5%88%9D%E5%AD%A6/" data-id="cm2ssxyjf00074o9jfka19ais" data-title="markdown格式初学" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -504,11 +575,11 @@ console.log(&quot;Hello, Hexo!&quot;);
       <div class="author-stats">
         <div class="stat-item">
           <span class="stat-label">文档</span>
-          <span class="stat-number">7</span>
+          <span class="stat-number">8</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">标签</span>
-          <span class="stat-number">3</span>
+          <span class="stat-number">4</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">分类</span>
@@ -527,7 +598,7 @@ console.log(&quot;Hello, Hexo!&quot;);
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown%E8%AF%AD%E6%B3%95/" rel="tag">markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" rel="tag">会议记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSAPP/" rel="tag">CSAPP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown%E8%AF%AD%E6%B3%95/" rel="tag">markdown语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" rel="tag">会议记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a></li></ul>
     </div>
   </div>
 
@@ -537,7 +608,7 @@ console.log(&quot;Hello, Hexo!&quot;);
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/markdown%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">markdown语法</a> <a href="/tags/%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">会议记录</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 20px;">论文</a>
+      <a href="/tags/CSAPP/" style="font-size: 10px;">CSAPP</a> <a href="/tags/markdown%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">markdown语法</a> <a href="/tags/%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">会议记录</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 20px;">论文</a>
     </div>
   </div>
 
@@ -559,6 +630,10 @@ console.log(&quot;Hello, Hexo!&quot;);
       <ul>
         
           <li>
+            <a href="/2024/10/28/20241028/">20241028-CSAPP课本阅读</a>
+          </li>
+        
+          <li>
             <a href="/2024/10/27/20241027/">20241027论文学习</a>
           </li>
         
@@ -572,10 +647,6 @@ console.log(&quot;Hello, Hexo!&quot;);
         
           <li>
             <a href="/2024/09/25/20240925%E5%90%AC%E4%BC%9A%E8%AE%B0%E5%BD%95/">20240925听会记录</a>
-          </li>
-        
-          <li>
-            <a href="/2024/09/25/2024.9.25/">2024.9.25.</a>
           </li>
         
       </ul>

@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>改进具有动态可组合多头注意力的Transformer | SEER's Study</title><meta name="author" content="SEER"><meta name="copyright" content="SEER"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };     1.摘要多头注意力（MHA）是Transformer的关键组件。在MHA中，注意力头独立工作，导致诸">
+<meta property="og:type" content="article">
+<meta property="og:title" content="改进具有动态可组合多头注意力的Transformer">
+<meta property="og:url" content="https://seer666.github.io/2024/11/22/2024112201/index.html">
+<meta property="og:site_name" content="SEER&#39;s Study">
+<meta property="og:description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };     1.摘要多头注意力（MHA）是Transformer的关键组件。在MHA中，注意力头独立工作，导致诸">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-11-22T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-22T04:15:42.537Z">
+<meta property="article:author" content="SEER">
+<meta property="article:tag" content="论文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/126209991?v=4"><link rel="canonical" href="https://seer666.github.io/2024/11/22/2024112201/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '改进具有动态可组合多头注意力的Transformer',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-22 12:15:42'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><a href="https://github.com/SEER666" target="_blank"> <img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></a></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/126209991?v=4" alt="Logo"><span class="site-name">SEER's Study</span></a><a class="nav-page-title" href="/"><span class="site-name">改进具有动态可组合多头注意力的Transformer</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">改进具有动态可组合多头注意力的Transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-22T04:00:00.000Z" title="发表于 2024-11-22 12:00:00">2024-11-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-22T04:15:42.537Z" title="更新于 2024-11-22 12:15:42">2024-11-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]  
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<h2 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1.摘要"></a>1.摘要</h2><p>多头注意力（MHA）是Transformer的关键组件。在MHA中，注意力头独立工作，导致诸如注意力得分矩阵的低秩瓶颈和头部冗余等问题。我们提出了动态可组合多头注意力（DCMHA），这是一种参数和计算高效的注意力架构，<br>解决了MHA的不足，并通过动态组合注意力头来增加模型的表达能力。DCMHA的核心是一个组合函数，该函数以输入相关的方式转换注意力得分和权重矩阵。<br>DCMHA可以作为任何Transformer架构中的MHA的直接替换，从而获得相应的DCFormer。DCFormer在不同架构和模型规模下的语言建模中显著优于Transformer，并且性能与计算量为1.7倍至2.0倍的模型相当。</p>
+<h2 id="2-引言"><a href="#2-引言" class="headerlink" title="2.引言"></a>2.引言</h2><p>Transformer（Vaswani等，2017）已成为各种领域和任务的最先进模型，并成为基础模型的实际骨干。多头注意力（Multi-head Attention, MHA）是Transformer的关键组件，负责在标记之间进行信息交换。<br>MHA允许模型在不同位置同时关注来自不同表示子空间的信息。MHA的一个重要特征是多个注意力头并行且相互独立地工作。虽然它很简单，经验上成功的这一选择带来了一些缺点，<br>例如<strong>注意力得分矩阵的低秩瓶颈</strong>降低了表达能力，以及<strong>冗余头</strong>的问题导致参数和计算的浪费。<br>已有许多工作尝试通过引入<strong>头之间某种形式的交互或协作</strong>来改进多头注意力机制。我们从<strong>头组成</strong>的角度对这些工作进行分类，并以此为出发点来阐述我们的工作：从固定数量的“基础头”中组合出新的头。<br>头组合可以在多头注意力机制（MHA）的计算图中不同位置进行。头组合的一种常见形式是使用更复杂的方法来组合&#x2F;选择多个头的输出，以替代MHA简单的拼接后投影方法，<br>这种方法可以是静态的（Ahmed等，2017）或动态的（Li等，2019；Zhang等，2022）。在MHA计算的最顶层操作时，这只是“表面”的组合形式：各个头仍然独立操作，标记之间的底层信息流保持不变。<br>由于这种性质，它通常是轻量且高效的，但同时获得的表达能力提升是有限的。<br>在最低层，另一种对比方法是组成MHA中头部的<strong>线性投影WQ、WK和WV</strong>（Cordonnier等，2020；Liu等，2022）。<br>投影组合允许真正新的头部通过实际改变的信息流来组成，这是提高表达能力的根本改进的前提。尽管理论上通过在投影之间共享参数更加参数高效，但这种方法在实践中通常会带来较大的计算成本。<br>此外，这种组合是静态的，缺乏对输入的适应性。头部组合的潜力无法完全实现。<br>我们选择采用第三种中间路径方法来组合<strong>注意力分数矩阵和&#x2F;或注意力权重矩阵</strong>（在本文中统称为注意力矩阵）（Shazeer等，2020；Wang等，2022；Nguyen等，2022）。<br>注意力矩阵的组合与投影组合具有一些等效关系，确保了相对于头输出组合在表达能力上的基本提升。由于计算成本小于投影组合，并且经过精心设计，因此得益于此。<br>我们可以使组合具有动态性：根据输入新头可以即时组成，进一步提高模型的表现力。与现有工作相比，我们寻求同时满足真正组合性、动态性和效率的要求。<br>在这项工作中，我们提出了动态可组合多头注意力机制（DCMHA），这是一种参数和计算高效的注意力架构，解决了多头注意力机制（MHA）的不足，并通过动态组合注意力头来增加模型的表达能力。<br>DCMHA的核心是一个组合函数，该函数以输入相关的方式转换注意力得分和权重矩阵。DCMHA可以作为任何变换器架构中MHA的直接替换，从而获得相应的DCFormer。<br>我们实现了<strong>DCMHA&#x2F;DCFormer</strong>，并进行了分析和广泛的实验来评估其有效性、效率和可扩展性。<br>实验结果表明，DCFormer在不同架构（原始或先进的LLaMA架构）和模型规模（从4.05亿到69亿）的语言建模中显著优于Transformer，并且性能与计算量为1.7倍至2倍的模型相当。<br>例如，DCPythia-6.9B在预训练困惑度和下游任务评估上都优于开源的Pythia-12B。我们还将DCMHA应用于图像分类的视觉变换器，并使用合成数据集对DCPythia-6.9B模型进行了一些初步分析，以更好地理解DCMHA的工作原理及其原因。</p>
+<h2 id="3-通过变换注意力矩阵进行头部组合"><a href="#3-通过变换注意力矩阵进行头部组合" class="headerlink" title="3.通过变换注意力矩阵进行头部组合"></a>3.通过变换注意力矩阵进行头部组合</h2><p>假设 $T$ 和 $S$ 分别是查询序列和键序列的长度。我们用 $A_h \in \mathbb{R}^{T \times S}$ 表示第 $h$ 个头的注意力矩阵，该矩阵可以是多头注意力模块（MHA）中 $H$ 个头中的一个的注意分数矩阵（softmax 之前）或权重矩阵（softmax 之后）。我们可以将 $H$ 个注意力矩阵堆叠到一个张量中：<br>$$<br>A &#x3D; \text{Stack}({A_h}_{h&#x3D;1}^H) \in \mathbb{R}^{H \times T \times S}.<br>$$<br>我们用：<br>$$<br>A[:,i,j] &#x3D; A[:,i,j] \in \mathbb{R}^H<br>$$<br>表示查询向量 $Q_i$ 和键向量 $K_j$ 之间的一对注意力向量。<br>通过<strong>注意力矩阵组合</strong>（attention matrix composition），我们可以将 $H$ 个新的注意力矩阵 ${A’<em>h}</em>{h&#x3D;1}^H$ 组合如下：第 $h$ 个组合后的矩阵 $A’<em>h$ 是 $H$ 个基矩阵的线性组合：<br>$$<br>A’<em>h &#x3D; \sum</em>{j&#x3D;1}^H C</em>{hj} A_j,<br>$$<br>其中 $C \in \mathbb{R}^{H \times H}$ 是组合映射（composition map）。</p>
+<h3 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h3><p>通过组合映射 $C \in \mathbb{R}^{H \times H}$ 对注意力分数 ${A_i}_{i&#x3D;1}^H$ 的组合等价于 QK 投影组合，且满足公式中定义的 $H$ 倍扩展。<br>类似地，我们有以下定理，说明注意力权重矩阵组合与以下 OV 投影组合之间的等价关系：</p>
+<p>$$<br>\widetilde{W}^V_i &#x3D; \text{Concat}<em>{j \in [H]} \left[C</em>{ij} W^V_j\right], \quad \widetilde{W}^O &#x3D; \text{Tile}(W^O, (H, 1)) \tag{2}<br>$$</p>
+<p>其中：<br>$$<br>\widetilde{W}^V_i \in \mathbb{R}^{D_m \times H D_h}, \quad \widetilde{W}^O \in \mathbb{R}^{H H D_h \times D_m}<br>$$<br>是组合后的投影矩阵。$\text{Tile}(W^O, (H, 1))$ 表示将 $W^O$ 沿其第一维重复 $H$ 次。</p>
+<h3 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h3><p>通过组合映射 $C \in \mathbb{R}^{H \times H}$ 对注意力权重 ${A_i}_{i&#x3D;1}^H$ 的组合等价于 OV 投影组合，且满足公式 (2) 中定义的 $H$ 倍扩展。</p>
+<p>注意力矩阵组合与基于扩展的投影组合的关系进一步验证了其有效性：<br>Bhojanapalli 等人（2020）表明，增大 QK 投影的头部维度可以缓解注意力分数矩阵的低秩瓶颈问题。<br>类似地，增大 OV 投影的头部维度可以增加头部之间的跨 token 信息传输带宽。因此，通过对注意力分数和注意力权重的组合，可以从根本上改进模型表达能力。</p>
+<h2 id="4-动态可组合多头注意力"><a href="#4-动态可组合多头注意力" class="headerlink" title="4.动态可组合多头注意力"></a>4.动态可组合多头注意力</h2><p>在 MHA 中，注意力向量 $A_{i,j}$ 控制了查询向量 $Q_i$ 和键向量 $K_j$ 之间的信息流。在 DCMHA 的核心是一个 <code>Compose</code> 函数，该函数在给定 $Q_i$ 和 $K_j$ 的情况下，将它们的注意力向量 $A_{i,j} \in \mathbb{R}^H$ 转换为一个新的注意力向量 $A’<em>{i,j}$，其公式如下：<br>$$<br>A’</em>{i,j} &#x3D; \text{Compose}(A_{i,j}, Q_i, K_j; \theta) \tag{3}<br>$$<br>从高层次上来看，为了实现 DCMHA，我们只需在 MHA 的计算中插入两个 <code>Compose</code> 函数，其中一个作用在 softmax 之前的注意力分数张量 $A^S$ 上，另一个作用在 softmax 之后的注意力权重张量 $A^W$ 上：<br>$$<br>A^S_i &#x3D; \frac{Q W^Q_i (W^K_i)^T}{\sqrt{D_h}}, \quad A^S &#x3D; \text{Stack}(A^S_1, \ldots, A^S_H)<br>$$</p>
+<p>$$<br>A^S &#x3D; \text{Compose}(A^S, Q, K; \theta_\text{pre}) \tag{4}<br>$$</p>
+<p>$$<br>A^W &#x3D; \text{Softmax}(A^S, \text{dim} &#x3D; -1)<br>$$</p>
+<p>$$<br>A^W &#x3D; \text{Compose}(A^W, Q, K; \theta_\text{post})<br>$$</p>
+<p>$$<br>O_i &#x3D; A^W_i (V W^V_i), \quad O &#x3D; \text{Concat}(O_1, \ldots, O_H) W^O<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$W^Q_i, W^K_i, W^V_i$ 是第 $i$ 个头的投影矩阵。</li>
+<li>$W^O \in \mathbb{R}^{H D_h \times D_m}$ 是输出投影矩阵。</li>
+<li>$\text{Stack}$ 表示沿第一维堆叠，$\text{Concat}$ 表示沿最后一维拼接。</li>
+</ul>
+<p>我们在公式 (3) 中使用了“批量版”<code>Compose</code>，即当查询和键的序列长度分别为 $T$ 和 $S$ 时，将它们打包到矩阵 $Q \in \mathbb{R}^{T \times D_m}$ 和 $K \in \mathbb{R}^{S \times D_m}$ 中，并将它们的注意力张量 $A \in \mathbb{R}^{H \times T \times S}$ 转换为具有相同形状的新张量。</p>
+<p>下面描述 <code>Compose</code> 函数的计算过程。$A_{i,j}$ 依次通过五个分支，并汇聚到一起：</p>
+<ol>
+<li><strong>第一分支</strong>：$A_{i,j}$ 首先通过一个加权矩阵 $\widetilde{W}_b$，其计算独立于 $Q_i$ 或 $K_j$。</li>
+<li><strong>第二分支</strong>：$A_{i,j}$ 首先通过 $w_{q1} \in \mathbb{R}^{H \times R}$ 被投影到一个较低的维度 $R$，然后通过 $w_{q2} \in \mathbb{R}^{R \times H}$ 恢复到原来的维度 $H$。</li>
+<li>动态权重 $w_{q1}$ 和 $w_{q2}$ 是通过 $Q_i$ 计算的。这样，模型可以对头部间的信息共享建模。<br>通过设置 $R \ll H$（本文中 $R &#x3D; 2$），我们假设尽管头部之间可以以多种方式共享，但对于任意一对查询和键，仅需少量的共享模式即可满足。这种情况下，在第三个分支中，$A_{i,j}$ 按元素乘以一个由 $Q_i$ 计算出的门控权重 $w_{qg} \in \mathbb{R}^H$。该分支控制了在给定查询的情况下，各头部保留或遗忘其原始分数的程度。</li>
+</ol>
+<p>计算动态投影权重 $w_{q1}$ 和 $w_{q2}$，从 $Q_i$ 出发，我们使用一个具有单隐藏层和 GELU 激活函数的前馈网络（FFN），其参数为 $W_{q1} \in \mathbb{R}^{D_m \times I}$ 和 $W_{q2} \in \mathbb{R}^{I \times R}$，其中 $I &#x3D; 2HR$。我们在头部数量维度上对 $w_{q1}$ 应用了 RMSNorm（未缩放），以稳定训练，然后将其与 $A_{i,j}$ 相乘。具体计算如下：</p>
+<p>$$<br>w_{q1}, w_{q2} &#x3D; \text{Chunk}(\text{GELU}(Q_i W_{q1}) W_{q2}, \text{dim} &#x3D; 1)<br>$$</p>
+<p>$$<br>w_{q1} &#x3D; \text{Rmsnorm}(\text{Reshape}(w_{q1}, (H, R)), \text{dim} &#x3D; 0) \tag{5}<br>$$</p>
+<p>$$<br>w_{q2} &#x3D; \text{Reshape}(w_{q2}, (R, H))<br>$$</p>
+<p>计算动态门控权重 $w_{qg}$，从 $Q_i$ 出发，我们通过一个线性投影（参数为 $W_{qg} \in \mathbb{R}^{D_m \times H}$），并加上一个 $\text{tanh}$ 非线性函数，计算门控权重 $w_{qg}$：</p>
+<p>$$<br>w_{qg} &#x3D; \text{tanh}(Q_i W_{qg}) \tag{6}<br>$$</p>
+<p>对于 $K_j$，还有两个对称的分支，其计算过程与 $Q_i$ 相同。五个分支的输出被汇总以得到最终的更新向量：</p>
+<p>$$<br>A’<em>{i,j} &#x3D; A</em>{i,j} W_b + A_{i,j} w_{q1} w_{q2} + A_{i,j} w_{qg} + A_{i,j} w_{k1} w_{k2} + A_{i,j} w_{kg} \tag{7}<br>$$</p>
+<p>DCMHA 的可训练参数为：</p>
+<p>$$<br>\theta &#x3D; {W_b, W_{q1}, W_{q2}, W_{qg}, W_{k1}, W_{k2}, W_{kg}}<br>$$</p>
+<p>这些参数与模型的其他参数一起进行端到端的学习。</p>
+<h3 id="4-1-张量分解视角"><a href="#4-1-张量分解视角" class="headerlink" title="4.1 张量分解视角"></a>4.1 张量分解视角</h3><p>为了实现动态头部组合，我们需要 $T \times S$ 的变换矩阵（即组合映射），其形状为 $H \times H$，用于每一对 $Q_i$ 和 $K_j$。换句话说，我们需要计算一个与输入相关的 4 维变换张量 $W \in \mathbb{R}^{T \times S \times H \times H}$ 并将其应用于 3 维注意力张量 $A \in \mathbb{R}^{H \times T \times S}$。</p>
+<p>尽管理论上有多种方法可以做到这一点，但不同的方法可能在效率上有所不同。上述 <code>Compose</code> 的计算等价于将 $W$ 分解为两层，以优化参数和计算效率：</p>
+<p>$$<br>A’<em>{i,j} &#x3D; A</em>{i,j} W_{ij}, \quad i \in [1, T], \ j \in [1, S]<br>$$</p>
+<p>$$<br>W &#x3D; W_b + \text{ED}(\mathcal{W}_q, \text{dim}) + \text{ED}(\mathcal{W}_k, \text{dim})<br>$$</p>
+<p>这里：</p>
+<ul>
+<li>$W_b \in \mathbb{R}^{H \times H}$ 是独立于输入的静态权重。</li>
+<li>$\mathcal{W}_q \in \mathbb{R}^{T \times H \times R}$ 和 $\mathcal{W}_k \in \mathbb{R}^{S \times H \times R}$ 是动态矩阵，分别在行（row-wise）和列（column-wise）上变化。</li>
+</ul>
+<p>公式 (8) 展示了公式 (7) 的“批量版”：</p>
+<p>$$<br>A’<em>{i,j} &#x3D; A</em>{i,j} W_b + A_{i,j} \mathcal{W}<em>q w</em>{q2} + A_{i,j} w_{qg} + A_{i,j} \mathcal{W}<em>k w</em>{k2} + A_{i,j} w_{kg} \tag{8}<br>$$</p>
+<p>变换张量 $W$ 被分解为以下几部分的总和：</p>
+<ol>
+<li>一个二维张量 $W_b \in \mathbb{R}^{H \times H}$，它是输入无关的静态权重。</li>
+<li>两个三维张量 $\mathcal{W}_q$ 和 $\mathcal{W}_k$，它们分别与查询 $Q_i$ 和键 $K_j$ 的行和列相关联。</li>
+</ol>
+<ul>
+<li>$\text{ED}(\cdot, \text{dim})$ 表示沿维度的扩展（ExpandDims）操作。</li>
+<li>动态矩阵 $\mathcal{W}_q$ 和 $\mathcal{W}_k$ 分别在行（row-wise）和列（column-wise）上变化，用于捕捉输入依赖的特性。</li>
+</ul>
+<p>我们称这种分解为 <strong>行加列组合分解（row-plus-column composition）</strong>。<br>这样，3 维张量被分解为两个低秩张量的总和（一个针对行，另一个针对列），从而降低了计算复杂度。</p>
+<ul>
+<li>$\mathcal{W}<em>{q&#x2F;k1} \in \mathbb{R}^{T&#x2F;S \times H \times R}$ 和 $\mathcal{W}</em>{q&#x2F;k2} \in \mathbb{R}^{T&#x2F;S \times R \times H}$ 表示动态张量。</li>
+<li>一个对角张量则由二维张量 $\mathcal{W}_{q&#x2F;k g} \in \mathbb{R}^{T&#x2F;S \times H}$ 填充。</li>
+</ul>
+<p>这种分解形式在其他地方也有使用（例如 Zhao et al., 2016; Gu et al., 2021a），被称为 <strong>低秩加对角分解</strong>（low-rank plus diagonal decomposition）。<br>分解相关的特点如下：</p>
+<ul>
+<li><strong>行加列分解</strong>：低秩加对角分解允许分别对注意力张量 $A$ 应用 $\mathcal{W}_q$ 和 $\mathcal{W}_k$，而无需显式构造大的 4 维张量 $W$。</li>
+<li><strong>尺寸优化</strong>：该分解减少了作用于注意力向量上的变换矩阵的大小，从 $H^2$ 降至 $2HR + H$。</li>
+<li><strong>高效计算</strong>：得益于该分解，结果张量的大小远小于 $W$，因此可以从输入的查询和键高效计算。例如：</li>
+</ul>
+<p>$$<br>\mathcal{W}<em>{qg} &#x3D; \text{tanh}(Q W</em>{qg}) \tag{9}<br>$$</p>
+<p>这是公式 (6) 的批量版本。</p>
+<h3 id="4-2-张量并行训练的分组组合"><a href="#4-2-张量并行训练的分组组合" class="headerlink" title="4.2 张量并行训练的分组组合"></a>4.2 张量并行训练的分组组合</h3><p>在威震天式张量并行（TP）训练中，将一层的注意头分成若干组，并将每组注意头放置在一个节点上，在该节点上执行这些注意头的计算。在典型的TP设置中（例如H &#x3D; 32, TP &#x3D; 4），可以在每组8个头像中组成头像，而不是在所有32个头像中组成头像（每组头像的动态投影等级R可以设置为较小的值1）。由于组成在每个节点内局部进行，因此头像之间没有跨组交互，因此没有DCMHA引入额外的跨节点通信。这种分组组合可以通过对Compose的简单修改来实现。我们实现了分组DCMHA，并通过TP培训对其进行了测试。通过实证研究，我们发现分组构图和全头部构图在性能和速度上差异不大。</p>
+<h3 id="4-3-复杂性分析"><a href="#4-3-复杂性分析" class="headerlink" title="4.3 复杂性分析"></a>4.3 复杂性分析</h3><p>额外参数的比例，即 DCMHA 的 $\theta_{\text{pre}}$ 和 $\theta_{\text{post}}$ 的参数量与整个模型的参数量之比，与头部维度 $D_h$ 成反比，并且在常用的 $D_h$ 值（例如 $128$）下可以忽略不计。<br>额外计算的比例与 $D_h$ 成正比，随着 $\rho &#x3D; S &#x2F; D_m$ 的增加而增加，其中 $S$ 是序列长度。同时，对于足够大的模型（例如参数量 $\geq 6.9B$，$D_m \geq 4096$）以及典型的 $S$ 值（例如 $2048 \leq S \leq 8192$），额外计算的比例仍然非常小。</p>
+<h2 id="5-挑战与潜在困难"><a href="#5-挑战与潜在困难" class="headerlink" title="5.挑战与潜在困难"></a>5.挑战与潜在困难</h2><p><strong>计算开销：</strong>尽管DCMHA在性能上有所提升，但引入的额外操作导致了训练和推理过程中的计算开销增加。作者通过实验表明，这种开销随着模型规模的增大而减少，但在较小规模模型中仍然较为明显。<br><strong>适应现有模型：</strong>由于DCMHA与传统MHA在头投影统计上有较大差异，难以通过微调将预训练的Transformer模型直接转换为DCFormer。作者通过集成梯度归因分析发现，低层头组合对模型性能的影响更大，但预训练模型在微调时低层的更新相对较小，限制了性能提升。<br><strong>并行训练：</strong>在大规模并行训练中，DCMHA需要在每个节点内进行局部组合，避免跨节点通信，这增加了实现的复杂性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://SEER666.github.io">SEER</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://seer666.github.io/2024/11/22/2024112201/">https://seer666.github.io/2024/11/22/2024112201/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://SEER666.github.io" target="_blank">SEER's Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/11/05/20241105/" title="20241105-CSAPP课本阅读"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">20241105-CSAPP课本阅读</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };     第2章 信息的表示和处理2.2 整数表示用位来编码整数的两种不同的方式：一种只能表示非负数，另一种可以表示非负数、零和正数 2.2.1 整型数据类型两条规律：unsigned的最值是signed最值的两倍；了解signed的相关信息：char：2的8次方；short：2的21次方；int、long是2的43次方。特别：C和C++都支持有符号（默认）和无符号数，Java只支持有符号数。 2.2.2 无符号数的编码假设有一个整数数据类型有w位，对于量$\vec{x} &#x3D; [x_{w-1}, x_{w-2}, \cdots, x_0]$: $$B2U_{w}(\vec{x}) \doteq \sum_{i&#x3D;0}^{w-1} x_i \cdot 2^i\quad...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/09/24/2024.9.24/" title="2024.9.24."><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-24</div><div class="info-item-2">2024.9.24.</div></div><div class="info-2"><div class="info-item-1">今天的学习内容今天我阅读了FIGRET-sigcomm2024-1(TE)V2。由于白天在处理计算机系统导论的实验内容，傍晚事先搭建了博客，目前只阅读了摘要部分。 1. 摘要部分流量工程 (TE) 对于提升网络性能和可靠性至关重要。TE 中的一个关键挑战是管理突发的流量激增。现有的TE方案要么无法处理流量突发，要么对所有流量突发情况采取统一防御措施，因此难以在常规场景性能和突发场景性能之间取得平衡。为了解决这一问题，我们提出了FIGRET，一种细粒度的增强鲁棒性的流量工程方案。FIGRET 提供了一种新颖的TE方法，根据不同源-目的对的流量特征，定制不同级别的鲁棒性增强。通过利用基于流量突发感知的损失函数和深度学习技术，FIGRET能够高效生成高质量的TE解决方案。我们对现实生产网络（包括广域网和数据中心）的评估显示，FIGRET 显著优于现有的 TE 方案。与谷歌 Jupiter 数据中心网络中当前部署的 TE 方案相比，FIGRET 将最大链路利用率平均减少了 9%-34%，并将解决方案生成速度提升了 35 到 1800 倍。与 DOTE（一种基于深度学习的最先进的 TE...</div></div></div></a><a class="pagination-related" href="/2024/10/14/2024.10.14/" title="2024.10.14."><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-14</div><div class="info-item-2">2024.10.14.</div></div><div class="info-2"><div class="info-item-1">今天的学习内容今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至TE模型部分。 1.论文关键词流量工程，广域网，数据中心网络，机器学习 2.TE模型部分2.1 概念介绍网络拓扑（Network Topology）通过图𝐺建模的网络拓扑结构是整个流量工程优化的基础。节点表示交换机或路由器，链路表示节点之间的通信线路，链路的容量决定了流量能够通过的上限。 需求矩阵（Demand Matrix, DM）这是一个 ∣𝑉∣×∣𝑉∣的矩阵，用于表示网络中每一对源-目的节点之间的流量需求。需求矩阵帮助TE模型确定需要转发的流量规模，并为流量分配和路径选择提供依据。 最大链路利用率（MLU, Maximum Link Utilization）MLU 是优化目标中最关键的度量指标，表示网络中单条链路的最大利用率。最小化MLU可以避免网络链路的过载问题，提高网络的整体性能。 TE配置（TE...</div></div></div></a><a class="pagination-related" href="/2024/09/25/2024.9.25/" title="2024.9.25."><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-25</div><div class="info-item-2">2024.9.25.</div></div><div class="info-2"><div class="info-item-1">今天的学习内容今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至介绍部分。 1.论文关键词流量工程，广域网，数据中心网络，机器学习 2.介绍部分2.1 原文重现随着网络流量的指数级增长，数据中心网络和广域网（WAN）越来越依赖流量工程（TE）来优化网络性能。TE 通常通过软件定义网络（SDN）的集中控制器实现，定期解决优化问题，以有效地将流量分配到网络路径上，然后将这些解决方案转化为路由器配置。 TE 中的一个主要挑战是管理突发流量。由于中央控制器在收集流量需求、计算新的 TE 解决方案以及更新转发规则时引入的延迟，TE 系统通常需要在实际流量到达之前，基于历史数据预先计算网络配置。然而，实际网络流量本质上的动态性和不可预测性给预测带来了巨大的困难。如果对流量突发准备不足，可能导致严重的网络拥塞，引发延迟增加、数据包丢失率上升以及网络吞吐量下降。因此，增强应对意外流量突发的鲁棒性至关重要。 现有的基于流量突发的 TE...</div></div></div></a><a class="pagination-related" href="/2024/10/15/2024.10.15/" title="2024.10.15."><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-15</div><div class="info-item-2">2024.10.15.</div></div><div class="info-2"><div class="info-item-1">今天的学习内容今天我继续阅读FIGRET-sigcomm2024-1(TE)V2。目前已经阅读至FIGRET部分。 1.论文关键词流量工程，广域网，数据中心网络，机器学习 2.TE模型部分2.1 概念介绍最大链路利用率MLU...</div></div></div></a><a class="pagination-related" href="/2024/10/31/202401031/" title="Fedprox在隐私保护方面的考虑"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-31</div><div class="info-item-2">Fedprox在隐私保护方面的考虑</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };     Journal | [J] Electronics. Volume 12 , Issue 20 . 2023. PP 4364-  Consideration of FedProx in Privacy...</div></div></div></a><a class="pagination-related" href="/2024/10/30/20241030/" title="基于异构数据多隐私机制的局部差分隐私联邦学习-论文阅读"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-30</div><div class="info-item-2">基于异构数据多隐私机制的局部差分隐私联邦学习-论文阅读</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };     Local differential privacy federated learning based on heterogeneous data multi-privacy...</div></div></div></a></div></div><!-- 添加 Valine 评论系统的 HTML 容器--><!-- Valine 评论系统--><div id="vcomments"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SEER</div><div class="author-info-description">Record SEER's learning content.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SEER666"><i class="fab fa-github"></i><span>关注我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的博客已全面升级</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">1.摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BC%95%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">2.引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%80%9A%E8%BF%87%E5%8F%98%E6%8D%A2%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9F%A9%E9%98%B5%E8%BF%9B%E8%A1%8C%E5%A4%B4%E9%83%A8%E7%BB%84%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text">3.通过变换注意力矩阵进行头部组合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%861"><span class="toc-number">3.1.</span> <span class="toc-text">定理1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%862"><span class="toc-number">3.2.</span> <span class="toc-text">定理2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8A%A8%E6%80%81%E5%8F%AF%E7%BB%84%E5%90%88%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="toc-number">4.</span> <span class="toc-text">4.动态可组合多头注意力</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%BC%A0%E9%87%8F%E5%88%86%E8%A7%A3%E8%A7%86%E8%A7%92"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 张量分解视角</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%BC%A0%E9%87%8F%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83%E7%9A%84%E5%88%86%E7%BB%84%E7%BB%84%E5%90%88"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 张量并行训练的分组组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%A4%8D%E6%9D%82%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 复杂性分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8C%91%E6%88%98%E4%B8%8E%E6%BD%9C%E5%9C%A8%E5%9B%B0%E9%9A%BE"><span class="toc-number">5.</span> <span class="toc-text">5.挑战与潜在困难</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/22/2024112201/" title="改进具有动态可组合多头注意力的Transformer"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="改进具有动态可组合多头注意力的Transformer"/></a><div class="content"><a class="title" href="/2024/11/22/2024112201/" title="改进具有动态可组合多头注意力的Transformer">改进具有动态可组合多头注意力的Transformer</a><time datetime="2024-11-22T04:00:00.000Z" title="发表于 2024-11-22 12:00:00">2024-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/05/20241105/" title="20241105-CSAPP课本阅读"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20241105-CSAPP课本阅读"/></a><div class="content"><a class="title" href="/2024/11/05/20241105/" title="20241105-CSAPP课本阅读">20241105-CSAPP课本阅读</a><time datetime="2024-11-05T11:00:00.000Z" title="发表于 2024-11-05 19:00:00">2024-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/05/20241106/" title="20241105-CSAPP课本阅读"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20241105-CSAPP课本阅读"/></a><div class="content"><a class="title" href="/2024/11/05/20241106/" title="20241105-CSAPP课本阅读">20241105-CSAPP课本阅读</a><time datetime="2024-11-05T11:00:00.000Z" title="发表于 2024-11-05 19:00:00">2024-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/01/20241101/" title="解决异构联邦优化中的目标不一致问题-论文阅读"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决异构联邦优化中的目标不一致问题-论文阅读"/></a><div class="content"><a class="title" href="/2024/11/01/20241101/" title="解决异构联邦优化中的目标不一致问题-论文阅读">解决异构联邦优化中的目标不一致问题-论文阅读</a><time datetime="2024-11-01T05:00:00.000Z" title="发表于 2024-11-01 13:00:00">2024-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/31/202401031/" title="Fedprox在隐私保护方面的考虑"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fedprox在隐私保护方面的考虑"/></a><div class="content"><a class="title" href="/2024/10/31/202401031/" title="Fedprox在隐私保护方面的考虑">Fedprox在隐私保护方面的考虑</a><time datetime="2024-10-31T06:00:00.000Z" title="发表于 2024-10-31 14:00:00">2024-10-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By SEER</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/click-show-text.min.js" data-mobile="true" data-text="我,太,想,进,步,了" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+  el: '#vcomments',  // 挂载评论的 HTML 元素
+  appId: 'X7VMJZiKLlND8y3EXDtaqPI5-gzGzoHsz',  // LeanCloud 的 App ID
+  appKey: 'zFn5LKNiWC2vPb3y0RsW1nMK',  // LeanCloud 的 App Key
+  path: window.location.pathname,  // 使用文章的路径作为评论的唯一标识
+  placeholder: '留下你的评论吧...'  // 输入框的占位文本
+})</script></body></html>

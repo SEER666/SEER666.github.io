@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>第5章 文件系统（概要） | SEER's Study</title><meta name="author" content="SEER"><meta name="copyright" content="SEER"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    1.什么是文件和文件系统? 文件系统的主要功能。UNIX系统如何对文件进行分类？它有什么好处？文件：⽂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第5章 文件系统（概要）">
+<meta property="og:url" content="https://seer666.github.io/2024/12/22/20241222/index.html">
+<meta property="og:site_name" content="SEER&#39;s Study">
+<meta property="og:description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    1.什么是文件和文件系统? 文件系统的主要功能。UNIX系统如何对文件进行分类？它有什么好处？文件：⽂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-12-22T13:30:00.000Z">
+<meta property="article:modified_time" content="2024-12-22T14:20:58.351Z">
+<meta property="article:author" content="SEER">
+<meta property="article:tag" content="操作系统复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/126209991?v=4"><link rel="canonical" href="https://seer666.github.io/2024/12/22/20241222/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '第5章 文件系统（概要）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-12-22 22:20:58'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><a href="https://github.com/SEER666" target="_blank"> <img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></a></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/126209991?v=4" alt="Logo"><span class="site-name">SEER's Study</span></a><a class="nav-page-title" href="/"><span class="site-name">第5章 文件系统（概要）</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">第5章 文件系统（概要）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-22T14:20:58.351Z" title="更新于 2024-12-22 22:20:58">2024-12-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]  
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<p><strong>1.什么是文件和文件系统? 文件系统的主要功能。UNIX系统如何对文件进行分类？它有什么好处？</strong><br>文件：⽂件是存储在外部存储器上的具有符号名的相关信息的集合。<br>文件系统：OS中管理⽂件的软件机构，包括管理⽂件所需的数据结构、相应的管理软件和被管理的⽂件。</p>
+<p>文件系统的主要功能：<br>-管理⽂件存储器。记录存储空间使⽤情况，实现分配和回收<br>-实现按名存取。利⽤⽬录结构快速定位⽂件<br>-应具有灵活多样的⽂件结构和存取⽅法，便于⽤户存储和加⼯处理信息<br>-提供⼀套使⽤⽅便、简单的操作命令<br>-保证⽂件信息的安全性<br>-便于⽂件的共享</p>
+<p>UNIX系统对文件分类：<br>-普通⽂件：通常的⽂件<br>-⽬录⽂件：由⽂件⽬录构成的⼀类⽤来维护⽂件系统结构的⽂件。对其处理同普通⽂件<br>-特别⽂件：输⼊设备和输出设备（字符型特别⽂件），输⼊&#x2F;输出型设备（字符块特别⽂件），管道⽂件</p>
+<p>好处：<br>-提高灵活性和扩展性<br>文件分类让系统具有较高的灵活性，能够支持不同类型的文件和资源。操作系统和应用程序可以根据不同类型的文件采取不同的处理方式。例如，普通文件可以直接读取，设备文件则通过特殊的系统调用进行访问，符号链接文件则被解析为其他文件的路径。<br>这种分类机制使得UNIX系统能够轻松支持新类型的文件，甚至可以通过用户自定义的文件类型来扩展文件系统的功能。<br>-简化文件管理和操作<br>通过对文件进行分类，UNIX系统为用户提供了直观的文件管理方式。例如，目录文件提供了层次化的结构来组织文件，而设备文件则允许用户通过文件操作对硬件设备进行控制。<br>用户和程序可以根据文件类型决定如何操作和访问文件，从而避免了混淆和误操作。<br>-增强进程间通信<br>管道文件和套接字文件为进程间通信提供了简便的机制。通过这些文件，进程可以方便地传递数据或消息，不需要复杂的IPC（Inter-Process Communication）机制。<br>使用有名管道、套接字文件等，可以在不同进程之间实现高效的消息传递、数据共享和网络通信。<br>-设备管理<br>设备文件使得UNIX系统能够统一管理所有硬件设备。通过文件系统接口，用户和应用程序可以直接与硬件进行交互，而不需要关心底层硬件细节。<br>这种方式使得硬件设备管理变得简化，尤其是在设备驱动的加载、配置以及控制方面，增强了系统的可维护性和可扩展性。<br>-支持多种文件操作<br>不同类型的文件支持不同的操作。比如，普通文件支持读取和写入操作，设备文件支持设备控制操作，套接字文件支持网络通信等。<br>这种分类允许操作系统提供专门的文件访问方法，从而提高了效率和安全性。<br>-文件系统一致性<br>在UNIX系统中，所有的资源（包括硬件设备、进程间通信等）都可以通过文件来访问。这种一致性设计简化了操作系统的实现，并为用户和程序提供了统一的接口，使得用户能够用一致的方式处理所有类型的文件。</p>
+<p><strong>2.文件目录的作用是什么?文件目录项通常包含哪些内容? 文件控制块。</strong><br>文件目录的作用：<br>-组织文件和管理文件系统：<br>文件目录为操作系统提供了一个层次化的方式来组织文件，使得文件能够根据路径（如目录结构）进行管理。通过文件目录，用户可以在文件系统中查找和定位文件。<br>文件目录使得文件可以被有序存储，避免了所有文件都在一个“平面”中堆叠，从而提供了良好的层次结构和文件管理机制。<br>-文件查找和访问：<br>目录包含了文件名和其他相关信息，操作系统可以通过目录信息快速定位文件的位置（如在磁盘上的位置）。<br>当用户访问文件时，文件系统通过查阅目录项来获取文件的存储位置和属性，从而实现对文件的读取、写入等操作。<br>-支持文件的创建、删除和修改：<br>文件目录记录了文件的元数据（如文件名、文件类型、文件大小等），操作系统通过文件目录来创建新文件、删除旧文件或更新文件属性。<br>当文件创建时，系统会在目录中加入相应的目录项，并为文件分配存储空间；文件删除时，系统会从目录中移除该项。<br>-文件访问控制和权限管理：<br>目录项通常包含文件的权限信息（如读、写、执行权限），操作系统根据目录中的权限设置来控制对文件的访问。<br>用户在访问文件时，系统会根据目录项中的权限信息，检查是否允许执行相应的操作，从而确保文件的安全性。<br>-提供路径信息：<br>目录为文件提供了路径信息，路径描述了从根目录到目标文件的访问路径。文件路径可以是相对路径或绝对路径，帮助用户和程序找到目标文件。<br>-多用户支持和命名空间：<br>文件目录提供了一个命名空间，确保不同用户可以在同一系统中使用相同的文件名而不冲突。每个用户通常有自己的文件目录，操作系统通过不同的目录结构来支持多用户环境。<br>文件目录中的文件名和路径不仅有助于定位文件，还能确保不同用户和进程能独立管理自己的文件。</p>
+<p>文件目录项包含的内容：<br>-文件名<br>-文件标识符或文件句柄<br>-文件类型<br>-文件的存储位置<br>-文件大小<br>-文件的权限信息<br>-文件的创建时间、修改时间和访问时间<br>-文件的所有者和所属用户组<br>-链接计数<br>-其他文件元数据</p>
+<p>文件目录的好处：<br>-高效管理文件：文件目录使得文件在文件系统中有序排列，能够高效地查找、访问和管理文件。<br>-支持文件的权限管理：通过文件目录项中的权限信息，操作系统可以有效地控制对文件的访问，保障文件的安全性。<br>-灵活的文件操作：文件目录为文件创建、删除、移动和重命名等操作提供了支持，同时为文件访问提供了路径信息。<br>-支持文件系统的多层次结构：通过目录结构，UNIX&#x2F;Linux等系统支持层次化的文件系统，使得文件组织更加清晰和易于管理。</p>
+<p><strong>3.文件的逻辑结构有几种形式？文件的存取方法？</strong><br>文件逻辑结构的形式：<br>⽆结构的字节流式⽂件:由⽆结构的先后到达的相关字节组成<br>有结构的记录式⽂件:分为定⻓记录式⽂件和变⻓记录式⽂件</p>
+<p>文件的存取方法：<br>顺序存取：按照⽂件信息的逻辑顺序依次存取；适⽤于顺序访问设备（磁带）和随机访问设备（磁盘）<br>直接存取（随机存取）：基于⽂件的磁盘模型，磁盘允许对任意⽂件块进⾏随机读和写</p>
+<p><strong>4.文件的物理结构有哪几种?对于不同的结构，文件系统是如何进行管理的?</strong><br>文件的物理结构种类：连续⽂件（顺序⽂件）、链接⽂件、索引⽂件、索引顺序⽂件。<br>连续文件：⽂件内容连续存放；<br>链接文件：不要求⽂件内容连续存放。把⽂件所占⽤的物理块⽤链接指针链接起来；<br>索引文件：为每个⽂件建⽴⼀张索引表；⽤索引表记录⽂件内容的存放地址，即记录⽂件的逻辑块号和物理块号之间的对应关系<br>文件目录表：当索引表⻓度超过⼀个磁盘块时，还要对索引表进⾏索引，即建⽴⼆级索引。</p>
+<p><strong>5.DOS文件卷的结构，DOS系统的文件物理结构是什么？</strong><br>DOS文件卷的结构：由多个块（扇区）组成、其⼤⼩由该逻辑盘数据区块数决定，取整数个扇区。<br>物理结构：采⽤链接结构。</p>
+<p><strong>6.了解记录的组块和分解。</strong><br>记录的组块：把多个逻辑记录放在⼀个物理块中的⼯作<br>-必须使⽤主存缓冲区：信息交换是以块为单位进⾏的。⽤户将要写的记录先写⼊主存缓冲区，当缓冲区满时，再写磁盘。<br>记录的分解：从⼀个物理块中将⼀个逻辑记录分离出来的⼯作<br>-⽤户使⽤记录时，先将包含该记录的物理块读⼊内存缓冲区，然后进⾏记录分解。</p>
+<p><strong>7.文件存储空间的管理方法有几种?它们各是如何实现文件存储空间的分配和回收的?</strong><br>连续分配、链式分配、索引分配、混合分配<br>连续分配：通过连续的存储块来提高读写速度，但可能引起磁盘碎片。<br>链式分配：通过链表的方式避免磁盘碎片，但会牺牲存取效率。<br>索引分配：通过索引块来高效管理文件的非连续存储，支持随机访问，但需要额外的存储空间。<br>混合分配：结合多种分配方式的优点，灵活适应不同的需求。</p>
+<p><strong>8.建立多级目录有哪些好处?文件的重名和共享问题是如何得到解决的?</strong><br>建立多级目录的好处：<br>-层次结构清晰，便于管理和保护<br>-有利于文件分类<br>-解决重名问题<br>-提高文件检索速度<br>-能够控制存取权限</p>
+<p>文件重名问题的解决通常依赖于路径、文件系统的命名规则（如区分大小写）、唯一标识符（如时间戳或ID）和版本控制系统等机制，以确保每个文件有唯一的标识。<br>文件共享问题的解决则主要通过文件锁定机制、多版本管理、分布式文件系统、网络文件系统、访问权限管理和进程同步机制等手段来确保多个用户或进程可以安全、有效地共享文件，避免数据冲突或丢失。</p>
+<p><strong>9.文件系统中，常用的文件操作命令有哪些？它们的具体功能是什么?打开和关闭文件命令的目的是什么?</strong><br>创建⽂件<br>-主要功能：在指定设备上为指定路径名的⽂件建⽴⼀个⽬录项，并设置⽂件的有关属性。<br>删除⽂件<br>-主要功能：根据⽂件的路径名找到指定的⽬录项，回收其占⽤的各个物理块，再将该⽬录项置为空。<br>打开⽂件：建⽴进程和⽂件之间联系<br>-根据⽂件路径名找到⽂件⽬录项，进⽽找到FCB。FCB进内存，再创建⽂件对象。<br>-系统打开⽂件表是由⽂件对象组成的链表。<br>-⽂件对象记录了⽂件读&#x2F;写位置指针、⽂件⽅法、共享该⽂件的进程数等信息。<br>-Linux，⽂件对象地址记录在进程打开⽂件表⾥；Windows⽂件对象地址记录在进程句柄表⾥。返回表的索引。<br>关闭⽂件<br>-释放⽂件在主存⾥的⽬录项，切断⽤户与⽂件的联系。<br>-若⽬录项被修改过，则写回辅存。<br>-若⽂件被修改过，则写回辅存。<br>读⽂件<br>-命令中必须指出要读的数据个数，以及存放数据的主存地址。<br>-根据⽂件所在设备、⽂件类型的不同，系统设置不同的读命令。<br>写⽂件<br>-命令中必须指出要写的数据个数，以及存放数据的主存地址，将主存中的数据写到指定的⽂件中。<br>追加⽂件<br>-限制了写⽂件的形式，将数据追加到⽂件尾。<br>随机存取⽂件<br>-重新定位⽂件的读&#x2F;写位置指针。<br>得到⽂件属性(Get Attributes)<br>-进程在执⾏时常常需要了解⽂件的属性。在UNIX系统中，⼀个软件开发项⽬通常由多个源⽂件组成，make程序⽤来管理这些源⽂件。当make被调⽤时，它检查所有源⽂件和⽬标⽂件的修改时间，并且编排出需要重新编译的⽂件数。<br>设置⽂件属性(Set Attributes)<br>-修改⽂件的⼀些属性，以适应⽤户的要求。<br>重命名(Rename)⽂件<br>-重新命名⼀个已经存在的⽂件。</p>
+<p><strong>10.存取控制表ACL的概念。</strong><br>为存取控制矩阵中的每⼀列建⽴⼀张存取控制表(ACL)，⽤⼀有序对(域, 权集)表示。<br>⽂件的ACL记录在FCB中。</p>
+<p><strong>11.理解内存映射文件（memory mapped file）的过程。</strong><br>映射文件到虚拟内存：<br>当程序使用内存映射文件时，它会请求操作系统将文件映射到进程的虚拟内存空间。映射的过程由操作系统的虚拟内存管理系统负责，它会在进程的虚拟内存空间中为文件内容分配一个连续的内存区域。<br>映射过程中，操作系统将文件的物理块与虚拟内存中的地址进行关联。通常，操作系统会为文件中的每一块数据分配虚拟地址，这些地址指向文件的内容，而不是实际的物理内存位置。<br>访问文件内容：<br>映射完成后，程序就可以像操作普通内存一样访问文件的内容。例如，可以直接通过指针或数组来访问文件内容，而无需调用文件操作系统的读取接口。<br>操作系统会负责管理文件内容的加载。当程序访问文件的某个部分时，如果该部分还没有被加载到内存中，操作系统会在后台从磁盘读取数据并将其加载到内存。这种机制叫做按需加载（demand paging）。<br>修改文件内容：<br>当程序通过映射区域修改内存中的数据时，操作系统会将修改的内容同步到文件中，确保文件内容与内存中的数据保持一致。<br>在某些情况下，操作系统可能会推迟文件内容的同步（即延迟写入），直到进程显式要求刷新（flush）或进程退出时自动刷新。<br>同步（Synchronization）：<br>如果多个进程共享同一个映射文件，操作系统会负责确保对文件的更改在所有进程中是可见的。操作系统通过内存保护机制和同步原语（如锁）来协调进程对共享映射区域的访问，避免数据不一致</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://SEER666.github.io">SEER</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://seer666.github.io/2024/12/22/20241222/">https://seer666.github.io/2024/12/22/20241222/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://SEER666.github.io" target="_blank">SEER's Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">操作系统复习</a></div><div class="post-share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">第6章 设备管理（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }  ...</div></div></div></a><a class="pagination-related" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">第4章 存储器管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.概述–功能地址空间存储空间地址重定位1.1 功能-存储器分配： -解决多进程共享主存的问题-地址转换或重定位： -研究各种地址变换方法及相应的地址变换机构。-存储器保护： -防止故障程序破坏OS和其它信息。-存储器扩充： -采用多级存储技术实现虚拟存储器，交换技术。-存储器共享： -研究并发进程如何共享主存中的程序和数据。 1.2 地址空间符号名字空间：源程序中的各种符号名的集合所限定的空间。源程序用符号名访问变量和子程序。编译：由于目标程序在主存中的位置是不可预知的，目标程序中的各个地址总是以“0”为参考地址顺序编码的；逻辑地址，相对地址，虚地址逻辑地址空间：经编译链接后的程序大小所限定的空间。程序地址域，程序地址空间 1.3...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/10/20241210/" title="第1章 操作系统概论"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-10</div><div class="info-item-2">第1章 操作系统概论</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.1 操作系统的定义计算机系统的组成：应用程序 -&gt; 实用程序 -&gt; 操作系统 -&gt; 硬件 接口：外层的软件必须以事先约定的方式，调用内层软件或硬件提供的服务。 操作系统的定义： 是由一系列程序模块组成的一个大型的系统管理程序；依据各种管理和调度策略，对计算机的软、硬件资源进行统一的管理和调度，合理地组织计算机的工作流程，以提高资源利用率。 1.2...</div></div></div></a><a class="pagination-related" href="/2024/12/14/20241214/" title="第3章 进程之间的并发控制和死锁"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-14</div><div class="info-item-2">第3章 进程之间的并发控制和死锁</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.并发进程的特点-对资源的共享引起的互斥关系：进程之间本来是相互独立的，但由于共享资源而产生了关系。-协作完成同一个任务引起的同步关系：一组协作进程要在某些同步点上相互等待发信息后才能继续运行。-进程之间的前序关系：由于进程之间的互斥同步关系，使得进程之间具有了前序关系，这些关系决定了各个进程创建和终止的时间。 -进程之间的关系顺序关系、并行关系、一般关系 2.进程之间的低级通信-进程间的低级通信：通过信号量实现进程之间的互斥和同步关系-进程间通信问题——IPC问题 2.1...</div></div></div></a><a class="pagination-related" href="/2024/12/12/20241212/" title="第2章 进程管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">第2章 进程管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.进程的描述：PCB、状态2....</div></div></div></a><a class="pagination-related" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-22</div><div class="info-item-2">第6章 设备管理（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }  ...</div></div></div></a><a class="pagination-related" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-21</div><div class="info-item-2">第4章 存储器管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.概述–功能地址空间存储空间地址重定位1.1 功能-存储器分配： -解决多进程共享主存的问题-地址转换或重定位： -研究各种地址变换方法及相应的地址变换机构。-存储器保护： -防止故障程序破坏OS和其它信息。-存储器扩充： -采用多级存储技术实现虚拟存储器，交换技术。-存储器共享： -研究并发进程如何共享主存中的程序和数据。 1.2 地址空间符号名字空间：源程序中的各种符号名的集合所限定的空间。源程序用符号名访问变量和子程序。编译：由于目标程序在主存中的位置是不可预知的，目标程序中的各个地址总是以“0”为参考地址顺序编码的；逻辑地址，相对地址，虚地址逻辑地址空间：经编译链接后的程序大小所限定的空间。程序地址域，程序地址空间 1.3...</div></div></div></a></div></div><!-- 添加 Valine 评论系统的 HTML 容器--><!-- Valine 评论系统--><div id="vcomments"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SEER</div><div class="author-info-description">Record SEER's learning content.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SEER666"><i class="fab fa-github"></i><span>关注我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的博客已全面升级</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第6章 设备管理（概要）"/></a><div class="content"><a class="title" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）">第6章 设备管理（概要）</a><time datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第5章 文件系统（概要）"/></a><div class="content"><a class="title" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）">第5章 文件系统（概要）</a><time datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第4章 存储器管理"/></a><div class="content"><a class="title" href="/2024/12/21/20241221/" title="第4章 存储器管理">第4章 存储器管理</a><time datetime="2024-12-21T13:30:00.000Z" title="发表于 2024-12-21 21:30:00">2024-12-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/14/20241214/" title="第3章 进程之间的并发控制和死锁"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第3章 进程之间的并发控制和死锁"/></a><div class="content"><a class="title" href="/2024/12/14/20241214/" title="第3章 进程之间的并发控制和死锁">第3章 进程之间的并发控制和死锁</a><time datetime="2024-12-14T06:30:00.000Z" title="发表于 2024-12-14 14:30:00">2024-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/12/20241212/" title="第2章 进程管理"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第2章 进程管理"/></a><div class="content"><a class="title" href="/2024/12/12/20241212/" title="第2章 进程管理">第2章 进程管理</a><time datetime="2024-12-12T06:30:00.000Z" title="发表于 2024-12-12 14:30:00">2024-12-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By SEER</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/click-show-text.min.js" data-mobile="true" data-text="我,太,想,进,步,了" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+  el: '#vcomments',  // 挂载评论的 HTML 元素
+  appId: 'X7VMJZiKLlND8y3EXDtaqPI5-gzGzoHsz',  // LeanCloud 的 App ID
+  appKey: 'zFn5LKNiWC2vPb3y0RsW1nMK',  // LeanCloud 的 App Key
+  path: window.location.pathname,  // 使用文章的路径作为评论的唯一标识
+  placeholder: '留下你的评论吧...'  // 输入框的占位文本
+})</script></body></html>

@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>作业题汇总：第7章之后 | SEER's Study</title><meta name="author" content="SEER"><meta name="copyright" content="SEER"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    第7章  Linux进程管理1.进程控制块，其中与进程管理、存储器管理和文件管理有关的一些字段，线程组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作业题汇总：第7章之后">
+<meta property="og:url" content="https://seer666.github.io/2024/12/22/20241227/index.html">
+<meta property="og:site_name" content="SEER&#39;s Study">
+<meta property="og:description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    第7章  Linux进程管理1.进程控制块，其中与进程管理、存储器管理和文件管理有关的一些字段，线程组">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-12-22T13:30:00.000Z">
+<meta property="article:modified_time" content="2024-12-28T04:18:42.215Z">
+<meta property="article:author" content="SEER">
+<meta property="article:tag" content="操作系统复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/126209991?v=4"><link rel="canonical" href="https://seer666.github.io/2024/12/22/20241227/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '作业题汇总：第7章之后',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-28 12:18:42'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><a href="https://github.com/SEER666" target="_blank"> <img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></a></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/126209991?v=4" alt="Logo"><span class="site-name">SEER's Study</span></a><a class="nav-page-title" href="/"><span class="site-name">作业题汇总：第7章之后</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">作业题汇总：第7章之后</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-28T04:18:42.215Z" title="更新于 2024-12-28 12:18:42">2024-12-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]  
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h2 id="第7章-Linux进程管理"><a href="#第7章-Linux进程管理" class="headerlink" title="第7章  Linux进程管理"></a>第7章  Linux进程管理</h2><p><strong>1.进程控制块，其中与进程管理、存储器管理和文件管理有关的一些字段，线程组标识符。</strong><br>进程管理相关字段：</p>
+<ul>
+<li>进程标识符：唯一标识一个进程的数值；</li>
+<li>进程状态：描述进程当前状态；</li>
+<li>程序计数器：指示进程下一条指令的地址；</li>
+<li>CPU寄存器：保存进程在切换时的寄存器内容；</li>
+<li>调度信息：包含优先级、调度队列指针以及其他调度算法使用的；</li>
+<li>进程优先级：指示进程的优先级，影响调度决策。<br>存储器管理相关字段：</li>
+<li>基址寄存器和界限寄存器：用于进程地址空间的界定，保护内存；</li>
+<li>页表指针：指向进程的页表，用于虚拟内存管理；</li>
+<li>段表指针：指向进程的段表，用于段式内存管理；</li>
+<li>内存限制：描述进程可以使用的内存范围。<br>文件管理相关字段：</li>
+<li>文件描述符表：存储进程打开的文件的列表及其状态；</li>
+<li>根目录和当前工作目录：进程的根目录和当前工作目录信息；</li>
+<li>权限信息：描述进程对文件系统中资源的访问权限。<br>线程组标识符：</li>
+<li>用于标识一个线程组，所有属于同一线程组的线程共享同一个TFID；</li>
+<li>在一些系统中，TGID可以与进程标识符相同，以便于管理。</li>
+</ul>
+<p><strong>2.与进程创建有关的函数：fork( )、vfork( )、clone( )。</strong><br>fork():</p>
+<ul>
+<li>创建子进程函数；</li>
+<li>创建成功后，子进程采用写时复制技术读共享父进程的全部地址空间，仅当父或子要写一个页时，才为其复制一个私有的页的副本。<br>vfork():</li>
+<li>阻塞父进程直到子进程退出或执行了一个新程序为止。<br>clone():</li>
+<li>创建轻量级进程函数；</li>
+<li>实现对多线程应用程序的支持。共享进程在内核的很多数据结构，如页表、打开文件表等。</li>
+</ul>
+<p><strong>3.理解进程切换的过程。涉及到页目录表、核心栈、硬件上下文。</strong></p>
+<ul>
+<li>第⼀步，切换*<em>⻚⽬录表</em>以安装⼀个新的地址空间；</li>
+<li>第二步，切换*<em>核⼼栈</em> 和 *<em>硬件上下⽂</em>（即必须装⼊CPU寄存器的⼀组数据）。</li>
+</ul>
+<p><strong>4.进程调度方式。进程调度时机。</strong></p>
+<ul>
+<li>系统采⽤*<em>可抢先式的动态优先级调度⽅式</em>。⽆论进程处于⽤户态还是核⼼态运⾏，都可能被抢占CPU。</li>
+</ul>
+<p><strong>5.Linux有很多内核线程，了解0号进程和1号进程的作用。</strong></p>
+<ul>
+<li>0号进程就是⼀个内核线程，0号进程是所有进程的祖先进程，⼜叫idle进程或叫做swapper进程。每个CPU都有⼀个0号进程。</li>
+<li>1号进程是由0号进程创建的内核线程init，负责完成内核的初始化⼯作。在系统关闭之前，init进程⼀直存在，它负责创建和监控在操作系统外层执⾏的所有⽤户态进程。</li>
+</ul>
+<h2 id="第8章-Linux存储器管理"><a href="#第8章-Linux存储器管理" class="headerlink" title="第8章 Linux存储器管理"></a>第8章 Linux存储器管理</h2><p><strong>1.进程地址空间的划分？管理进程私有地址空间的数据结构？链接虚拟内存区域的单链表和红黑树。指向映射文件对象的指针字段？指向进程页目录表的指针字段？</strong><br>进程地址空间的划分：</p>
+<ul>
+<li>32位机，每个进程的地址空间为4GB</li>
+<li>进程的私有地址空间是前3G，进程的公有地址空间是后1G的内核虚空间</li>
+<li>内核1GB虚空间<ul>
+<li>前896MB⽤来映射物理内存的前896MB，因此前896MB的内存物理地址等于内核虚地址减0xc0000000</li>
+<li>后128MB的虚空间实现对超过896MB的物理内存的映射<br>管理进程私有地址空间的数据结构：</li>
+</ul>
+</li>
+<li>页表、段表、虚拟内存区域、内存描述符<br>链接虚拟内存区域的单链表、红黑树：</li>
+<li>单链表：需⽤⼀组虚拟内存区域描述符vm_area_struct来描述进程地址空间的使用情况；</li>
+<li>红黑树：排好序的平衡二叉树<ul>
+<li>四条规则：树中的每个节点或为红或为⿊；树的根节点必须为⿊；红节点的孩⼦必须为⿊；从⼀个节点到后代诸叶⼦节点的每条路经，都包含相同数量的⿊节点，在统计⿊节点个数时，空指针也算作⿊节点。</li>
+<li>四条规则保证：具有n个节点的红⿊树，其⾼度⾄多为2*log(n+1)；红⿊树保证最⻓路径不超过最短路径的⼆倍，因⽽近似平衡。<br>指向映射文件对象的指针字段：struct file * vm_file;  映射⽂件时指向⽂件对象。<br>指向进程页目录表的指针字段：mm_struct的指针。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2.Linux堆的管理：malloc( )，free( )。</strong></p>
+<ul>
+<li>malloc():用于在堆上分配一块指定大小的内存。</li>
+<li>free():用于释放由malloc()、calloc()或realloc()分配的内存块。</li>
+</ul>
+<p><strong>3.管理物理内存页框的数据结构？内存管理区zone结构，伙伴系统？了解分区页框分配器分配页框的过程。</strong><br>管理物理内存页框的数据结构：</p>
+<ul>
+<li>struct page结构体<br>内存管理区zone结构：</li>
+<li>ZONE_DMA：包含低于16MB的常规内存⻚框。⽤于对⽼式的基于ISA设备的DMA⽀持；</li>
+<li>ZONE_NORMAL：包含⾼于16MB且低于896MB的常规内存⻚框；</li>
+<li>ZONE_HIGHMEM：包含从896MB开始的⾼端物理⻚框。内核不能直接访问这部分⻚框。在64位体系结构上，该区总是空的。<br>伙伴系统：</li>
+<li>假设要请求⼀个具有8个连续⻚框的块；</li>
+<li>该算法先在8个连续⻚框块的链表中检查是否有：<ul>
+<li>如果有，则分配；</li>
+<li>如果没有：<ul>
+<li>就在16个连续⻚框块的链表中找；</li>
+<li>如果找到，就把这16个连续⻚框分成两等份，⼀份⽤来满⾜请求，另⼀份插⼊到具有8个连续⻚框块的链表中；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果在16个连续⻚框块的链表中没有找到，就在更⼤的块链表中查找。</li>
+<li>直到找到为⽌。<br>分区页框分配器分配页框的过程：</li>
+<li>确定目标zone；</li>
+<li>查找适当的free_area；</li>
+<li>分配内存块；</li>
+<li>更新元数据。</li>
+</ul>
+<p><strong>4.理解slab分配器的原理。slab分配器的作用？</strong><br>slab分配器的原理：为只有⼏⼗或⼏百个字节的⼩内存区分配内存。<br>slabe分配器的作用：</p>
+<ul>
+<li>从⻚框分配器获得⼏组连续空闲⻚框；</li>
+<li>slab分配器为不同类型的对象⽣成不同的⾼速缓存，每个⾼速缓存存储相同类型的对象。⾼速缓存由⼀连串的slab构成，每个slab包含了若⼲个同类型的对象。</li>
+</ul>
+<p><strong>5.进程页表建立的时机？了解页目录表项或页表项所包含的字段。逻辑地址的划分，利用两级页表实现地址转换的过程。</strong><br>进程页表建立的时机：进程创建时初始化，在访问新内存区域或发生缺页异常时更新。<br>页表项所包含的字段：</p>
+<ul>
+<li>Present标志：为1，表示页（页表）在内存；为0，不在内存。</li>
+<li>页框物理地址（20位）：页框大小为4096，占去12位。</li>
+<li>Accessed标志：页框访问标志，为1表示访问过。</li>
+<li>Dirty标志：每当对一个页框进行写操作时就设置这个标志。<br>逻辑地址的划分：页目录索引（前10位）、页表索引（中10位）、页内偏移（后12位）。<br>利用两级页表数实现地址转换的过程：</li>
+<li>获取页目录项；</li>
+<li>获取页表项；</li>
+<li>获取物理页框地址，偏移，得到最终的物理地址。</li>
+</ul>
+<p><strong>6.请求调页。所缺的页可能存放的地方。</strong><br>请求调页：</p>
+<ul>
+<li>增加了系统中的空闲⻚框数；</li>
+<li>⻚⾯置换策略是LFU。<br>所缺的页可能存放的地方：</li>
+<li>该⻚从未被进程访问过，且没有相应的内存映射；</li>
+<li>该⻚已被进程访问过，但其内容被临时保存到磁盘交换区上；</li>
+<li>该⻚在⾮活动⻚框链表中；</li>
+<li>该⻚正在由其它进程进⾏I&#x2F;O传输过程中。</li>
+</ul>
+<p><strong>7.了解盘交换区空间的管理方法。</strong></p>
+<ul>
+<li>每个盘交换区都由⼀组4KB的⻚槽组成</li>
+<li>盘交换区的第⼀个⻚槽⽤来存放该交换区的有关信息，有相应的描述符。</li>
+<li>存放在磁盘分区中的交换区只有⼀个⼦区，存放在普通⽂件中的交换区可能有多个⼦区，原因是磁盘上的⽂件不要求连续存放。</li>
+<li>内核尽⼒把换出的⻚存放在相邻的⻚槽中，减少访问交换区时磁盘的寻道时间。</li>
+</ul>
+<h2 id="第9-10章-Linux文件系统"><a href="#第9-10章-Linux文件系统" class="headerlink" title="第9-10章 Linux文件系统"></a>第9-10章 Linux文件系统</h2><p><strong>1.Ext2文件卷的布局？各部分的作用是什么？</strong><br>Ext2文件卷的布局：</p>
+<ul>
+<li>把磁盘块分为组，每组包含存放在相邻磁道的数据块和索引节点，块组的⼤⼩相等并顺序安排；</li>
+<li>⽤“块组描述符”来描述这些块组本⾝的结构信息，同时将超级块和所有块组描述符重复存储于每个块组中；</li>
+<li>通过“位图”来管理每个块组中的磁盘块和索引节点。盘块位图，索引节点位图。<br>各部分的作用：</li>
+<li>超级块存放整个⽂件卷的资源管理信息；</li>
+<li>索引节点存放⽂件的管理控制信息；</li>
+<li>只有块组0中所包含的超级块和块组描述符才由内核使⽤，⽽其余的超级块和块组描述符保持不变，事实上，内核甚⾄不考虑它们；</li>
+<li>盘块位图必须存放在⼀个单独的块中；</li>
+<li>索引节点位图也必须存放在⼀个单独块中。</li>
+</ul>
+<p><strong>2.Linux系统把一般的文件目录项分成哪两部分？这样做的好处是什么？</strong><br>文件目录项分为的两部分：简单目录项和索引节点。<br>好处：</p>
+<ul>
+<li>简单⽬录项包含了⽂件名和索引节点号等，可以提⾼⽂件⽬录的检索速度；</li>
+<li>系统只保留⼀个索引节点，就可实现多条路径共享⽂件，减少信息冗余。</li>
+</ul>
+<p><strong>3.Linux文件系统的索引节点中，索引表划分成几级？文件的索引表是如何增长的？要求能够利用索引表实现将文件中的字节地址转换成文件的物理块的操作。</strong><br>索引表划分等级：3级：直接索引项、一次间接索引块、二次间接索引块、三次间接索引块；<br>文件索引表的增长方式：文件大小增长时，索引表逐级增长，从直接索引到一次、二次和三次间接索引块；<br>字节地址到物理块的转换：通过查找索引节点中的直接索引或通过间接索引表进行查找，将文件的逻辑地址（字节地址）映射到物理块的地址。</p>
+<p><strong>4.硬链接和符号链接的区别？</strong></p>
+<ul>
+<li>硬链接是通过索引节点(inodeindex)来进行链接的，多个文件名指向同一索引点。保存在磁盘分区中的文件不管是什么类型都有一个编号，称为索引节点号（inodeindex）。硬链接的作用是允许一个文件拥有多个有效路径名。</li>
+<li>硬链接文件有两个限制：<ul>
+<li>不允许给目录创建硬链接；</li>
+<li>只允许在同一文件系统中的文件之间才能创建链接。</li>
+</ul>
+</li>
+<li>对于硬练级文件进行读写和删除操作的时候，结果和符号链接相同。但是如果我们删除硬链接文件的源文件，硬链接文件仍存在，而且保留了原有的内容。</li>
+<li>符号链接在建立的时候建立了一个新的inode，并记录了指向源文件inode的路径。所以符号的inode number跟原始档案的inode number是不一样的。</li>
+<li>符号链接文件包含了另一个文件的路径名。可以是任意文件或目录，也可以链接不同文件系统的文件。在对符号链接进行读写操作的时候，系统会自动把该操作转换为对源文件的操作。但是删除链接文件时，系统仅仅删除符号链接文件，而不删除源文件本身。</li>
+</ul>
+<p><strong>5.Linux文件系统如何管理空闲存储空间？</strong><br>空闲存储空间管理：</p>
+<ul>
+<li>磁盘块和索引节点的分配和回收<ul>
+<li>⽂件的数据块和其索引节点尽量在同⼀个块组中；</li>
+<li>⽂件和它的⽬录项尽量在同⼀个块组中；</li>
+<li>⽗⽬录和⼦⽬录尽量在同⼀个块组中；</li>
+<li>每个⽂件的数据块尽量连续存放。</li>
+</ul>
+</li>
+</ul>
+<p><strong>6.VFS通用文件模型中的四个主要对象？</strong></p>
+<ul>
+<li>超级块对象：Linux为每个安装好的⽂件系统都建⽴⼀个超级块对象；</li>
+<li>索引节点对象：打开的⽂件对应的…</li>
+<li>⽬录项对象</li>
+<li>⽂件对象：记录了进程与打开的⽂件之间的交互信息。</li>
+</ul>
+<p><strong>7.Linux系统中，进程打开一个磁盘文件要涉及哪些数据结构？了解：它们各有哪些关键字段？他们的作用是什么？参考图</strong><br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Qu0QuwiGwOFtZXqI6puMGA">图 进程打开文件的过程 提取码7568</a></p>
+<ul>
+<li>task_struct<ul>
+<li>files：指向 files_struct 的指针。</li>
+<li>作用：task_struct 是每个进程在内核中的表示，其中包含了进程的所有信息，包括打开的文件等。files 字段指向该进程所有打开文件的描述信息。</li>
+</ul>
+</li>
+<li>files_struct<ul>
+<li>fd_array[]：文件描述符数组，每个条目指向一个 file 结构。</li>
+<li>作用：files_struct 维护了一个进程的所有打开文件的列表。每个已打开的文件都会在 fd_array[] 中有一个条目，条目内容为指向对应 file 结构体的指针。</li>
+</ul>
+</li>
+<li>file<ul>
+<li>f_list：链表，连接在同一文件结构中的所有文件对象。</li>
+<li>f_dentry：指向 dentry 结构的指针。</li>
+<li>f_op：指向文件操作的函数指针（file_operations）。</li>
+<li>f_pos：当前文件的位置偏移量。</li>
+<li>f_count：引用计数器。</li>
+<li>作用：file 结构表示一个已打开的文件。它包含了文件的状态信息，包括当前文件位置、引用计数和文件操作函数。在访问文件内容时，通过 f_dentry 字段，file 结构指向文件的 dentry 结构（目录项）。</li>
+</ul>
+</li>
+<li>dentry<ul>
+<li>d_inode：指向 inode 结构的指针。</li>
+<li>d_op：指向目录项操作（dentry_operations）。</li>
+<li>作用：dentry 结构用于目录项管理。它包含了文件名到 inode 的映射，用于加速文件路径的查找。访问文件时，通过 d_inode 字段，dentry 结构指向文件的 inode 结构。</li>
+</ul>
+</li>
+<li>inode<ul>
+<li>i_ino：文件的 inode 编号。</li>
+<li>i_op：指向 inode 操作的函数指针（inode_operations）。</li>
+<li>i_nlink：文件的硬链接计数。</li>
+<li>i_data[]：文件数据块指针。</li>
+<li>作用：inode 结构包含了文件的元数据，包括权限、所有者、大小等。在访问文件数据时，inode 中的 i_data 字段指向数据块的地址，i_op 字段指向一组函数，这些函数定义了操作 inode 的方法。</li>
+</ul>
+</li>
+<li>ext2_inode_info<ul>
+<li>i_data[15]：指向文件数据块的指针数组。</li>
+<li>作用：ext2_inode_info 是 inode 结构的一个具体实现，用于特定的文件系统类型（如 ext2&#x2F;ext3&#x2F;ext4 等）。i_data[15] 包含了文件数据块的指针（直接、间接、双重间接，三重间接指针）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>8.一个文件在使用与不用时各占用系统哪些资源？</strong><br>文件未被使用时：</p>
+<ul>
+<li>磁盘空间：inode、数据块、目录项。<br>文件被使用时：</li>
+<li>内存：文件描述符表、文件表项、目录项缓存、inode缓存；</li>
+<li>内核数据结构；</li>
+<li>缓存：页面缓存、缓冲区缓存；</li>
+</ul>
+<p><strong>9.安装表的作用是什么？</strong><br>内核将安装点与被安装的⽂件系统信息保存在vfsmount结构中，形成⼀个链式安装表。<br>作用：</p>
+<ul>
+<li>记录已挂载的文件系统；</li>
+<li>路径名解析；</li>
+<li>挂载和卸载操作；</li>
+<li>文件系统操作的统一接口；</li>
+<li>系统维护和状态监控。</li>
+</ul>
+<h2 id="第14章-Windows操作系统模型"><a href="#第14章-Windows操作系统模型" class="headerlink" title="第14章 Windows操作系统模型"></a>第14章 Windows操作系统模型</h2><p><strong>1.Windows 采用什么样的体系结构？</strong><br>分为用户态、核心态两部分。</p>
+<ul>
+<li>用户态：系统与服务进程、应用程序（子系统DLL）、Windows子系统进程、Ntdll.dll；</li>
+<li>核心态：执行体P267、内核、硬件抽象层、设备驱动程序、win32k.sys、NTFS.sys。</li>
+</ul>
+<p><strong>2.硬件抽象层HAL的作用是什么？</strong><br>作用：直接操纵硬件。</p>
+<p><strong>3.Windows系统组件的基本机制包括：陷阱调度、执行体对象管理器、同步（自旋锁、内核调度程序对象）、本地过程调用LPC等。</strong><br>Windouws的系统机制：</p>
+<ul>
+<li>陷阱调度<ul>
+<li>属于内核的功能；</li>
+<li>包括中断、DPC、APC、异常调度、系统服务调度。</li>
+</ul>
+</li>
+<li>执⾏体对象管理器</li>
+<li>同步<ul>
+<li>⾃旋锁、内核调度程序对象。</li>
+</ul>
+</li>
+<li>本地过程调⽤LPC<ul>
+<li>在同⼀台计算机上实现客户进程和服务器进程之间的消息传递。</li>
+<li>服务器创建⼀个LPC连接端⼝对象，然后在该端⼝上监听客户连接请求</li>
+<li>类似socket编程</li>
+</ul>
+</li>
+</ul>
+<p><strong>4.理解：延迟过程调用DPC，异步过程调用APC。</strong><br>延迟过程调用DPC：<br>DPC被内核⽤来执⾏⼀些相对于当前⾼优先级的任务来说不那么紧急的任务；有时内核在进⾏系统嵌套调⽤时，检测到应该进⾏线程调度，为了保证调度的正确性，内核⽤DPC来延迟调度的产⽣。</p>
+<p>异步过程调用APC：</p>
+<ul>
+<li>每个线程都有⾃⼰的APC队列。 当⼀个线程被调度时，它的APC过程会⽴刻被执⾏。</li>
+<li>两种APC：<ul>
+<li>核心态APC：可以中断线程，在线程被调度时⽴即执⾏，不需要得到线程的“允许”</li>
+<li>⽤户态APC：需要得到线程的“允许”才能执⾏。如异步I&#x2F;O，异步读取完成后调⽤回调函数（完成例程）是通过APC实现的。</li>
+</ul>
+</li>
+</ul>
+<p><strong>5.Windows中有哪些对象，都有什么作用？</strong></p>
+<ul>
+<li>两种类型对象：执行体对象和内核对象。</li>
+<li>执行体组件：进程和线程管理器、内存管理器、I&#x2F;O管理器、对象管理器等。– 内核对象是由内核实现的一个初级对象集，对用户态代码不可见，仅供执行体使用。一个执行体对象可以包含一个或多个內核对象。</li>
+</ul>
+<p><strong>6．在多处理机系统中，提供了哪些同步和互斥机制？</strong></p>
+<ul>
+<li>内核引入自旋锁实现多处理机互斥机制。</li>
+<li>内核以内核对象的形式给执行体提供其他的同步机构—“调度程序对象”，包括：进程对象、线程对象、事件对象、信号量对象、互斥体对象、可等待的定时器对象及文件对象等。</li>
+<li>每个同步对象都有“有信号”或“无信号”两种状态。</li>
+</ul>
+<p><strong>7.如何实现等待一个同步对象的操作？</strong></p>
+<ul>
+<li>创建并初始化同步对象</li>
+<li>等待同步对象</li>
+<li>执行共享资源的操作</li>
+<li>释放同步对象</li>
+<li>销毁同步对象</li>
+</ul>
+<h2 id="第15章-Windows-进程和线程管理"><a href="#第15章-Windows-进程和线程管理" class="headerlink" title="第15章  Windows 进程和线程管理"></a>第15章  Windows 进程和线程管理</h2><p><strong>1.管理进程和线程的数据结构：执行体进程块EPROCESS、执行体线程块ETHREAD、内核进程块KPROCESS、内核线程块KTHREAD。</strong><br>执行体进程块EPROCESS:</p>
+<ul>
+<li>内核进程块</li>
+<li>进程的句柄表</li>
+<li>页目录页面的页表项32位</li>
+<li>进程的可执行映像文件名</li>
+<li>指向可执行映像文件的区域对象</li>
+<li>该区域的基地址</li>
+<li>物理VAD树的根</li>
+<li>进程工作集页面</li>
+<li>位于进程私有地址空间的环境块</li>
+<li>指向由Windows子系统管理的进程区域，</li>
+<li>此值不为空，说明是GUI进程。</li>
+<li>进程的优先级</li>
+<li>线程链表</li>
+<li>所有活动进程连接在一起</li>
+</ul>
+<p>执行体线程块ETHREAD</p>
+<ul>
+<li>线程的起始地址  等</li>
+</ul>
+<p>内核进程块KPROCESS：</p>
+<ul>
+<li>调度程序对象</li>
+<li>页目录表的物理地址</li>
+<li>基本优先级</li>
+</ul>
+<p>执行体线程块KTHREAD</p>
+<ul>
+<li>核心栈的栈指针</li>
+<li>与调度和同步有关的信息（优先级、时间片、当前的状态、等待块列表等）</li>
+<li>与本线程有关的APC列表</li>
+</ul>
+<p><strong>2.创建进程：CreateProcess()；创建线程：CreateThread()</strong><br>创建进程：</p>
+<ul>
+<li>打开可执行文件(.exe)，创建一个区域对象，建立可执行文件与虚拟内存之间的映射关系。</li>
+<li>创建执行体进程对象EPROCESS。</li>
+<li>创建一个主线程。</li>
+<li>通知Win32子系统。对新进程和线程进行一系列初始化。</li>
+<li>完成地址空间的初始化，开始执行程序。<br>创建线程：CreateThread()</li>
+<li>线程对象的服务</li>
+</ul>
+<p><strong>3.线程的7种状态，及其解释。</strong></p>
+<ul>
+<li>就绪状态</li>
+<li>备用状态(standby)。已选好处理机，正等待描述表切换，以便进入运行状态</li>
+<li>运行状态(Running)</li>
+<li>等待状态(waiting)</li>
+<li>传输状态(transition)。核心栈被调到外存的就绪态。</li>
+<li>终止状态(terminated)</li>
+<li>初始化状态(Initialized)。正在创建过程中。</li>
+</ul>
+<p><strong>4.线程调度：基于优先级的抢先式的多处理机调度系统。线程调度程序的数据结构：32个就绪线程队列、32位线程就绪队列位图、32位处理机空闲位图。</strong><br>线程调度：基于优先级的抢先式的多处理器调度系统，优先级相同时按时间片轮转。、<br>线程调度程序的数据结构：</p>
+<ul>
+<li>32个就绪队列：每个优先级对应一个。</li>
+<li>32位掩码的就绪位图：一位指示一个优先级就绪队列中是否有线程等待运行。</li>
+<li>32位掩码的空闲位图：每一位指示一个处理机是否处于空闲状态。</li>
+</ul>
+<p><strong>5.线程优先级的提升时机。</strong><br>系统会提升线程的优先级，以改善性能</p>
+<ul>
+<li>I&#x2F;O操作完成后的线程</li>
+<li>信号量或事件等待结束的线程</li>
+<li>前台进程中的线程完成一个等待操作</li>
+<li>由于窗口活动而唤醒GUI线程</li>
+<li>线程处于就绪状态超过一定时间，仍未能进入运行状态(处理器饥饿)</li>
+</ul>
+<h2 id="第16章-Windows-存储器管理"><a href="#第16章-Windows-存储器管理" class="headerlink" title="第16章  Windows 存储器管理"></a>第16章  Windows 存储器管理</h2><p><strong>1.两种数据结构：虚拟地址描述符VAD、区域对象，这两种结构各有什么作用？</strong><br>虚拟地址描述符VAD：</p>
+<ul>
+<li>当线程要求分配一块连续虚存时，存储器管理器不立即为其构建页表</li>
+<li>而是为它建立一个VAD结构<ul>
+<li>被分配的地址域起始、结束地址</li>
+<li>该域是共享的还是私有的</li>
+<li>该域的存取保护</li>
+<li>该域是否可继承</li>
+<li>…</li>
+</ul>
+</li>
+<li>进程的VAD结构被构造成自平衡二叉树<br>区域对象：</li>
+<li>称为文件映射对象，是一个可被多个进程共享的存储区</li>
+<li>一个区域对象可被多个进程打开</li>
+<li>利用区域对象映射磁盘上的文件（包括页文件，可执行文件）</li>
+<li>然后访问这个文件就象访问内存中的一个大数组，而不需要读&#x2F;写操作</li>
+<li>执行体、高速缓冲管理器、进程均可使用</li>
+</ul>
+<p><strong>2.虚拟内存区域：空闲的、保留的、提交的</strong><br>进程私有2G地址空间的地址域可能是空闲的，被保留reserved，被提交committed。</p>
+<ul>
+<li>空闲的：还没有被使用过</li>
+<li>被保留：已预留虚存，还没分配物理主存</li>
+<li>被提交：已分配物理主存或交换区</li>
+</ul>
+<p><strong>3.32位逻辑地址，二级页表。页目录表项和页表项具有相同的数据结构，该数据结构包含哪些数据项？进程页表建立的时机。进程的地址转换过程。</strong><br>x86采用二级页表结构：页目录表、页表；<br>n页表和页目录表的结构相同；<br>数据项：大页位、修改位、访问位、页的写保护位、有效位等。<br>进程页表的构建：一直推迟到访问页时才建立。（“懒惰”方式）<br>进程的地址转换过程：</p>
+<ul>
+<li>结构：页目录索引、页表索引、页内字节索引</li>
+<li>利用页目录索引访问页目录表获取页表基地址。</li>
+<li>利用页表索引访问页表获取物理帧地址。</li>
+<li>物理帧地址 + 页内偏移 &#x3D; 物理地址</li>
+</ul>
+<p><strong>4.管理物理内存的数据结构：页框数据库。页框的8种状态：活动、转换、备用、更改、更改不写入、空闲、零初始化、坏，页框的状态转换图16.9。</strong><br>管理物理内存的数据结构：页框数据库是一个数组，其索引号从0到主存的页框总数-1。<br>页框的8种状态：</p>
+<ul>
+<li>活动（有效）：是进程工作集的一部分</li>
+<li>转移 Transition：说明一个页框正处于I&#x2F;O操作进行中</li>
+<li>备用Standby：已不属于工作集，页表项仍然指向该页，但被标记为正在转移的无效PTE</li>
+<li>更改Modified：已不属于工作集，修改未写磁盘，页表项仍指向该页，被标记为正在转移的无效PTE </li>
+<li>更改不写入Modified no-write：更改但不写入磁盘</li>
+<li>空闲 Free：不属于任何一个工作集</li>
+<li>零初始化 Zeroed：清零的空闲页框</li>
+<li>坏页框Bad：奇偶校验或其他硬件错误，不能再使用<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1DA2PGyGniNt_3o9Uziz10w">状态转换图 提取码7568</a></li>
+</ul>
+<p><strong>5.原型页表，区域对象的页表。虚拟页式中，采用原型页表实现多进程共享页。</strong></p>
+<ul>
+<li>当一个页框被两个或多个进程共享时，存储器管理器依靠一个称为“原型页表”（Prototype PTE）的页表来记录这些被共享的页框；</li>
+<li>区域对象有原型页表；</li>
+<li>当进程访问区域对象中的页时，利用原型页表填写进程页表。</li>
+</ul>
+<p><strong>6.Windows采用的页替换策略是什么？</strong><br>置换策略：</p>
+<ul>
+<li>在多处理器系统中，采用了局部先进先出置换策略</li>
+<li>在单处理器系统中，更接近于最近最久未使用策略(LRU，也称为“时钟页面置换算法”)</li>
+</ul>
+<h2 id="第17章-Windows-文件系统"><a href="#第17章-Windows-文件系统" class="headerlink" title="第17章  Windows 文件系统"></a>第17章  Windows 文件系统</h2><p><strong>1.Windows所支持的文件系统类型有哪些？</strong></p>
+<ul>
+<li>FAT(FileAllocationTable) </li>
+<li>uNTFS(NewTechnologyFileSystem)</li>
+<li>uexFAT(ExtendedFileAllocationTableFileSystem)</li>
+</ul>
+<p><strong>2.虚拟簇号和逻辑簇号的概念。</strong><br>虚拟簇号：通过VCN引用文件中的数据<br>逻辑簇号：</p>
+<ul>
+<li>文件卷分成若干簇，并从卷头到卷尾进行编号</li>
+<li>通过LCN引用文件在磁盘上的物理位置</li>
+</ul>
+<p><strong>3.NTFS卷的结构，主控文件表MFT的作用。</strong><br>NTFS卷结构由三部分组成：</p>
+<ul>
+<li>分区引导扇区PartitionBootSector：最多占16个扇区。包含卷的布局、文件系统结构以及引导代码等信息</li>
+<li>主控文件表区MasterFileTable,MFT：是NTFS卷的管理控制中心，包含了卷上所有的文件、目录及空闲未用盘簇的管理信息</li>
+<li>文件数据区：依次存放所有系统文件、MFT的镜像、根目录、普通文件和子目录及空闲簇<br>MFT的作用：</li>
+<li>MFT是NTFS卷的管理控制核心</li>
+<li>MFT由若干个记录构成，记录的大小固定为1KB</li>
+<li>MFT仅供系统本身组织、架构文件系统使用，称为元数据(metadata)</li>
+<li>每个记录描述一个文件或目录<ul>
+<li>记录：一个记录头+若干（属性，属性值）对</li>
+<li>记录头包含用于有效性检查的魔数、文件生成时的顺序号、引用计数、记录中实际使用的字节数</li>
+<li>(属性，属性值)对如($FILE_NAME，A.C)，($DATA，文件的具体内容)</li>
+</ul>
+</li>
+<li>MFT中的前16个记录是为NTFS元数据文件保留的。</li>
+</ul>
+<p><strong>4.NTFS文件的物理结构：索引顺序结构。</strong></p>
+<p><strong>5.对于大目录，采用B+树，使得查找一个特定文件的访盘次数减到最少。</strong><br>大目录文件的索引根属性包含B+树的第一级并指向包含下一级的索引缓冲区。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://SEER666.github.io">SEER</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://seer666.github.io/2024/12/22/20241227/">https://seer666.github.io/2024/12/22/20241227/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://SEER666.github.io" target="_blank">SEER's Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">操作系统复习</a></div><div class="post-share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">第5章 文件系统（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.什么是文件和文件系统?...</div></div></div></a><a class="pagination-related" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">第6章 设备管理（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }  ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/12/20241212/" title="第2章 进程管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">第2章 进程管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.进程的描述：PCB、状态2....</div></div></div></a><a class="pagination-related" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-22</div><div class="info-item-2">第5章 文件系统（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.什么是文件和文件系统?...</div></div></div></a><a class="pagination-related" href="/2024/12/10/20241210/" title="第1章 操作系统概论"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-10</div><div class="info-item-2">第1章 操作系统概论</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.1 操作系统的定义计算机系统的组成：应用程序 -&gt; 实用程序 -&gt; 操作系统 -&gt; 硬件 接口：外层的软件必须以事先约定的方式，调用内层软件或硬件提供的服务。 操作系统的定义： 是由一系列程序模块组成的一个大型的系统管理程序；依据各种管理和调度策略，对计算机的软、硬件资源进行统一的管理和调度，合理地组织计算机的工作流程，以提高资源利用率。 1.2...</div></div></div></a><a class="pagination-related" href="/2024/12/14/20241214/" title="第3章 进程之间的并发控制和死锁"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-14</div><div class="info-item-2">第3章 进程之间的并发控制和死锁</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.并发进程的特点-对资源的共享引起的互斥关系：进程之间本来是相互独立的，但由于共享资源而产生了关系。-协作完成同一个任务引起的同步关系：一组协作进程要在某些同步点上相互等待发信息后才能继续运行。-进程之间的前序关系：由于进程之间的互斥同步关系，使得进程之间具有了前序关系，这些关系决定了各个进程创建和终止的时间。 -进程之间的关系顺序关系、并行关系、一般关系 2.进程之间的低级通信-进程间的低级通信：通过信号量实现进程之间的互斥和同步关系-进程间通信问题——IPC问题 2.1...</div></div></div></a><a class="pagination-related" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-21</div><div class="info-item-2">第4章 存储器管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.概述–功能地址空间存储空间地址重定位1.1 功能-存储器分配： -解决多进程共享主存的问题-地址转换或重定位： -研究各种地址变换方法及相应的地址变换机构。-存储器保护： -防止故障程序破坏OS和其它信息。-存储器扩充： -采用多级存储技术实现虚拟存储器，交换技术。-存储器共享： -研究并发进程如何共享主存中的程序和数据。 1.2 地址空间符号名字空间：源程序中的各种符号名的集合所限定的空间。源程序用符号名访问变量和子程序。编译：由于目标程序在主存中的位置是不可预知的，目标程序中的各个地址总是以“0”为参考地址顺序编码的；逻辑地址，相对地址，虚地址逻辑地址空间：经编译链接后的程序大小所限定的空间。程序地址域，程序地址空间 1.3...</div></div></div></a><a class="pagination-related" href="/2024/12/22/202412221/" title="第6章 设备管理（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-22</div><div class="info-item-2">第6章 设备管理（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }  ...</div></div></div></a></div></div><!-- 添加 Valine 评论系统的 HTML 容器--><!-- Valine 评论系统--><div id="vcomments"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SEER</div><div class="author-info-description">Record SEER's learning content.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SEER666"><i class="fab fa-github"></i><span>关注我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的博客已全面升级</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC7%E7%AB%A0-Linux%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">第7章  Linux进程管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC8%E7%AB%A0-Linux%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">第8章 Linux存储器管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC9-10%E7%AB%A0-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">第9-10章 Linux文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC14%E7%AB%A0-Windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">第14章 Windows操作系统模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC15%E7%AB%A0-Windows-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">第15章  Windows 进程和线程管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC16%E7%AB%A0-Windows-%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">第16章  Windows 存储器管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC17%E7%AB%A0-Windows-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">7.</span> <span class="toc-text">第17章  Windows 文件系统</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/09/20250109/" title="CSAPP考前题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSAPP考前题"/></a><div class="content"><a class="title" href="/2025/01/09/20250109/" title="CSAPP考前题">CSAPP考前题</a><time datetime="2025-01-09T06:30:00.000Z" title="发表于 2025-01-09 14:30:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20250106/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20250106/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/24/20241224/" title="汇编语言知识点复习"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编语言知识点复习"/></a><div class="content"><a class="title" href="/2024/12/24/20241224/" title="汇编语言知识点复习">汇编语言知识点复习</a><time datetime="2024-12-24T13:30:00.000Z" title="发表于 2024-12-24 21:30:00">2024-12-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第5章 文件系统（概要）"/></a><div class="content"><a class="title" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）">第5章 文件系统（概要）</a><time datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By SEER</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/click-show-text.min.js" data-mobile="true" data-text="我,太,想,进,步,了" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+  el: '#vcomments',  // 挂载评论的 HTML 元素
+  appId: 'X7VMJZiKLlND8y3EXDtaqPI5-gzGzoHsz',  // LeanCloud 的 App ID
+  appKey: 'zFn5LKNiWC2vPb3y0RsW1nMK',  // LeanCloud 的 App Key
+  path: window.location.pathname,  // 使用文章的路径作为评论的唯一标识
+  placeholder: '留下你的评论吧...'  // 输入框的占位文本
+})</script></body></html>

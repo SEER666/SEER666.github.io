@@ -1,0 +1,790 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSAPP考前题 | SEER's Study</title><meta name="author" content="SEER"><meta name="copyright" content="SEER"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    一、系统漫游线上测试1.以下说法正确的是（   ）。a.处理器顺序执行机器指令。b.主存储器包括寄存器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSAPP考前题">
+<meta property="og:url" content="https://seer666.github.io/2025/01/09/20250109/index.html">
+<meta property="og:site_name" content="SEER&#39;s Study">
+<meta property="og:description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    一、系统漫游线上测试1.以下说法正确的是（   ）。a.处理器顺序执行机器指令。b.主存储器包括寄存器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2025-01-09T06:30:00.000Z">
+<meta property="article:modified_time" content="2025-01-09T15:09:20.507Z">
+<meta property="article:author" content="SEER">
+<meta property="article:tag" content="代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/126209991?v=4"><link rel="canonical" href="https://seer666.github.io/2025/01/09/20250109/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSAPP考前题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-09 23:09:20'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><a href="https://github.com/SEER666" target="_blank"> <img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></a></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/126209991?v=4" alt="Logo"><span class="site-name">SEER's Study</span></a><a class="nav-page-title" href="/"><span class="site-name">CSAPP考前题</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSAPP考前题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-09T06:30:00.000Z" title="发表于 2025-01-09 14:30:00">2025-01-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-09T15:09:20.507Z" title="更新于 2025-01-09 23:09:20">2025-01-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]  
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h1 id="一、系统漫游线上测试"><a href="#一、系统漫游线上测试" class="headerlink" title="一、系统漫游线上测试"></a>一、系统漫游线上测试</h1><p><strong>1.以下说法正确的是（   ）。</strong><br>a.处理器顺序执行机器指令。<br>b.主存储器包括寄存器。<br>c.总线系统只用来传输数据，不传输指令。<br>d.中央处理器（CPU）是特定指令集架构下的执行单元。</p>
+<p><strong>答案：D</strong><br>解析：</p>
+<ul>
+<li>a项，目前多半是指令级并行、流水线技术，未必顺序执行；</li>
+<li>b项，著储存器与寄存器是两种不同的存储类型。寄存器是CPU内部的高速存储单元，主要用于临时存储数据和指令，而主存储器是外部于CPU的，通常用来存储程序和数据。</li>
+<li>c项，总线系统可以传输指令。</li>
+</ul>
+<p><strong>2.可执行目标程序是（   ）。</strong><br>a.在目标机运行的汇编语言程序。<br>b.是机器指令被按照固定格式打包的二进制文件。<br>c.由编译器产生的汇编程序。<br>d.在目标机运行的高级语言程序。</p>
+<p><strong>答案：B</strong></p>
+<p><strong>3.SHELL的功能是（   ）。</strong><br>a.一个操作系统的命令行解释器。<br>b.只能接受系统命令。<br>c.一个操作系统。<br>d.不能运行可执行文件。</p>
+<p><strong>答案：A</strong></p>
+<p><strong>4.以下关于内存管理的说法错误的是：（   ）。</strong><br>a.显式链表分配时间与空闲块的数量成线性关系<br>b.标记清除垃圾收集算法是由程序员手动编码调用触发的<br>c.隐式链表双向合并可以常量时间完成<br>d.分离链表的First-fit 搜索近似于整个堆上的best-fit搜索</p>
+<p><strong>答案：B</strong></p>
+<p>解析：</p>
+<ul>
+<li>b项，标记清除垃圾收集算法通常是自动执行的，而不是由程序员手动调用触发的。。</li>
+</ul>
+<p><strong>5.可执行目标程序是（   ）。</strong><br>a.是机器指令被按照固定格式打包的二进制文件。<br>b.在目标机运行的高级语言程序。<br>c.由编译器产生的汇编程序。<br>d.在目标机运行的汇编语言程序。</p>
+<p><strong>答案：A</strong></p>
+<p><strong>6.有关存储的层次结构说法正确的是（   ）。</strong></p>
+<p>a.从上至下访问速度下降，存储容量增大。<br>b.磁盘存储和主存的地址空间连续。<br>c.寄存器与高速缓存都是对程序员透明的。<br>d.高速缓存和主存具有相同硬件结构。</p>
+<p><strong>答案：A</strong></p>
+<p>解析：</p>
+<ul>
+<li>b项，磁盘存储（例如硬盘）和主存（RAM）在地址空间上并不是连续的。主存和磁盘存储是两种不同的存储类型，操作系统管理它们的地址空间，并且它们的地址空间通常是分开的。</li>
+<li>c项，寄存器通常是 CPU 内部的存储单元，程序员可以通过汇编语言或编译器直接使用寄存器。而高速缓存（Cache）是对程序员透明的，程序员通常不需要直接管理或访问缓存。</li>
+<li>d项，高速缓存和主存的硬件结构是不同的。高速缓存通常采用更快的存储技术（如SRAM）以提高访问速度，而主存通常使用更大容量的存储技术（如DRAM）。</li>
+</ul>
+<p>**7.磁盘文件a.txt由10个ASCII码字符“chinagood!”组成，下列程序运行后输出为（ ）。<br>#include “csapp.h”<br>int main(){<br>    int fd1,fd2;<br>    char c;<br>    fd1&#x3D;open(“a.txt”,O_RDONLY,0);<br>    fd2&#x3D;open(“a.txt”,O_RDONLY,0);<br>    read (fd2,&amp;c,1);<br>    dup2(fd2,fd1);<br>    read (fd1,&amp;c,1);<br>    printf(“c&#x3D;%c\n”,c);<br>    exit(0);<br>}<br>a.c&#x3D;h<br>b.c&#x3D;n<br>c.c&#x3D;i<br>d.c&#x3D;c</p>
+<p><strong>答案：A</strong></p>
+<p>解析：</p>
+<ul>
+<li><p>打开文件:</p>
+<ul>
+<li>fd1 &#x3D; open(“a.txt”, O_RDONLY, 0);  &#x2F;&#x2F; 打开 “a.txt” 文件，第一个描述符 fd1</li>
+<li>fd2 &#x3D; open(“a.txt”, O_RDONLY, 0);  &#x2F;&#x2F; 打开 “a.txt” 文件，第二个描述符 fd2</li>
+</ul>
+</li>
+<li><p>这两行代码分别打开同一个文件 “a.txt” 两次，得到两个文件描述符 fd1 和 fd2。文件内容是 ASCII 字符 “chinagood!”，共 10 个字符。</p>
+</li>
+<li><p>从 fd2 读取一个字节:</p>
+<ul>
+<li>read(fd2, &amp;c, 1);  &#x2F;&#x2F; 从 fd2 读取一个字节</li>
+</ul>
+</li>
+<li><p>这里从文件的当前指针位置读取一个字节到 c。此时文件指针指向 “c” 字符，因此 c 将被赋值为 ‘c’。同时，文件指针会向前移动一个字节，指向 “h”。</p>
+</li>
+<li><p>文件描述符复制 (dup2):</p>
+<ul>
+<li>dup2(fd2, fd1);  &#x2F;&#x2F; 使 fd1 复制为 fd2，fd1 和 fd2 都指向同一个文件描述符</li>
+</ul>
+</li>
+<li><p>dup2(fd2, fd1) 将 fd2 的文件描述符复制给 fd1，也就是说，fd1 和 fd2 都指向相同的文件。dup2() 不会影响文件指针的当前位置，因此文件指针依然指向原来 fd2 的位置（此时指向 “h”）。</p>
+</li>
+<li><p>从 fd1 读取一个字节:</p>
+<ul>
+<li>read(fd1, &amp;c, 1);  &#x2F;&#x2F; 从 fd1 读取一个字节，实际上从文件的当前位置读取</li>
+</ul>
+</li>
+<li><p>由于 fd1 和 fd2 现在指向同一个文件描述符，而文件指针的位置是由上一个 read 操作改变的，因此此时读取的字节将是文件中的 “h” 字符。文件指针会再次向前移动一个字节，指向 “i”。</p>
+</li>
+<li><p>打印字符:</p>
+<ul>
+<li>printf(“c&#x3D;%c\n”, c);  &#x2F;&#x2F; 打印读取的字符</li>
+</ul>
+</li>
+<li><p>由于第二次 read 从 fd1 读取的字符是 “h”，所以输出结果为：c&#x3D;h</p>
+</li>
+</ul>
+<p><strong>8.程序的生命周期是从（   ）开始的。</strong></p>
+<p>a.代码运行开始。<br>b.被程序员创建开始。<br>c.安装在系统后开始。<br>d.编译成可执行文件开始。</p>
+<p><strong>答案：B</strong></p>
+<p><strong>9.程序运行性能的影响因素是：（  ）</strong><br>A.算法、编程语言、编译器、指令集体系结构<br>B.指令序列和CPI<br>C.硬件是核心因素<br>D.操作系统是核心因素</p>
+<p><strong>答案：AB</strong></p>
+<p><strong>10.进程上下文切换是有（   ）完成的。</strong><br>A.用户代码和内核代码<br>B.操作系统<br>C.用户代码<br>D.内核代码</p>
+<p><strong>答案：BD</strong></p>
+<h1 id="二、第二章线上测试"><a href="#二、第二章线上测试" class="headerlink" title="二、第二章线上测试"></a>二、第二章线上测试</h1><p><strong>1.a，b是补码表示的有符号数整数，MIN_INT是最小整数，MAX_INT是最大整数，则表达式˜(˜a | (b ˆ (MIN_INT + MAX_INT)))等于：（  ）</strong><br>A.a-b<br>B.a&amp;b<br>C.a|b<br>D.a^b</p>
+<p><strong>答案：B</strong></p>
+<p>解析：</p>
+<ul>
+<li>MIN_INT+MAX_INT &#x3D; -2^(n-1)+2^(n-1)-1&#x3D;-1</li>
+<li>b^-1&#x3D;~b </li>
+<li><del>a|</del>b&#x3D;a&amp;b</li>
+</ul>
+<p><strong>2.假定x,f,d分别为int，float，double数据类型，下列C语言中运算为真的是：（ ）。</strong><br>A.x&#x3D;&#x3D;(int)(double)x<br>B.(f+d)-f&#x3D;&#x3D;d<br>C.x&#x3D;&#x3D;(int)(float)x<br>D.d&#x3D;&#x3D;(double)(float)d</p>
+<p><strong>答案：A</strong></p>
+<p>解析：</p>
+<ul>
+<li>b项，浮点数运算精度使之会有误差</li>
+<li>c项，先转换为float再转换为int，会丢失部分精度</li>
+<li>d项，先转换为float的时候会损失部分精度</li>
+</ul>
+<p><strong>3.假设8位浮点数采用IEEE格式，其中阶码4位，尾数3位。如果8位无符号数与浮点数比特位模式相同，则无符号数120代表哪个浮点数（ ）。</strong><br>A.无穷大<br>B.非规格化数<br>C.规格化数<br>D.NaN</p>
+<p><strong>答案：A</strong></p>
+<p>解析：<br>符号位S，阶码E，尾数M<br>IEEE浮点数表示形式：(-1)^S * (1 + M) * 2 ^ (E - Bias)<br>Bias为偏置值，为2^(k-1)-1，k为阶码位数<br>对于无符号数120，表示为二进制：01111000<br>则S &#x3D; 0， E &#x3D; 15（全1）， M &#x3D; 000；实际阶码为8</p>
+<p>判别规则：</p>
+<ul>
+<li>规格化数：如果阶码不是全0（不是全1），并且尾数是规格化的（不是0），则是规格化数。</li>
+<li>非规格化数：如果阶码为全0（即E&#x3D;0），尾数不为0，则是非规格化数。</li>
+<li>无穷大：如果阶码为全1且尾数为0，则表示无穷大。</li>
+<li>NaN：如果阶码为全1且尾数不为0，则表示NaN（非数）。</li>
+</ul>
+<p>故选择A.无穷大。</p>
+<p>**4.单精度浮点数f采用IEEE格式，unsigned u &#x3D; <em>(unsigned <em>) &f; int x &#x3D; (u &gt;&gt; 31) &amp; 0x1;则x表示f哪一部分 （ ）。</em></em><br>A.尾数<br>B.偏置值<br>C.阶码<br>D.符号位</p>
+<p><strong>答案：D</strong></p>
+<p>解析：<br>IEEE格式中，浮点数的二进制表示由三部分组成：1位符号位，8位阶码，23位尾数<br>unsigned u &#x3D; *(unsigned *) &amp;f将浮点数 f 的内存表示（以位模式）转换为一个无符号整数 u。u 的二进制表示与 f 的二进制表示是相同的，只是解释的方式不同。<br>int x &#x3D; (u &gt;&gt; 31) &amp; 0x1;将u右移31位，得到符号位，然后将结果屏蔽掉其他位，最后得到的是符号位。</p>
+<p><strong>5.单选题：下列计算机存储和处理的信息表示说法正确的是：（  ）</strong><br>A.不同类编码不能进行运算；<br>B.表示字符串是ASCII编码的字符数组，串长度是数组长度；<br>C.浮点数编码只包含阶码和尾数两部分；<br>D.表示代码是指令编码，不同芯片体系和操作系统指令编码不同；</p>
+<p><strong>答案：D</strong></p>
+<p>解析：</p>
+<ul>
+<li>a项，通过类型转换，将不同编码进行运算；</li>
+<li>b项，ASCII编码的字符串是以字符数组形式存储，但是字符串实际长度不等于有数组长度，其后有结束符\0</li>
+<li>c项，还包括符号位</li>
+</ul>
+<p><strong>6.单选题：关于除法说法正确的是：（  ）</strong></p>
+<p>A.补码除以2的k次幂时加上偏置导致向偶数舍入<br>B.补码除以2的k次幂时导致向0舍入<br>C.无符号数除法是算术右移<br>D.无符号除以2的k次幂是无符号右移k位</p>
+<p><strong>答案：D</strong></p>
+<p>解析：</p>
+<ul>
+<li>a、b项，补码进行除以2的k次幂操作加偏执会向0舍入；不加偏置的时候，如果除以负数未必是向0舍入。</li>
+<li>c项，无符号数除法是逻辑右移，</li>
+</ul>
+<p><strong>7.单选题：计算机存储和处理的信息表示为：（  ）</strong></p>
+<p>A.运算属性相同的三种编码二进制数。<br>B.无符号数，补码，浮点数；<br>C.十六进制数和二进制数；<br>D.通过无符号编码，补码编码，浮点数编码方式的二进制数；</p>
+<p><strong>答案：D</strong></p>
+<p><strong>8.单选题：选择完成以下不同进制数之间转换表格空白项目的选项：（  ）</strong><br>十进制   二进制     十六进制<br>188      （1）      （2）<br>（3）    11110011   （4）<br>（5）    （6）       0xE7</p>
+<p>A.（1）10011100（2） BC （3）243 （4）0xF2 （5） 231（6）11110111<br>B.（1）10111101 （2） BC（3） 243（4） 0xF3（5） 231（6） 11110111<br>C.（1）10111111 （2）0xBC （3）243 （4） 0xF2（5）231（6） 11110111<br>D.（1）10111100 （2）0xBC （3）243 （4）0xF3 （5）231 （6） 11100111</p>
+<p><strong>9.无符号数x,y, 相加和为s,判断是否溢出的条件是：（  ）</strong><br>A.s&gt;x;<br>B.x+y&gt;s;<br>C.不可判断；<br>D.s&lt;x或y;</p>
+<p><strong>答案：D</strong><br>解析：D项是一个必要条件。</p>
+<p><strong>10.当位模式w&#x3D;4时，以下补码非正确的是：（  ）</strong><br>A.-8的逆元是-8；<br>B.不存在；<br>C.反码减一是补码非；<br>D.8的补码非是-0；</p>
+<p><strong>答案：A</strong><br>解析：</p>
+<ul>
+<li>a项，在4位补码中，-8表示1000，补码形式不可改变</li>
+<li>c项，举反例：对于-1，原码是1111，反码是1110，补码是1111，补码非是0000，不相等，故错误。</li>
+<li>d项，在4位补码表示法中，8是超出范围的，无法表示，自然不是-0。</li>
+</ul>
+<h1 id="三、第三章线上测试"><a href="#三、第三章线上测试" class="headerlink" title="三、第三章线上测试"></a>三、第三章线上测试</h1><p><strong>1.根据以下递归程序，结论正确的是：（  ）</strong><br>C递归程序如下：<br>long rfun (unsigned long x ){<br>  if x&#x3D;&#x3D;0<br>    return  0 ;<br>  unsigned long nx &#x3D;(1);<br>  long rv&#x3D; rfun(nx);<br>  return (2) ;<br>}</p>
+<p>汇编代码如下：<br>1 rfun:<br>2 pushq %rbx<br>3 movq %rdi,%rbx<br>4 movl $0,%eax<br>5 testq %rdi, %rdi<br>6 je .L2<br>7 shrq $2,%rdi<br>8 call rfun<br>9 addq %rbx,%rax<br>10 .L2:<br>11   pop %rbx<br>12  ret<br>A.缺失表达式为:(1)x&gt;&gt;2,(2)rv<br>B.缺失表达式为:(1)x&gt;&gt;2,(2)x+rv<br>C.栈空间最多使用4字节<br>D.栈空间最多使用8字节</p>
+<p><strong>答案：B</strong><br>解析：</p>
+<ul>
+<li>根据代码，缺失的应该选择b。</li>
+<li>CD项目前未知。</li>
+</ul>
+<p><strong>2.根据代码，下列正确的是：（  ）</strong><br>long scale2(long x, long y, long z){<br>  long t&#x3D;(   );<br>  Return t;<br>}<br>GCC汇编后如下(long x in %rdi, long y  in %rsi, long z in %rdx)：<br>scale2:<br>leaq (%rdi,%rdi,4) ,%rax<br>leaq (%rax,%rsi,2) ,%rax<br>leaq (%rax,%rdx,8) ,%rax<br>ret<br>A.long  t&#x3D;8<em>z<br>B.long  t&#x3D;2</em>y+8<em>z<br>C.long  t&#x3D;4</em>x+2<em>y+8</em>z<br>D.long  t&#x3D;5<em>x+2</em>y+8*z</p>
+<p><strong>答案：D</strong></p>
+<p><strong>3.根据FIRST函数和LAST函数的反汇编代码，以及MAIN函数调用FIRST代码,如下：</strong><br>1  400540  <LAST>:<br>2  400540: 48 89 F8          MOV  %RDI,%RAX              L1<br>3  400543: 48 0F AF C6        IMUL %RSI, %RAX               L2<br>4  400547: C3                                            L3<br>5  400548  <FRIST>:<br>6  400548: 48 89 77 01       LEA 0X1(%RDI), %RSI             F1<br>7  40054C: 48 83 EF 01       SUB $0X1, %RDI                   F2<br>8  400550: E8 EB FF FF FF       CALLQ 400540<LAST>               F3<br>9  400555:  F3 C3             REPZ RETQ                     F4……<br>10  400560: E8 E3 FF FF FF       CALLQ 400548<FIRST>             M1<br>11  400565: 48 89 C2          MOV %RAX,%RDX                M2<br>每条指令都有唯一标号(例如：L1），从main调用first(10)开始，到程序返回main为止，下表记录指令执行情况，以下选项对空白项填写正确的是：（  ）</FIRST></LAST></FRIST></LAST></p>
+<table>
+<thead>
+<tr>
+<th>标号</th>
+<th>PC</th>
+<th>指令</th>
+<th>状态值（指令开始执行前）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td>%rdi</td>
+<td>%rsi</td>
+</tr>
+<tr>
+<td>M1</td>
+<td>0x400560</td>
+<td>callq</td>
+<td>10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>F1</td>
+<td>0x400548</td>
+<td>(2)</td>
+<td>10</td>
+<td>-</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>0x40054c</td>
+<td>sub</td>
+<td>10</td>
+<td>(4)</td>
+</tr>
+<tr>
+<td>F3</td>
+<td>0x400550</td>
+<td>callq</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>0x400540</td>
+<td>mov</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>0x400543</td>
+<td>imul</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>0x400547</td>
+<td>retq</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>F4</td>
+<td>(1)</td>
+<td>repzretq</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>0x400565</td>
+<td>mov</td>
+<td>(3)</td>
+<td>11</td>
+</tr>
+</tbody></table>
+<p>A.（1）0X40054C（2）mov（3）10（4） 11（5）9（6） 0X7FFFFFFFE810<br>B.（1）0X400565 （2）mov（3）10（4） 11（5）9（6） 0X7FFFFFFFE820<br>C.（1）0X400540 （2）mov（3）10（4） 11（5）9（6） 0X7FFFFFFFE810<br>D.（1）0X400555（2） LEA（3） 9（4）11（5） 9（6） 0X7FFFFFFFE818</p>
+<p><strong>答案：D</strong><br>解析：</p>
+<ul>
+<li>反汇编代码分析：<ul>
+<li>从 main 开始，进行 CALLQ 调用 FIRST，这时的指令是 M1。</li>
+<li>进入 FIRST 函数（标号 F1 到 F4），并跟随其指令执行。</li>
+<li>FIRST 内部调用 LAST（标号 L1 到 L3）。</li>
+<li>LAST 完成后返回 FIRST，然后再次返回 main 并进行下一步指令（MOV %RAX, %RDX）。</li>
+</ul>
+</li>
+<li>空白表格填写<ul>
+<li>F4 的 PC 列：这个位置应该是 0x400555，因为先执行 F3 的 CALLQ，再返回执行 F4 的 REPZ RETQ。所以 0x400555 正确。</li>
+<li>F1 的指令列：对应的 F1 行 的指令是 LEA，即48 89 77 01。</li>
+<li>M2 的 %rdi 值：从 LAST 返回后继续执行 main，此时 M2 行的 %rdi 是返回的结果 9。</li>
+<li>F2 的 %rsi： 在 F2 行，减去1后的 %rsi 值应为 11。</li>
+<li>L2 的 %rax： 在 L2 行，%rax 应为 99，因为计算乘积后的结果。</li>
+<li>M2 的 %rsp：从 MAIN 到 FIRST调用函数栈以及 RSP 值变化。</li>
+</ul>
+</li>
+</ul>
+<p><strong>4.在x86-64上执行以下过程的代码片段：</strong><br>int a[3];<br>char buf[4];<br>a[0]&#x3D;0xF0F1F2F3;<br>a[1]&#x3D;0xE3E2E1E0；<br>gets(buf)；<br>在执行到gets时输入123456789，则执行后a[1]的内容为（ ）。<br>A.0xE3E23039<br>B.0xE3E20009<br>C.0xE3E20039<br>D.0xE3E2E1E0</p>
+<p><strong>答案：C</strong><br>解析：</p>
+<ul>
+<li>内存布局分析<ul>
+<li>a[0]: 0xF0F1F2F3 (存储在偏移地址 0)</li>
+<li>a[1]: 0xE3E2E1E0 (存储在偏移地址 4)</li>
+<li>a[2]: 未初始化</li>
+<li>buf:  [ ] [ ] [ ] [ ] (存储在偏移地址 12, buf 的大小是4个字节)</li>
+</ul>
+</li>
+<li>执行代码缓冲区溢出<ul>
+<li>1-4占据buf的四个位置，56789覆盖到a[1]</li>
+<li>得到结果：0xE3E20039</li>
+</ul>
+</li>
+<li>覆盖过程目前未知。</li>
+</ul>
+<p><strong>5.如下结构体在x86-64上存储时，如果严格按照数据类型字节宽度对齐，不改变结构体成员存储顺序的情况下一个结构体需要多少字节？（  ）</strong><br>struct T {<br>    int i;<br>    long l;<br>    int* p;<br>};</p>
+<p>A.16<br>B.12<br>C.20<br>D.24</p>
+<p><strong>答案：D</strong><br>解析：</p>
+<ul>
+<li>int是4字节，long是8字节，指针是8字节.</li>
+<li>但是还要加上字节对齐，都是8字节，3*8&#x3D;24</li>
+</ul>
+<p><strong>6.选择给出操作数值的正确的选项：（  ）</strong></p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x100</td>
+<td>0xFF</td>
+</tr>
+<tr>
+<td>0x104</td>
+<td>0xAB</td>
+</tr>
+<tr>
+<td>0x108</td>
+<td>0x13</td>
+</tr>
+<tr>
+<td>0x10c</td>
+<td>0x11</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%rax</td>
+<td>0x100</td>
+</tr>
+<tr>
+<td>%rcx</td>
+<td>0x1</td>
+</tr>
+<tr>
+<td>%rdx</td>
+<td>0x3</td>
+</tr>
+</tbody></table>
+<p>填写下表中操作数的值:</p>
+<table>
+<thead>
+<tr>
+<th>操作数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x104</td>
+<td>(1)</td>
+</tr>
+<tr>
+<td>$ 0x108</td>
+<td>(2)</td>
+</tr>
+<tr>
+<td>(%rax)</td>
+<td>(3)</td>
+</tr>
+<tr>
+<td>9(%rax,%rdx)</td>
+<td>(4)</td>
+</tr>
+<tr>
+<td>0xFC(,%rcx,4)</td>
+<td>(5)</td>
+</tr>
+<tr>
+<td>(%rax,%rdx,4)</td>
+<td>(6)</td>
+</tr>
+<tr>
+<td>A.（1）0xAB （2） 0x108（3） 0xFF（4） 0x11（5） 0xFF（6） 0x11</td>
+<td></td>
+</tr>
+<tr>
+<td>B.（1）0xAB （2） 0x10c（3） 0xFF（4） 0x11（5） 0xFF（6） 0x11</td>
+<td></td>
+</tr>
+<tr>
+<td>C.（1）0xAB （2） 0x108（3） 0xFF（4） 0x11（5） 0xAB（6） 0x11</td>
+<td></td>
+</tr>
+<tr>
+<td>D.（1）0xFF （2） 0x108（3） 0xFF（4） 0x11（5） 0xFF（6） 0x11</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>答案：A</strong><br>解析：</p>
+<ul>
+<li>0x104：<ul>
+<li>直接查看地址0x104的值，得到 0xAB。</li>
+<li>(1) &#x3D; 0xAB</li>
+</ul>
+</li>
+<li>$0x108：<ul>
+<li>这是一个立即数，即直接取数值，得到 0x108。</li>
+<li>(2) &#x3D; 0x108</li>
+</ul>
+</li>
+<li>(%rax)：<ul>
+<li>%rax的值是0x100，查看地址0x100的值，得到 0xFF。</li>
+<li>(3) &#x3D; 0xFF</li>
+</ul>
+</li>
+<li>9(%rax, %rdx)：<ul>
+<li>%rax &#x3D; 0x100，%rdx &#x3D; 0x3。</li>
+<li>计算地址：0x100 + 0x3 + 9 &#x3D; 0x100 + 0xC &#x3D; 0x10C。</li>
+<li>查看地址0x10C的值，得到 0x11。</li>
+<li>(4) &#x3D; 0x11</li>
+</ul>
+</li>
+<li>0xFC(,%rcx,4)：<ul>
+<li>这是一个带有乘法的地址计算，%rcx &#x3D; 0x1。</li>
+<li>计算地址：0xFC + 0x1 * 4 &#x3D; 0xFC + 0x4 &#x3D; 0x100。</li>
+<li>查看地址0x100的值，得到 0xFF。</li>
+<li>(5) &#x3D; 0xFF</li>
+</ul>
+</li>
+<li>(%rax, %rdx, 4)：<ul>
+<li>%rax &#x3D; 0x100，%rdx &#x3D; 0x3。</li>
+<li>计算地址：0x100 + 0x3 * 4 &#x3D; 0x100 + 0xC &#x3D; 0x10C。</li>
+<li>查看地址0x10C的值，得到 0x11。</li>
+<li>(6) &#x3D; 0x11</li>
+</ul>
+</li>
+</ul>
+<p><strong>7.函数P生成a0-a7的局部变量，然后调用Q,  P汇编代码如下，请判断以下说法正确的是：（  ）</strong><br>Pushq  %r15<br>Pushq  %r14<br>Pushq  %r13<br>Pushq  %r12<br>Pushq  %rbp<br>Pushq  %rbx<br>Subq   $24, %rsp<br>Movq  %rdi,%rbx<br>Leaq   1(%rdi),%r15<br>Leaq   2(%rdi),%r14<br>Leaq   3(%rdi),%r13<br>Leaq   4(%rdi),%r12<br>Leaq   5(%rdi),%rbp<br>Leaq   6(%rdi),%rax<br>Movq   %rax, (%rsp)<br>Leaq   7(%rdi),%rdx<br>Movq  %rdx, 8(%rsp)<br>Movl   $0, %eax<br>Call  Q    </p>
+<p>A.a0-a5保存在了被调用者保存寄存器中<br>B.%rbx是被调用者保护寄存器<br>C.调用者栈帧中没有保存被调用者保护寄存器<br>D.有2个局部变量在调用者栈帧中</p>
+<p><strong>答案：ABD</strong><br>解析：</p>
+<ul>
+<li><p>前六条指令是压入栈的过程</p>
+</li>
+<li><p>接着分配24字节的栈空间</p>
+</li>
+<li><p>后面设置局部变量</p>
+</li>
+<li><p>然后调用函数Q</p>
+</li>
+<li><p>从leaq这部分可以看到他们都被保存在保护寄存器中，故A对C错</p>
+</li>
+<li><p>%rbx确实是被调用者保护寄存器</p>
+</li>
+<li><p>从倒数三五行代码看出a6和a7被保存在了调用者栈帧中。</p>
+</li>
+</ul>
+<p><strong>8.在下面C函数中，OP操作定义不完整，根据编译代码，OP操作补充正确的是：（  ）</strong><br>#define OP ——-<br>long arith(long x){<br>    return x OP 8;<br>}<br>当编译时，GCC会产生如下汇编代码：<br>long arith(long x)  x in %rdi<br>arith:<br>leaq 7(%rdi), %rax<br>testq %rdi, %rdi<br>cmovns  %rdi, %rax<br>sarq   $3,%rax<br>ret</p>
+<p>A.&#x2F;<br>B.+<br>C.&gt;&gt;<br>D.-</p>
+<p><strong>答案：A</strong><br>解析：注意到sarq那一行代码是要右移3位，即为除以8，那么这里选择A。</p>
+<p><strong>9.考虑下列C代码，通过汇编代码推断结果正确的是：（  ）</strong><br>int comp(data_t a ,data_t  b){<br>    return a  COMP  b;<br>}<br>GCC编译后汇编代码：(a in %rdi,b in %rsi)<br>cmpw %si, %di<br>setge   %al</p>
+<p>A.后缀w和寄存器指示符表明是16位操作数，比较是对补码的&gt;&#x3D;，可推断data_t是short类型<br>B.无法推断<br>C.COMP是&gt;操作<br>D.data_t是无符号数</p>
+<p><strong>答案：A</strong><br>解析：注意到cmpw是对有符号数的比较，故D错，然后16位数是short。</p>
+<p><strong>10.已知C代码，以下编译后循环体描述正确的是：（  ）</strong><br>long dw_loop(long x){<br>    long y&#x3D;x*x;<br>    long <em>p&#x3D;&amp;x:<br>    long n&#x3D;2</em>x;<br>    do {<br>        x+&#x3D;y;<br>        (*p)++;<br>        n–;<br>    }while (n&gt;0);<br>    return;<br>}</p>
+<p>gcc汇编代码如下：（x inintially in %rdi)<br>1 dw_loop:<br>2: movq %rdi, %rax<br>3: movq %rdi, %rcx<br>4: imulq %rdi, %rcx<br>5: leaq (%rdi, %rdi), %rdx<br>6: .L2:<br>7: leaq 1(%rcx,%rax), %rax<br>8: subq $1, %rdx<br>9: testq %rdx, %rdx<br>10: jg .l2<br>11: rep;ret</p>
+<p>A.循环体中x变量在%rax中；<br>B.汇编代码未体现关于指针P的运算<br>C.汇编第7行代码，实现了x+&#x3D;y+1<br>D.循环体中没有x的值</p>
+<p><strong>答案：AC</strong><br>解析：</p>
+<ul>
+<li>b项：在汇编代码中，并没有直接看到对指针 p 的操作。(*p)++ 的效果是自增 x，而汇编代码通过 leaq 1(%rcx, %rax), %rax 实现了 x +&#x3D; y + 1，虽然不直接显示 p 的内容，但实际上 p 的自增效果通过 x 的更新表现出来。因此，这个选项不完全正确。</li>
+</ul>
+<h1 id="四、第四章线上测试"><a href="#四、第四章线上测试" class="headerlink" title="四、第四章线上测试"></a>四、第四章线上测试</h1><p><strong>1.一个5级流水线（Fetch、Decode、Exuecution、Memory、Write Back），每段的组合逻辑耗时200ps，寄存器耗时50ps，整个流水线的吞吐率是：（  ）</strong><br>a.4GIPS<br>b.5GIPS<br>c.20GIPS<br>d.10GIPS</p>
+<p><strong>答案：A</strong><br>解析：吞吐率&#x3D;1&#x2F;时钟周期（秒） * 10^9<br>每阶段总耗时为200ps+50ps&#x3D;250ps<br>吞吐率&#x3D;1&#x2F;250 * 10^9 &#x3D; 4 * 10^9IPS &#x3D; 4GIPS</p>
+<p><strong>2.以下属于精简指令集（RISC）的是：（  ）</strong><br>a.Y86-64<br>b.所有都不是<br>c.MIPS<br>d.x86-64</p>
+<p><strong>答案：C</strong></p>
+<p><strong>3.在PIPE流水线处理器中，对ret指令引起的控制冒险处理方式是（ ）。</strong><br>a.取指阶段暂停，译码阶段插入气泡<br>b.在取指阶段插入气泡<br>c.取指阶段暂停，译码阶段暂停<br>d.取指阶段插入气泡，译码阶段插入气泡</p>
+<p><strong>答案：A</strong></p>
+<p><strong>4.在PIPE流水线处理器中，对分支预测错误译码和执行流水线寄存器控制逻辑采取的动作是（ ）。</strong><br>a.异常<br>b.气泡<br>c.暂停<br>d.正常</p>
+<p><strong>答案：B</strong>A</p>
+<p>**5.在经典的五阶段流水线处理器中，load指令装载寄存器的操作发生在以下哪个阶段（ ）？<br>a.译码<br>b.写回<br>c.访存<br>d.执行</p>
+<p><strong>答案：B</strong><br>解析：</p>
+<ul>
+<li><p>流水线包括以下阶段：<br>取指阶段（IF）：从内存中取出指令。<br>译码阶段（ID）：解码指令并读取寄存器。<br>执行阶段（EX）：进行算术或逻辑运算。<br>访存阶段（MEM）：访问内存，读取数据。<br>写回阶段（WB）：将数据写回到寄存器。</p>
+</li>
+<li><p>load指令在协会阶段，从内存读取的数据才实际写入目标寄存器，故为写回。</p>
+</li>
+</ul>
+<p>五、第五、六章测试<br><strong>1.以下关于代码优化的说法正确的是：（  ）</strong><br>a.内存别名和函数调用对编译器优化带来较大挑战<br>b.面向一种体系架构优化后的代码也适用于其他的体系架构<br>c.编译器代码优化可以完全替代人工代码优化<br>d.高质量代码优化无需了解系统内部结构和运行过程</p>
+<p><strong>答案：A</strong><br>解析：</p>
+<ul>
+<li>b项，代码优化通常是针对特定的体系架构进行的，不同的体系架构可能有不同的指令集、缓存结构等，因此在一种架构上优化的代码不一定在其他架构上表现良好。</li>
+<li>c项，虽然编译器可以进行很多自动化的优化，但某些情况下人工优化仍然是必要的。程序员可以根据具体的应用场景和算法特性进行更具针对性的优化，这些是编译器可能无法做到的。</li>
+<li>d项，高质量的代码优化通常需要对系统的内部结构和运行过程有一定的了解。了解硬件的特点（如缓存、内存管理等）和软件的执行流程可以帮助开发者做出更有效的优化决策。</li>
+</ul>
+<p><strong>2.以下关于循环展开和局部变量累加的说法错误的是：（  ）</strong><br>a.循环展开次数应为并行累加次数的倍数<br>b.循环展开和并行累加优化效果受限于处理器流水线的深度<br>c.如果确定循环总次数是循环展开次数整数倍时，不需要添加第二个循环<br>d.多头并行累加一般使用多个局部变量完成</p>
+<p><strong>答案：B</strong><br>解析：</p>
+<ul>
+<li>b项，处理器流水线的深度会影响并行计算的性能，并不影响优化效果。</li>
+</ul>
+<p><strong>3.在一台具有块大小16字节（B&#x3D;16），1024字节的直接映射数据缓存机器上，运行以下代码，计算高速缓存性能正确的是：（  ）</strong><br>struct algae_position{<br>    int x;<br>    int y;<br>};<br>struct algae_position grid[16][16];<br>int total_x &#x3D; 0, total_y &#x3D; 0;<br>int i, j;<br>For(i&#x3D;0;i&lt;16;i++){<br>    For (j&#x3D;0;j&lt;16;j++){<br>        total_x+&#x3D;grid[i][j].x;<br>        total_y+&#x3D;grid[i][j].y;<br>    }<br>}</p>
+<p>a.读不命中次数为128次。<br>b.不命中率50%。<br>c.所有读操作有冲突不命中。<br>d.读缓存256次。</p>
+<p><strong>答案：A</strong><br>解析：</p>
+<ul>
+<li><p>缓冲块大小：16字节，总大小1024字节，缓存块数：1024&#x2F;16&#x3D;64个缓存块</p>
+</li>
+<li><p>总大小：16 * 16 * 8&#x3D;2048字节，比1024字节大，会发生缓存替换</p>
+</li>
+<li><p>缓存的时候，同一行的访问会导致命中，不同行会不命中</p>
+</li>
+<li><p>不命中字数：16*14&#x3D;224次不命中</p>
+</li>
+<li><p>实际不命中的次数应该是128次，因为缓存大小的限制和结构体排列方式。</p>
+</li>
+<li><p>a项，正确</p>
+</li>
+<li><p>b项，不命中率&#x3D;127&#x2F;512&#x3D;25%</p>
+</li>
+<li><p>c项，并不是所有的都不命中</p>
+</li>
+<li><p>d项，要考虑命中和不命中的情况</p>
+</li>
+</ul>
+<p><strong>4.在当代高性能处理器上进行程序优化的主要技术手段是：（  ）</strong></p>
+<p>a.使用临时变量进行累积<br>b.循环展开<br>c.所有都是<br>d.SIMD</p>
+<p><strong>答案：C</strong></p>
+<p><strong>6.当处理器执行访存指令时，可能会触发的事件是：（  ）</strong><br>a.所有都有可能<br>b.缺页中断<br>c.Cache填充<br>d.TLB填充</p>
+<p><strong>答案：A</strong></p>
+<h1 id="六、第七、八章线上测试"><a href="#六、第七、八章线上测试" class="headerlink" title="六、第七、八章线上测试"></a>六、第七、八章线上测试</h1><p><strong>1.A,B,C进程起始和结束时间如下表，以下进程对并发的是（ ）。</strong><br>进程起始时间结束时间：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>开始时间</th>
+<th>结束时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p>a.BC。<br>b.AB。<br>c.无。<br>d.AC。</p>
+<p><strong>答案：BC</strong><br>解析：并发要有同时工作的部分。</p>
+<p><strong>2.以下关于链接器的说法正确的是（ ）。</strong><br>a.位置无关代码不需要链接。<br>b.动态链接发生在编译阶段。<br>c.静态链接生成的可执行目标文件中没有重定向节。<br>d.共享库只能在程序加载时链接。</p>
+<p><strong>答案：C</strong><br>解析:</p>
+<ul>
+<li>a项，位置无关代码是一种编译策略，使得程序的代码可以加载到任何内存地址，不需要修改。它主要用于共享库，以便可以在程序运行时加载到不同的内存地址。<ul>
+<li>虽然位置无关代码在编译时生成，但它仍然需要链接。在编译时生成的目标文件通常包含符号引用，而链接器需要解决这些符号引用（包括函数地址、变量地址等），即使生成的是位置无关代码。</li>
+</ul>
+</li>
+<li>b项，动态链接是指程序在运行时链接共享库，而不是在编译时就把所有的库链接到程序中。<ul>
+<li>动态链接通常发生在程序运行时，而不是编译时。编译时发生的是静态链接，链接器将所有需要的库文件和目标文件合并成一个可执行文件，而动态链接器在程序加载和执行时才加载共享库并链接符号。</li>
+</ul>
+</li>
+<li>c项，静态链接 会将所有外部符号的引用（如库函数）替换为具体的地址，并将所有的目标文件合并成一个可执行文件。静态链接的结果是一个完整的可执行文件，其中已经包含了所有的库函数代码和符号地址。重定向节：静态链接过程中的一个重要步骤就是重定位，它将符号的地址替换为实际的内存地址。经过静态链接后，所有符号的地址都已经确定，因此不再需要重定位节（这些节只在目标文件中存在，执行文件已经不再需要）。</li>
+<li>d项，共享库（Shared Libraries） 是在程序运行时动态加载的库文件，它们可以通过动态链接在运行时被程序加载和链接，允许多个程序共享同一个库。<ul>
+<li>共享库不仅仅在程序加载时链接，它也可以在程序运行过程中进行动态加载（例如，使用 dlopen 函数在运行时显式加载共享库）。这种方式被称为运行时动态链接。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3.以下对异常控制流描述错误的是（ ）。</strong><br>a.缺页中断不属于异常。<br>b.异常返回不一定到下一条指令。<br>c.中断是由硬件造成的异步异常。<br>d.陷阱是软件引起的同步异常。</p>
+<p><strong>答案：A</strong></p>
+<h1 id="七、第九章线上测试"><a href="#七、第九章线上测试" class="headerlink" title="七、第九章线上测试"></a>七、第九章线上测试</h1><p><strong>1.下列虚拟地址大小（n）和页大小（P）的组合所需要的PTE数量正确的是（ ）。</strong><br>nP&#x3D;2pPTE<br>数量164K<br>(1)12168K<br>(2)8324K<br>(3)512K328K<br>(4)1M<br>a.(4)<br>b.(1)<br>c.(3)<br>d.(2)</p>
+<p><strong>答案：D</strong><br>解析：</p>
+<ul>
+<li>PTE数量&#x3D;虚拟地址空间&#x2F;页大小&#x3D;2^n&#x2F;p</li>
+</ul>
+<p><strong>2.以下关于虚拟内存的描述错误的是：(  )</strong><br>a.Intel i7处理器采用4级页表<br>b.查询TLB的输入为虚拟地址的一部分<br>c.多级页表中每级页表的内容相同<br>d.TLB丢失需要访问Cache或者内存</p>
+<p><strong>答案：C</strong><br>解析：</p>
+<ul>
+<li>c项，多级页表在每一层中存储不同内容，因为表示的是不同级别的地址映射：<br>第一层（如 PML4）指向 PDPT。<br>第二层（如 PDPT）指向 PD。<br>第三层（如 PD）指向 PT。<br>最后一层（如 PT）直接指向物理内存页。</li>
+</ul>
+<p><strong>3.在一个TLB和L1d-cache的小系统上，内存按照字节寻址，一个字长1字节，虚拟地址14位，物理地址12位，页面大小64字节，TLB为四路组相联，16个条目，L1d-cache是物理寻址、直接映射，行大小4字节，共16组。对虚拟地址0x03d8的地址翻译正确的是（ ）。</strong><br>参数值VPN(1)0x8TLB索引(2)0x8TLB标记(3)0x3TLB命中否？(4)否缺页？是PPN0x8</p>
+<p>a.(3)<br>b.(2)<br>c.(1)<br>d.(4)</p>
+<p><strong>答案：A</strong><br>解析：</p>
+<ul>
+<li>首先解析虚拟地址，转换为2进制0x03d8 转换为二进制为：0000 0011 1101 1000。<ul>
+<li>偏移量：虚拟地址的低6位：110000（表示页内偏移，值为 0x38）。</li>
+<li>虚拟页号（VPN）：虚拟地址的高8位：00000011（表示虚拟页号，值为 0x03）。</li>
+</ul>
+</li>
+<li>接着分析TLB查找<ul>
+<li>TLB索引：TLB有4个组，所以需要2位来作为索引（$$2^2 &#x3D; 4$$<br> ）。虚拟页号 0x03（二进制：00000011）的低2位作为TLB索引，即 11（索引值为 0x3）。</li>
+<li>TLB标记：虚拟页号的高6位作为标记。虚拟页号 0x03（二进制：00000011）的高6位为 000000，所以 TLB 标记为 0x0。</li>
+</ul>
+</li>
+<li>查找TLB是否命中<ul>
+<li>TLB查找：通过虚拟页号的高6位作为标记和低2位作为索引，TLB的索引为 0x3，标记为 0x0。</li>
+<li>TLB命中判断：根据题目中的信息，TLB 查找结果表明当前 TLB 没有命中（即该条目不在TLB中）。</li>
+</ul>
+</li>
+<li>处理TLB丢失（缺页）<ul>
+<li>因为 TLB 没有命中，处理器将访问内存中的页表。如果页表项有效，页表将返回物理页号（PPN）。从题目给出的信息，我们知道：</li>
+<li>缺页：由于没有命中，发生了缺页。</li>
+<li>PPN：根据题目提供的信息，物理页号为 0x8。</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://SEER666.github.io">SEER</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://seer666.github.io/2025/01/09/20250109/">https://seer666.github.io/2025/01/09/20250109/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://SEER666.github.io" target="_blank">SEER's Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BB%A3%E7%A0%81/">代码</a></div><div class="post-share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">2025-CSAPP</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };     第1章 系统漫游源程序 hello程序的生命周期是从一个源程序(或者说源文件)开始的，即程序员通过编辑器创建并保存的文本文件，文件名是hello.c。 源程序：由值0和1组成的位(又称为比特)序列。 字节：8个位被组织成一组。 每个字节表示程序中的某些文本字符。  编译系统的阶段和用处编译系统的阶段预处理阶段：预处理器(cpp)根据以字符#开头的命令，修改原始的C程序。  比如hello.c中第1行的#include&lt;stdio.h&gt;命令告诉预处理器读取系统头文件stdio.h的内容，并把它直接插入程序文本中。结果就得到了另一个C程序，通常是以.i作为文件扩展名。  编译阶段：编译器(cc1)将文本文件 he11o.i翻译成文本文件...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/11/24/2024112402/" title="Transformer示例代码解读"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">Transformer示例代码解读</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }  ...</div></div></div></a><a class="pagination-related" href="/2024/11/24/2024112401/" title="Transformer文档阅读"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">Transformer文档阅读</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.torch.nn.Transformerclasstorch.nn.Transformer(d_model&#x3D;512, nhead&#x3D;8, num_encoder_layers&#x3D;6, num_decoder_layers&#x3D;6, dim_feedforward&#x3D;2048, dropout&#x3D;0.1, activation&#x3D;, custom_encoder&#x3D;None, custom_decoder&#x3D;None, layer_norm_eps&#x3D;1e-05, batch_first&#x3D;False, norm_first&#x3D;False, bias&#x3D;True,...</div></div></div></a><a class="pagination-related" href="/2024/11/28/20241128/" title="DC Former代码框架思路解析"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-28</div><div class="info-item-2">DC Former代码框架思路解析</div></div><div class="info-2"><div class="info-item-1">1 DCFormer1.1 config.json本文件是DCFormer 模型的配置文件，定义了模型的各种超参数和设定。 -字段说明**architectures:**模型架构的名称，这里是 “DCFormer”。**auto_map:**自动映射模型和配置类，指定了 AutoConfig 和 AutoModelForCausalLM 对应的配置类和模型类路径。AutoConfig: 指定 DCFormerConfig，这是模型的配置类。**AutoModelForCausalLM:**指定 DCFormer 模型类，这是实际的推理模型。**block_size:**输入序列的最大长度（2048），影响模型在训练或推理时处理的上下文窗口大小。**bos_token_id 和 eos_token_id:**这是模型的特殊标记（begin-of-sequence 和 end-of-sequence），分别对应词汇表中的 1 和 2。**dim:**模型的隐藏层维度，设置为 2560。**head_dim:**每个注意力头的维度，设置为...</div></div></div></a></div></div><!-- 添加 Valine 评论系统的 HTML 容器--><!-- Valine 评论系统--><div id="vcomments"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SEER</div><div class="author-info-description">Record SEER's learning content.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SEER666"><i class="fab fa-github"></i><span>关注我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的博客已全面升级</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">一、系统漫游线上测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">2.</span> <span class="toc-text">二、第二章线上测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">三、第三章线上测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%AC%AC%E5%9B%9B%E7%AB%A0%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">四、第四章线上测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%AC%AC%E4%B8%83%E3%80%81%E5%85%AB%E7%AB%A0%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">六、第七、八章线上测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E7%AC%AC%E4%B9%9D%E7%AB%A0%E7%BA%BF%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">七、第九章线上测试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/09/20250109/" title="CSAPP考前题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSAPP考前题"/></a><div class="content"><a class="title" href="/2025/01/09/20250109/" title="CSAPP考前题">CSAPP考前题</a><time datetime="2025-01-09T06:30:00.000Z" title="发表于 2025-01-09 14:30:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20250106/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20250106/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/24/20241224/" title="汇编语言知识点复习"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编语言知识点复习"/></a><div class="content"><a class="title" href="/2024/12/24/20241224/" title="汇编语言知识点复习">汇编语言知识点复习</a><time datetime="2024-12-24T13:30:00.000Z" title="发表于 2024-12-24 21:30:00">2024-12-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第5章 文件系统（概要）"/></a><div class="content"><a class="title" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）">第5章 文件系统（概要）</a><time datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By SEER</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/click-show-text.min.js" data-mobile="true" data-text="我,太,想,进,步,了" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+  el: '#vcomments',  // 挂载评论的 HTML 元素
+  appId: 'X7VMJZiKLlND8y3EXDtaqPI5-gzGzoHsz',  // LeanCloud 的 App ID
+  appKey: 'zFn5LKNiWC2vPb3y0RsW1nMK',  // LeanCloud 的 App Key
+  path: window.location.pathname,  // 使用文章的路径作为评论的唯一标识
+  placeholder: '留下你的评论吧...'  // 输入框的占位文本
+})</script></body></html>

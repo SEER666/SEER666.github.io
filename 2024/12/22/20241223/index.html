@@ -1,0 +1,615 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>作业题汇总：第2章到第6章 | SEER's Study</title><meta name="author" content="SEER"><meta name="copyright" content="SEER"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    第2章2-9 有五个作业正等待运行，它们估计运行时间分别为9，6，3，5和x。为了获得最小的平均周转时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作业题汇总：第2章到第6章">
+<meta property="og:url" content="https://seer666.github.io/2024/12/22/20241223/index.html">
+<meta property="og:site_name" content="SEER&#39;s Study">
+<meta property="og:description" content="window.MathJax &#x3D; {     tex: {       inlineMath: [[&#39;$&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]],         displayMath: [[&#39;$$&#39;, &#39;$$&#39;], [&#39;\\[&#39;, &#39;\\]&#39;]]       }   };    第2章2-9 有五个作业正等待运行，它们估计运行时间分别为9，6，3，5和x。为了获得最小的平均周转时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-12-22T13:30:00.000Z">
+<meta property="article:modified_time" content="2024-12-23T14:14:18.135Z">
+<meta property="article:author" content="SEER">
+<meta property="article:tag" content="操作系统复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/126209991?v=4"><link rel="canonical" href="https://seer666.github.io/2024/12/22/20241223/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.1.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '作业题汇总：第2章到第6章',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-23 22:14:18'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><a href="https://github.com/SEER666" target="_blank"> <img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></a></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/126209991?v=4" alt="Logo"><span class="site-name">SEER's Study</span></a><a class="nav-page-title" href="/"><span class="site-name">作业题汇总：第2章到第6章</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">作业题汇总：第2章到第6章</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-23T14:14:18.135Z" title="更新于 2024-12-23 22:14:18">2024-12-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]  
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<h2 id="第2章"><a href="#第2章" class="headerlink" title="第2章"></a>第2章</h2><p><strong>2-9 有五个作业正等待运行，它们估计运行时间分别为9，6，3，5和x。为了获得最小的平均周转时间，应按照什么顺序运行它们？（你给出的答案应是x的函数）。</strong></p>
+<p><strong>答案：</strong><br>-平均周转时间:$$ 平均周转时间 &#x3D; \frac{(完成时间 - 到达时间)}{进程个数} &#x3D; \frac{(等待时间 + 运行时间)}{进程个数} $$<br>（1）<strong>当 $$( x \leq 3 )$$</strong></p>
+<ul>
+<li>运行顺序为 Px, P3, P5, P6, P9</li>
+<li>$$ T &#x3D; \frac{(x + (x + 3) + (x + 3 + 5) + (x + 3 + 5 + 6) + (x + 3 + 5 + 6 + 9))}{5} &#x3D; x + 9.6 $$<br>（2）<strong>当 $$( 3 &lt; x \leq 5 )$$</strong></li>
+<li>运行顺序为 P3, Px, P5, P6, P9</li>
+<li>$$ T &#x3D; \frac{(3 + (3 + x) + (3 + x + 5) + (3 + x + 5 + 6) + (3 + x + 5 + 6 + 9))}{5} &#x3D; 0.8x + 10.2 $$<br>（3）<strong>当 $$( 5 &lt; x \leq 6 )$$</strong></li>
+<li>$$ T &#x3D; 0.6x + 11.2 $$<br>（4）——<strong>当 $$( 6 &lt; x \leq 9 )$$</strong></li>
+<li>$$ T &#x3D; 0.4x + 12.4 $$<br>（5）<strong>当 $$( 9 &lt; x )$$</strong></li>
+<li>$$ T &#x3D; 0.2x + 14.2 $$</li>
+</ul>
+<p><strong>2-12 假定系统有四道作业，它们的提交时间及估计执行时间（以小时为单位）如下表所示。在单道批处理系统中，采用先来先服务、最短作业优先和响应比高者优先的调度的方法，分别计算下表列出作业的平均周转时间。</strong></p>
+<table>
+<thead>
+<tr>
+<th>作业号</th>
+<th>提交时刻</th>
+<th>估计运行</th>
+<th>开始运行时刻</th>
+<th></th>
+<th></th>
+<th>完成时刻</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td>FCFS</td>
+<td>SJN</td>
+<td>HRN</td>
+<td>FCFS</td>
+<td>SJN</td>
+<td>HRN</td>
+</tr>
+<tr>
+<td>1</td>
+<td>8.0</td>
+<td>2.0</td>
+<td>8.0</td>
+<td>8.0</td>
+<td>8.0</td>
+<td>10.0</td>
+<td>10.0</td>
+<td>10.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>9.0</td>
+<td>1.2</td>
+<td>10.0</td>
+<td>10.8</td>
+<td>10.5</td>
+<td>11.2</td>
+<td>12.0</td>
+<td>10.7</td>
+</tr>
+<tr>
+<td>3</td>
+<td>9.5</td>
+<td>0.5</td>
+<td>11.2</td>
+<td>10.0</td>
+<td>10.6</td>
+<td>11.7</td>
+<td>10.5</td>
+<td>11.2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>10.2</td>
+<td>0.3</td>
+<td>11.7</td>
+<td>10.5</td>
+<td>11.7</td>
+<td>12.0</td>
+<td>10.8</td>
+<td>12.0</td>
+</tr>
+</tbody></table>
+<p><strong>答案：</strong><br>-FCFS作业运行顺序：1，2，3，4。<br>各作业的周转时间Ti和平均周转时间T:<br>$$<br>T_1 &#x3D; 10.0 - 8.0 &#x3D; 2.0 \<br>T_2 &#x3D; 11.2 - 9.0 &#x3D; 2.2 \<br>T_3 &#x3D; 11.7 - 9.5 &#x3D; 2.2 \<br>T_4 &#x3D; 12.0 - 10.2 &#x3D; 1.8<br>$$<br>$$<br>T &#x3D; \frac{(T_1 + T_2 + T_3 + T_4)}{4} &#x3D; \frac{(2.0 + 2.2 + 2.2 + 1.8)}{4} &#x3D; \frac{8.2}{4} &#x3D; 2.05<br>$$</p>
+<p>-SJN作业运行顺序：1，3，4，2<br>各作业的周转时间Ti和平均周转时间T:<br>$$<br>T_1 &#x3D; 10.0 - 8.0 &#x3D; 2.0 \<br>T_2 &#x3D; 12 - 9.0 &#x3D; 3.0 \<br>T_3 &#x3D; 10.5 - 9.5 &#x3D; 1.0 \<br>T_4 &#x3D; 10.8 - 10.2 &#x3D; 0.6<br>$$、<br>$$<br>T &#x3D; \frac{(T_1 + T_2 + T_3 + T_4)}{4} &#x3D; \frac{(2.0 + 3.0 + 1.0 + 0.6)}{4} &#x3D; \frac{6.6}{4} &#x3D; 1.65<br>$$</p>
+<p>-HRN 作业运行顺序：1，3，2，4<br>响应比公式:$$ \text{响应比} &#x3D; \frac{(\text{等待时间} + \text{运行时间})}{\text{运行时间}} $$<br>先选择作业1运行，8.00-10.00。当作业1完成时，选择运行:</p>
+<ul>
+<li>作业2、3的响应比:<br>   $$<br>   \text{作业2的响应比} &#x3D; \frac{((10-9.0) + 1.2)}{1.2} &#x3D; 1.83 \<br>   \text{作业3的响应比} &#x3D; \frac{((10-9.5) + 0.5)}{0.5} &#x3D; 2.0<br>   $$</li>
+<li>由于作业4未到，只能选择作业3运行。<br>作业3运行到10.5结束，再计算剩余的作业2和4:</li>
+<li>作业2、4的响应比:<br>   $$<br>   \text{作业2的响应比} &#x3D; \frac{((10.5 - 9.0) + 1.2)}{1.2} &#x3D; 2.25 \<br>   \text{作业4的响应比} &#x3D; \frac{((10.5 - 10.2) + 0.3)}{0.3} &#x3D; 2<br>   $$</li>
+<li>选择作业2运行<br>各作业的周转时间:<br>   $$<br>   t1 &#x3D; 2 \<br>   t2 &#x3D; 11.7 - 9.0 &#x3D; 2.7 \<br>   t3 &#x3D; 10.5 - 9.5 &#x3D; 1 \<br>   t4 &#x3D; 12 - 10.2 &#x3D; 1.8<br>   $$<br>各作业的平均周转时间:<br>$$<br>T &#x3D; \frac{(t1 + t2 + t3 + t4)}{4} &#x3D; \frac{(2 + 2.7 + 1 + 1.8)}{4} &#x3D; 1.875<br>$$</li>
+</ul>
+<p><strong>2-13 给出5个批作业A~E，它们几乎同时到达计算中心。”们各自所需的运行时间大约为10，6，2，4和8分钟，优先级分别为3，5，2，1和4。假定5是最高优先级，所有作业都是计算型的，且一次仅运行一个作业的进程，直到它完成对于下面的调度算法忽略它们调度时所用时间，求作业进程的平均周转时间。</strong><br><strong>(1)轮转法(时间片为2分钟)，按照作业的顺序轮转。</strong><br><strong>(2)优先级调度法。</strong></p>
+<p><strong>答案:</strong><br><strong>(1)轮转法（假定时间片 &#x3D; 2 分钟）</strong></p>
+<ul>
+<li><p>作业完成的顺序为 C,D,B,E,A</p>
+</li>
+<li><p>开始作业轮转一周需10分钟，</p>
+<ul>
+<li>作业C的周转时间: $$ T_C &#x3D; 6 分钟（10 分钟） $$ </li>
+<li>C完成后，剩下四个作业，轮转一周需8分钟，</li>
+<li>作业D的周转时间: $$ T_D &#x3D; 10 + 6 &#x3D; 16 分钟（18 分钟） $$ </li>
+<li>D完成后，剩下三个作业，轮转一周需 6 分钟，</li>
+<li>作业B的周转时间:$$ T_B &#x3D; 18 + 4 &#x3D; 22 分钟（24 分钟） $$</li>
+<li>B完成后，剩下两个作业，轮转一周需 4 分钟，</li>
+<li>作业E的周转时间:$$ T_E &#x3D; 24 + 4 &#x3D; 28 分钟（28 分钟） $$ </li>
+<li>E完成后，只剩下作业A, 轮转2分钟</li>
+<li>作业A的周转时间:$$ T_A &#x3D; 28 + 2 &#x3D; 30 分钟（30 分钟） $$</li>
+</ul>
+</li>
+<li><p>平均周转时间:$$ T &#x3D; \frac{(6 + 16 + 22 + 28 + 30)}{5} &#x3D; 20.4 \ \text{分钟}$$</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>作业</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间</td>
+<td>10</td>
+<td>6</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>优先级</td>
+<td>3</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>第 1 轮</td>
+<td>8</td>
+<td>4</td>
+<td>0</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>第 2 轮</td>
+<td>6</td>
+<td>2</td>
+<td>-</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>第 3 轮</td>
+<td>4</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>2</td>
+</tr>
+<tr>
+<td>第 4 轮</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr>
+<td>第 5 轮</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p><strong>（2）优先级调度法</strong></p>
+<p>-作业完成顺序为: B, E, A, C, D</p>
+<ul>
+<li>$$T_B &#x3D; 6 \ \text{分钟}$$</li>
+<li>$$T_E &#x3D; 6 + 8 &#x3D; 14 \ \text{分钟}$$</li>
+<li>$$T_A &#x3D; 14 + 10 &#x3D; 24 \ \text{分钟}$$</li>
+<li>$$T_C &#x3D; 24 + 2 &#x3D; 26 \ \text{分钟}$$</li>
+<li>$$T_D &#x3D; 26 + 4 &#x3D; 30 \ \text{分钟}$$</li>
+</ul>
+<p>-平均周转时间:<br>$$T &#x3D; \frac{(6 + 14 + 24 + 26 + 30)}{5} &#x3D; 20 \ \text{分钟}$$</p>
+<table>
+<thead>
+<tr>
+<th>作业</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间</td>
+<td>10</td>
+<td>6</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>优先级</td>
+<td>3</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<h2 id="第3章"><a href="#第3章" class="headerlink" title="第3章"></a>第3章</h2><p><strong>3-7 设系统中有n+1个进程。其中n个发送进程和1个接收进程。A1、A2、…、An通过一个缓冲区向进程B发消息，B不断取走缓冲区中的消息，不能重复接收同一个消息，而且，每次必须取走发来的每一个消息。刚开始时，缓冲区为空试用P、V操作正确实现进程之间的同步。</strong><br>示意图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/19nuGprjYPLMbqp49JdwOfw">3-7示意图 提取码7568</a></p>
+<p><strong>答案:</strong><br>现可用PV操作描述如下:<br>int s1&#x3D;1; s2&#x3D;0;<br>进程B执行的过程为:<br>begin<br> P(s2)<br> 从缓冲区BUF取消息<br> V(s1)<br> 消耗消息<br>end<br>若缓冲区容量为m个，这个问题就变为生产者和消费者问题</p>
+<p><strong>3-8 有一容量为 100 的循环缓冲区，有多个并发执行进程通过该缓冲区进行通信。为了正确地管理缓冲区，系统设置了两个读写指针分别为 OUT、IN。IN和OUT的值如何反映缓冲区为空还是满的情况?</strong><br>示意图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1teUzpwxcw8An_L7ZR7As4A">3-8示意图 提取码7568</a></p>
+<p><strong>分析:</strong><br>-首先这里的IN和OUT分别表示读写指针，而不是信号量。<br>-在系统初启时，环行缓冲区为空，此时IN和OUT都初始化为0。<br>-当并发进程通过环行缓冲区通信时，写进程不断地写，读进程不断地读，使得读写指针不断变化。<br>-写进程的速度太快，缓冲区会满:<br>-读进程的速度太快，缓冲区会空。</p>
+<p><strong>答案:</strong><br>-已知循环缓冲区的容量为100。<br>-则当 ( IN + 1 ) % 100 &#x3D; 0UT时，说明缓冲区已满。<br>-当 IN &#x3D; OUT 时，说明缓冲区已空。</p>
+<p><strong>3-9.有一阅览室，共有100个座位。为了很好地利用它，读者进入时必须先在登记表上进行登记，该表表目设有座位号和读者姓名，离开时再将其登记项擦除。</strong><br><strong>试问:</strong><br><strong>(1)为描述读者的动作，应编写几个程序?应设几个进程?它们之间的关系是什么?</strong><br><strong>(2)试用P、V操作描述读者之间的同步算法。</strong></p>
+<p><strong>分析:</strong><br>-为描述阅览室，用一个登记表来记录使用情况，表中共有100项。<br>-每当有读者进入阅览室时，为了正确地登记，各读者应互斥使用。<br>-为此设两个信号量:<br>  -mutex:互斥信号量，用来制约各读者互斥地进行登记，初值为1;<br>  -empty:用来制约各读者能同时进入阅览室的数量资源信号量，初值为100。</p>
+<p>int empty&#x3D;100, mutex&#x3D;1;<br>-进入:<br>-p(empty);<br>-p(mutex);<br>-找到一个登记项登记<br>-v(mutex);<br>-进入阅览室阅读<br>-退出:<br>-p(mutex);<br>-找到自己的登记项擦除<br>-v(mutex);<br>-v(empty);</p>
+<p><strong>3-14 假定系统有N个进程共享M个同类资源，规定每个进程至少申请一个资源，每个进程的最大需求不超过M，所有进程的需求总和小于M+N。为什么在这种情况下不会发生死锁?试证明。</strong></p>
+<p><strong>证明:</strong></p>
+<p>假定会死锁，则根据死锁定义:<br>-N个进程之间相互等待，至少需要N个单位资源，<br>-又系统M个资源已分完，故所有进程需求总和大于或等于M+N<br>-这与题中的所有进程需求总和小于M+N矛盾，<br>-故假设不成立。<br>因此，在这种情况下不会死锁。</p>
+<p><strong>3-15.设有8个进程 M1，M2,…,M8,它们有如图所示的优先关系，试用P、V操作实现这些进程间的同步。</strong><br>示意图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Qfi-M3uKd01UcpT4WwThvw">3-15 提取码7568</a></p>
+<p><strong>分析：</strong><br>-设置路径为互斥体<br>-M1-M2计为:s12<br>-M1-M3计为:s13<br>…<br>-初值为0先执行完的释放互斥体<br>-后面的才可以执行</p>
+<p><strong>答案：</strong><br>答案图：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1k-R23iJQpUge2Sd1SsqWnA">3-15答案 提取码7568</a></p>
+<p><strong>3-16.设有5个哲学家，共享一张放有5把椅子的圆桌。每人分得1把椅子。但是，桌子上总共只有5支子。哲学家们在肚子饥饿时才试图分两次从两边检起2支筷子就餐。条件:</strong><br><strong>a.每人只有拿到2 支筷子时，哲学家才能吃饭。</strong><br><strong>b.如果筷子已在他人手上，则该哲学家必须等到他人吃完之后才能拿到筷子。</strong><br><strong>c.任性的哲学家在自己未拿到2支筷子吃饭之前，决不放下自己手中的筷子。</strong><br><strong>试问:</strong><br><strong>(1)什么情况下5个哲学家全部吃不上饭?</strong><br><strong>(2)描述一种避免有人饿死(永远拿不到2个筷子)的算法。</strong></p>
+<p><strong>答案：</strong><br>（1）每个哲学家拿到1支筷子，同时在等另1支。<br>（2）一共有五种算法：</p>
+<ul>
+<li>破坏循环等待:资源按照顺序申请，给5支筷子编号0-4，先申请编号小的筷子，再申请编号大的筷子。</li>
+<li>破坏循环等待:控制4个以下的哲学家一起进餐，这样总有一个哲学家可以拿到左右两边的筷子。</li>
+<li>破坏循环等待:控制拿筷子顺序，奇数先拿左边，偶数先拿右边。</li>
+<li>一次得到所有资源:设置一个临界区，只有一个进程可以进入并获取左右2支筷子。<ul>
+<li>如果没有2支筷子，就退出临界区等待再次进入。</li>
+<li>如果吃的很频繁，可能导致某些哲学家申请不到筷子而饿死。</li>
+</ul>
+</li>
+<li>主动释放占有资源:当5个哲学家都拿起左边的筷子时，让偶数编号的哲学家放弃自己拿起的筷子。<ul>
+<li>这种做法，在资源使用很频繁的时候，可能导致部分线程饿死。</li>
+</ul>
+</li>
+</ul>
+<p>可能吃不上饭的写法</p>
+<ul>
+<li><p>筷子是临界资源，在一段时间内只允许一个哲学家使用。</p>
+</li>
+<li><p>一个信号量表示1支筷子，5个信号量构成信号量数组，初值为1。</p>
+</li>
+<li><p>方法1伪代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int mutex=1;</span><br><span class="line">int stick[0]=stick[1]=...=stick[4]=1;</span><br><span class="line">//第i个哲学家所执行的程序:</span><br><span class="line">do&#123;</span><br><span class="line">    P(stick[i]);</span><br><span class="line">    P(stick[(i+1)mod5]);</span><br><span class="line">    吃饭</span><br><span class="line">    V(stick[i]);</span><br><span class="line">    V(stick[(i+1)mod5]); </span><br><span class="line">&#125;while(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法2伪代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int semaphore=2,3,4;</span><br><span class="line">int stick[0]=stick[1]=...=stick[4]=1;</span><br><span class="line">//第i个哲学家所执行的程序:</span><br><span class="line">do&#123;</span><br><span class="line">    P(semaphore);</span><br><span class="line">      P(stick[i]);</span><br><span class="line">      P(stick[(i+1)mod5]);</span><br><span class="line">      V(semaphore);</span><br><span class="line">    吃饭</span><br><span class="line">    V(stick[i]);</span><br><span class="line">    V(stick[(i+1)mod5]);</span><br><span class="line">&#125;while(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法3伪代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//偶数先拿左边，奇数先拿右边</span><br><span class="line">//第i个哲学家所执行的程序:</span><br><span class="line">do&#123;</span><br><span class="line">    P(stick[i+(i%2)]);</span><br><span class="line">    P(stick[(i+(i+1)%2)mod5]);</span><br><span class="line">    吃饭</span><br><span class="line">    V(stick[i+(i%2)]);</span><br><span class="line">    V(stick[(i +(i+1)%2)mod5]);</span><br><span class="line">&#125;while(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法4伪代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int stick[0]=stick[1]=...=stick[4]=1;</span><br><span class="line">//第i个哲学家所执行的程序:</span><br><span class="line">do&#123;</span><br><span class="line">    ifi&gt;(i+1)%5&#123;</span><br><span class="line">        P(stick[(i+1)mod5]);</span><br><span class="line">        P(stick[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        P(stick[i]);</span><br><span class="line">        P(stick[i+1]);</span><br><span class="line">        吃饭</span><br><span class="line">        V(stick[i]);</span><br><span class="line">        V(stick[i+1]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;while(1);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3-17 在本章前面的读者与写者问题中，是用读者优先解决问题的。试分别用读者与写者公平竞争(无写者时，读者仍遵循多个读者可以同时读)、写者优先的算法解决这个问题.</strong><br><strong>答案：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int wmutex=1,readcount=0,rmutex=1;</span><br><span class="line">Reader:</span><br><span class="line">    P(rmutex);    //互斥访问readcount</span><br><span class="line">    if readcount==0 then P(wmutex);</span><br><span class="line">      readcount++;</span><br><span class="line">    V(rmutex);</span><br><span class="line">------------</span><br><span class="line">    读文件;</span><br><span class="line">------------</span><br><span class="line">    P(rmutex);</span><br><span class="line">    readcount= readcount-1;</span><br><span class="line">    if readcount==0 then V(wmutex);</span><br><span class="line">    V(rmutex);</span><br><span class="line">Writer: …</span><br><span class="line">    P(wmutex);</span><br><span class="line">    写文件;</span><br><span class="line">    V(wmutex);</span><br><span class="line">    …</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong><br>允许多个读进程同时读。当没有读进程正在读时，第一个试图读的读进程需要通过P(wmutex)实现读写互斥;当至少已经有一个读进程在读时，随后的读进程无需等待，可以直接进入。</p>
+<p>(1)公平竞争（无写者时，读者仍遵循多个读者可以同时读）</p>
+<ul>
+<li>rmutex互斥共享readcount;</li>
+<li>rwmutex读写互斥，写写互斥</li>
+<li>读写进程在z上排队。<br>int rmutex&#x3D;1,rwmutex&#x3D;1, readcount&#x3D;0;</li>
+</ul>
+<p>(2)写者优先<br>int readcount, writecount;<br>semaphore rmutex&#x3D;1,wmutex&#x3D;1, rwmutex&#x3D;1, z&#x3D;1, x&#x3D;1;<br>当来了一个写进程时，通过p(x)禁止其后读进程读，直到写进程写完为止。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Reader:</span><br><span class="line">while(1)&#123;</span><br><span class="line">    p(z);   //其他读进程在z上排队</span><br><span class="line">    p(x);   //1读进程与1写进程在x上竞争</span><br><span class="line">    p(rmutex);    //读进程互斥访问readcount</span><br><span class="line">    ++readcount;</span><br><span class="line">    if(readcount==1)p(rwmutex);</span><br><span class="line">    v(rmutex);</span><br><span class="line">    v(x);</span><br><span class="line">    v(z);</span><br><span class="line">    read data; //临界区</span><br><span class="line">    p(rmutex);</span><br><span class="line">    --readcount;</span><br><span class="line">    if(readcount==0)v(rwmutex);</span><br><span class="line">    v(rmutex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Writer:</span><br><span class="line">while(1)&#123;</span><br><span class="line">    p(wmutex);    //写进程互斥访问writecount</span><br><span class="line">    ++writecount;</span><br><span class="line">    if(writecount==1) p(x);   //1写进程与1读进程在x上竞争</span><br><span class="line">    v(wmutex);    </span><br><span class="line">    p(rwmutex);   //其他写进程在rwmutex上排队</span><br><span class="line">    write data;   //临界区</span><br><span class="line">    v(rwmutex);</span><br><span class="line">    p(wmutex);</span><br><span class="line">    --writecount;</span><br><span class="line">    if(writecount==0) v(x);   //写进程都写完时，通过v(x)允许读进程读</span><br><span class="line">    v(wmutex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>附加题:读者写者，规定仅允许5个进程同时读，怎样修改程序?</strong><br>增加一个资源信号量s，初值为5。即int s&#x3D;5;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Reader: begin</span><br><span class="line">    P(rmutex);</span><br><span class="line">    readcount=readcount+1;</span><br><span class="line">    if(readcount=-1) then P(rwmutex);</span><br><span class="line">    V(rmutex);</span><br><span class="line">    P(s);</span><br><span class="line">    read file();</span><br><span class="line">    V(s);</span><br><span class="line">    P(rmutex);</span><br><span class="line">    readcount=readcount-1;</span><br><span class="line">    if(readcount==0) then V(rwmutex);</span><br><span class="line">    V(rwmutex);</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">Writer:</span><br><span class="line">begin</span><br><span class="line">    p(rwmutex);</span><br><span class="line">    write data;</span><br><span class="line">    v(rwmutex);</span><br><span class="line">    …</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+
+<p><strong>3-18 有一个理发师、一把理发椅和n把供等候理发的顾客坐的椅子。如果没有顾客，则理发师便坐在椅子上睡觉，当一个顾客到来时，必须唤醒理发师，请求理发;如果理发师正在理发时又有顾客来到，只要有空椅子，他就坐下来等待，如果没有空椅子，他就离开。请为理发师和顾客各编写一段程序来描述他们的同步过程。</strong></p>
+<p><strong>方法一：int s1&#x3D;0,s2&#x3D;n;</strong><br>顾客进程:<br>    P(s2);<br>    V(s1);<br>    坐椅子等理发<br>理发师进程:<br>    P(s1);<br>    给顾客理发<br>    V(s2)</p>
+<p><strong>方法二: int customers&#x3D;0, barber&#x3D;0, mutex&#x3D;1, waiting&#x3D;0;</strong><br>顾客进程:<br>    P(mutex);<br>    if(waiting&lt;n)<br>    {<br>      waiting++;<br>      V(mutex);<br>      V(customers);<br>      P(barber);<br>      理发<br>    }<br>    else<br>      V(mutex);</p>
+<p>理发师进程:<br>    P(customers);<br>    V(barber);<br>    P(mutex);<br>      waiting–;<br>    V(mutex);<br>    理发</p>
+<p><strong>3-19 假定系统中只有一类资源，进程一次只申请一个单位的资源，且进程申请的资源数不会超过系统拥有的资源总数。假定进程申请的资源总数为2，且系统资源总数如下，问下列哪些情况会发生死锁？</strong></p>
+<table>
+<thead>
+<tr>
+<th>进程数</th>
+<th>资源数</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>进程数</th>
+<th>资源数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(1)</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(4)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(2)</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(5)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(3)</td>
+<td>2</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td>(6)</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p><strong>答案：</strong>（2）和（4）会发生死锁。</p>
+<p><strong>3-20 系统有同类资源10个，进程P1，P2 和P3 需要该类资源的最大数量分别为8，6，7。它们使用资源的次序和数量如图。</strong></p>
+<p><strong>(1) 试给出采用银行家算法分配资源时，进行第5次分配后各进程的状态及各进程占用资源情况。</strong></p>
+<p><strong>(2) 在以后的申请中，哪次的申请可以得到最先满足？给出一个进程完成序列。</strong></p>
+<table>
+<thead>
+<tr>
+<th>次序</th>
+<th>进程数</th>
+<th>资源数</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>次序</th>
+<th>进程数</th>
+<th>资源数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(1)</td>
+<td>P1</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(5)</td>
+<td>P2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>(2)</td>
+<td>P2</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(6)</td>
+<td>P1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(3)</td>
+<td>P3</td>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>(7)</td>
+<td>P3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>(4)</td>
+<td>P1</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://SEER666.github.io">SEER</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://seer666.github.io/2024/12/22/20241223/">https://seer666.github.io/2024/12/22/20241223/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://SEER666.github.io" target="_blank">SEER's Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">操作系统复习</a></div><div class="post-share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/12/22/20241228/" title="考试题分析"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">考试题分析</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    卷一一、 选择题（选择最确切的一个答案，将其代码填入括号中，每空2分，共20分）1． 把逻辑地址转变为内存的物理地址的过程称做（  ）。A 编译    B连接   C运行    D重定位2． 进程和程序的一个本质区别是（   ）。A 前者分时CPU，后者独占CPUB 前者存储在内存，后者存在外存C 前者在一个文件中，后者在多个文件中D 前者为动态的，后者为静态的3． 可重定位内存分区分配目的为（   ）。A 解决碎片问题B 便于多作业共享内存C 回收空白区方便D 摆脱用户干预4． 索引式（随机）文件组织的一个主要优点是（）。A不需要链接指针B能实现物理块的动态分配C回收实现比较简单D用户存取方便5.作业I&#x2F;O方式有如下三种：（  ）、脱机和（  ）。A询问 B联机 C中断 ...</div></div></div></a><a class="pagination-related" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">第4章 存储器管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.概述–功能地址空间存储空间地址重定位1.1 功能-存储器分配： -解决多进程共享主存的问题-地址转换或重定位： -研究各种地址变换方法及相应的地址变换机构。-存储器保护： -防止故障程序破坏OS和其它信息。-存储器扩充： -采用多级存储技术实现虚拟存储器，交换技术。-存储器共享： -研究并发进程如何共享主存中的程序和数据。 1.2 地址空间符号名字空间：源程序中的各种符号名的集合所限定的空间。源程序用符号名访问变量和子程序。编译：由于目标程序在主存中的位置是不可预知的，目标程序中的各个地址总是以“0”为参考地址顺序编码的；逻辑地址，相对地址，虚地址逻辑地址空间：经编译链接后的程序大小所限定的空间。程序地址域，程序地址空间 1.3...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/12/20241212/" title="第2章 进程管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">第2章 进程管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.进程的描述：PCB、状态2....</div></div></div></a><a class="pagination-related" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-22</div><div class="info-item-2">第5章 文件系统（概要）</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.什么是文件和文件系统?...</div></div></div></a><a class="pagination-related" href="/2024/12/10/20241210/" title="第1章 操作系统概论"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-10</div><div class="info-item-2">第1章 操作系统概论</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.1 操作系统的定义计算机系统的组成：应用程序 -&gt; 实用程序 -&gt; 操作系统 -&gt; 硬件 接口：外层的软件必须以事先约定的方式，调用内层软件或硬件提供的服务。 操作系统的定义： 是由一系列程序模块组成的一个大型的系统管理程序；依据各种管理和调度策略，对计算机的软、硬件资源进行统一的管理和调度，合理地组织计算机的工作流程，以提高资源利用率。 1.2...</div></div></div></a><a class="pagination-related" href="/2024/12/14/20241214/" title="第3章 进程之间的并发控制和死锁"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-14</div><div class="info-item-2">第3章 进程之间的并发控制和死锁</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.并发进程的特点-对资源的共享引起的互斥关系：进程之间本来是相互独立的，但由于共享资源而产生了关系。-协作完成同一个任务引起的同步关系：一组协作进程要在某些同步点上相互等待发信息后才能继续运行。-进程之间的前序关系：由于进程之间的互斥同步关系，使得进程之间具有了前序关系，这些关系决定了各个进程创建和终止的时间。 -进程之间的关系顺序关系、并行关系、一般关系 2.进程之间的低级通信-进程间的低级通信：通过信号量实现进程之间的互斥和同步关系-进程间通信问题——IPC问题 2.1...</div></div></div></a><a class="pagination-related" href="/2024/12/21/20241221/" title="第4章 存储器管理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-21</div><div class="info-item-2">第4章 存储器管理</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    1.概述–功能地址空间存储空间地址重定位1.1 功能-存储器分配： -解决多进程共享主存的问题-地址转换或重定位： -研究各种地址变换方法及相应的地址变换机构。-存储器保护： -防止故障程序破坏OS和其它信息。-存储器扩充： -采用多级存储技术实现虚拟存储器，交换技术。-存储器共享： -研究并发进程如何共享主存中的程序和数据。 1.2 地址空间符号名字空间：源程序中的各种符号名的集合所限定的空间。源程序用符号名访问变量和子程序。编译：由于目标程序在主存中的位置是不可预知的，目标程序中的各个地址总是以“0”为参考地址顺序编码的；逻辑地址，相对地址，虚地址逻辑地址空间：经编译链接后的程序大小所限定的空间。程序地址域，程序地址空间 1.3...</div></div></div></a><a class="pagination-related" href="/2024/12/22/20241227/" title="作业题汇总：第7章之后"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-22</div><div class="info-item-2">作业题汇总：第7章之后</div></div><div class="info-2"><div class="info-item-1">   window.MathJax = {     tex: {       inlineMath: [['$', '$'], ['\\(', '\\)']],         displayMath: [['$$', '$$'], ['\\[', '\\]']]       }   };    第7章 ...</div></div></div></a></div></div><!-- 添加 Valine 评论系统的 HTML 容器--><!-- Valine 评论系统--><div id="vcomments"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/126209991?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SEER</div><div class="author-info-description">Record SEER's learning content.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SEER666"><i class="fab fa-github"></i><span>关注我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的博客已全面升级</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第2章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第3章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/09/20250109/" title="CSAPP考前题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSAPP考前题"/></a><div class="content"><a class="title" href="/2025/01/09/20250109/" title="CSAPP考前题">CSAPP考前题</a><time datetime="2025-01-09T06:30:00.000Z" title="发表于 2025-01-09 14:30:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20241105%20-%20%E5%89%AF%E6%9C%AC/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/20250106/" title="2025-CSAPP"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025-CSAPP"/></a><div class="content"><a class="title" href="/2025/01/04/20250106/" title="2025-CSAPP">2025-CSAPP</a><time datetime="2025-01-04T11:00:00.000Z" title="发表于 2025-01-04 19:00:00">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/24/20241224/" title="汇编语言知识点复习"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编语言知识点复习"/></a><div class="content"><a class="title" href="/2024/12/24/20241224/" title="汇编语言知识点复习">汇编语言知识点复习</a><time datetime="2024-12-24T13:30:00.000Z" title="发表于 2024-12-24 21:30:00">2024-12-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第5章 文件系统（概要）"/></a><div class="content"><a class="title" href="/2024/12/22/20241222/" title="第5章 文件系统（概要）">第5章 文件系统（概要）</a><time datetime="2024-12-22T13:30:00.000Z" title="发表于 2024-12-22 21:30:00">2024-12-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By SEER</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.1.0"></script><script src="/js/main.js?v=5.1.0"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/click-show-text.min.js" data-mobile="true" data-text="我,太,想,进,步,了" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+  el: '#vcomments',  // 挂载评论的 HTML 元素
+  appId: 'X7VMJZiKLlND8y3EXDtaqPI5-gzGzoHsz',  // LeanCloud 的 App ID
+  appKey: 'zFn5LKNiWC2vPb3y0RsW1nMK',  // LeanCloud 的 App Key
+  path: window.location.pathname,  // 使用文章的路径作为评论的唯一标识
+  placeholder: '留下你的评论吧...'  // 输入框的占位文本
+})</script></body></html>
